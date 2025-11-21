@@ -1,6 +1,7 @@
 import Footer from '@/components/footer/Footer';
 import Navigation from '@/components/header/Navigation';
 import Hero from '@/components/hero/Hero';
+import Reviews from '@/components/reviews/Reviews';
 
 export default function Home() {
   return (
@@ -16,8 +17,8 @@ export default function Home() {
       <FAQSection /> */}
       {/* <GlobalReachSection /> */}
       {/* <Calendly /> */}
-      {/* <Contact />
-      <Reviews /> */}
+      {/* <Contact /> */}
+      <Reviews />
 
       <Footer />
       {/* <div>
