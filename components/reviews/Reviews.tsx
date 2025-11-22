@@ -6,7 +6,7 @@ const OPTIONS: EmblaOptionsType = { loop: true };
 
 const Reviews = () => {
   return (
-    <div id='reviews' className='py-24 bg-white dark:bg-[#091030]'>
+    <div id='reviews' className='py-24 bg-white dark:bg-[#15082F]'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         {/* Header */}
         <div className='text-center space-y-6 mb-16'>

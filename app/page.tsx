@@ -1,6 +1,9 @@
 import Footer from '@/components/footer/Footer';
 import Navigation from '@/components/header/Navigation';
 import Hero from '@/components/hero/Hero';
+import Trusted from '@/components/hero/Trusted';
+import Services from '@/components/home/Services';
+import Projects from '@/components/projects/Projects';
 import Reviews from '@/components/reviews/Reviews';
 
 export default function Home() {
@@ -8,9 +11,10 @@ export default function Home() {
     <main className='min-h-screen '>
       <Navigation />
       <Hero />
-      {/* <Services />
+      <Trusted />
+      {/* <Services /> */}
       <Projects />
-      <Features /> */}
+      {/* <Features /> */}
 
       {/* <About /> */}
       {/* <Process />

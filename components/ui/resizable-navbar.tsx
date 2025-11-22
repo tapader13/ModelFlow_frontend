@@ -164,7 +164,7 @@ export const MobileNav = ({ className, visible }: MobileNavProps) => {
                     {item.link ? (
                       <Link
                         href={item.link}
-                        className='block py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium'
+                        className='block py-2 text-gray-800 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 font-medium'
                       >
                         {item.name}
                       </Link>
@@ -202,7 +202,7 @@ export const MobileNav = ({ className, visible }: MobileNavProps) => {
                             {subItem.link ? (
                               <Link
                                 href={subItem.link}
-                                className='block py-1.5 pl-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                                className='block py-1.5 pl-3 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400'
                               >
                                 {subItem.name}
                               </Link>
@@ -241,7 +241,7 @@ export const MobileNav = ({ className, visible }: MobileNavProps) => {
                                   <Link
                                     key={subSubItem.name}
                                     href={subSubItem.link || '#'}
-                                    className='block py-1 pl-3 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400'
+                                    className='block py-1 pl-3 text-sm text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400'
                                   >
                                     {subSubItem.name}
                                   </Link>

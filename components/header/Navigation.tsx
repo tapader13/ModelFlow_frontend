@@ -52,16 +52,32 @@ const XlabLogo = () => (
 export default function Navigation() {
   const navItems: NavItem[] = [
     {
-      name: 'SERVICES',
-      link: '/services',
+      name: 'HOME',
+      link: '/home',
     },
     {
-      name: 'ABOUT US',
-      link: '/about',
+      name: 'PROJECTS',
+      megaMenu: [
+        {
+          title: 'Projects',
+          links: [
+            {
+              name: 'FUNDAMENTAL PROJECTS',
+              link: '/projects',
+              subtitle: 'Explore our core projects',
+            },
+            {
+              name: 'INCRMENTAL PROJECTS',
+              link: '/incremental-projects',
+              subtitle: 'Discover our incremental innovations',
+            },
+          ],
+        },
+      ],
     },
     {
-      name: 'PORTFOLIO',
-      link: '/portfolio',
+      name: 'NEWSLETTER',
+      link: '/newsletter',
     },
   ];
 
@@ -132,12 +148,12 @@ export default function Navigation() {
                 {item.link ? (
                   <Link
                     href={item.link}
-                    className='text-gray-800 dark:text-gray-200 font-medium hover:text-blue-500 transition-colors duration-200 py-2 px-1'
+                    className='text-gray-800 dark:text-gray-200 font-medium hover:text-purple-500 dark:hover:text-purple-400 transition-colors duration-200 py-2 px-1'
                   >
                     {item.name}
                   </Link>
                 ) : (
-                  <button className='flex items-center gap-1 text-gray-800 dark:text-gray-200 font-medium hover:text-blue-500 transition-colors duration-200 py-2 px-1'>
+                  <button className='flex items-center gap-1 text-gray-800 dark:text-gray-200 font-medium hover:text-purple-500  transition-colors duration-200 py-2 px-1'>
                     {item.name}
                     {item.megaMenu && (
                       <ChevronDown
@@ -160,18 +176,18 @@ export default function Navigation() {
                       <div className='flex gap-8'>
                         {item.megaMenu.map((column, colIdx) => (
                           <div key={colIdx} className='min-w-[200px]'>
-                            <h4 className='font-semibold mb-4 text-blue-600 dark:text-blue-400 text-base'>
+                            {/* <h4 className='font-semibold mb-4 text-blue-600 dark:text-blue-400 text-base'>
                               {column.title}
-                            </h4>
+                            </h4> */}
                             <ul className='space-y-4'>
                               {column.links.map((link) => (
                                 <li key={link.name}>
                                   <Link
                                     href={link.link}
-                                    className='group block hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200'
+                                    className='group block hover:text-purple-500 dark:hover:text-purple-400 transition-colors duration-200'
                                     onClick={() => setActiveMenu(null)}
                                   >
-                                    <div className='font-medium text-sm group-hover:text-blue-500 dark:group-hover:text-blue-400'>
+                                    <div className='font-medium text-sm group-hover:text-purple-500 dark:group-hover:text-purple-400'>
                                       {link.name}
                                     </div>
                                     {link.subtitle && (
@@ -199,9 +215,9 @@ export default function Navigation() {
             <NavbarButton
               variant='primary'
               href='/contact'
-              className='font-poppins !bg-gradient-to-r !from-[#a855f7] !to-purple-600 hover:!from-[#a855f7] hover:!to-purple-700 !text-white border-0'
+              className='font-poppins bg-transparent border-t-purple-700 border-b-pink-500 border-l-indigo-500 dark:text-white border-r-orange-700 text-black border-2'
             >
-              CONTACT
+              GET A QUOTE
             </NavbarButton>
           </div>
         </NavBody>

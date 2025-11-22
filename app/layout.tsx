@@ -1,12 +1,19 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Poppins } from 'next/font/google';
+import { Geist, Geist_Mono, Poppins, Sora } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import Preloader from '@/components/Preloader';
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-poppins',
+});
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-sora',
 });
 
 export const metadata: Metadata = {
@@ -21,13 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`${poppins.className} antialiased`}>
+      <body className={`${sora.className} antialiased`}>
         <ThemeProvider
           attribute='class'
-          defaultTheme='system'
+          defaultTheme='Dark'
           enableSystem
           disableTransitionOnChange
         >
+          <Preloader />
           {children}
         </ThemeProvider>
       </body>

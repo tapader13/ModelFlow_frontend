@@ -176,19 +176,19 @@ export default function Footer() {
             <div className='flex space-x-6 text-sm text-gray-400 dark:text-gray-500'>
               <a
                 href='/privacy'
-                className='hover:text-blue-400 transition-colors duration-200'
+                className='hover:text-purple-400 transition-colors duration-200'
               >
                 Privacy Policy
               </a>
               <Link
                 href='/terms'
-                className='hover:text-blue-400 transition-colors duration-200'
+                className='hover:text-purple-400 transition-colors duration-200'
               >
                 Terms of Service
               </Link>
               <Link
                 href='/cookies'
-                className='hover:text-blue-400 transition-colors duration-200'
+                className='hover:text-purple-400 transition-colors duration-200'
               >
                 Cookie Policy
               </Link>
