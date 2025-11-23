@@ -53,7 +53,7 @@ export default function Navigation() {
   const navItems: NavItem[] = [
     {
       name: 'HOME',
-      link: '/home',
+      link: '/',
     },
     {
       name: 'PROJECTS',
