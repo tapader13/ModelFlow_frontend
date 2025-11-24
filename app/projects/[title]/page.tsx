@@ -122,7 +122,7 @@ export default async function ProjectDetails({ params }: ProjectPageProps) {
                     <div className='relative z-10 p-8'>
                       <img
                         className='w-full rounded-2xl'
-                        alt='Aaladin CRM Screenshot 1'
+                        alt='XLAB CRM Screenshot 1'
                         src={project?.img}
                       />
                     </div>

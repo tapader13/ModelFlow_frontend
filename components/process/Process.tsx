@@ -79,7 +79,7 @@ const Process = () => {
                     <img
                       width='48'
                       height='48'
-                      alt='aaladin'
+                      alt='xlab brainwave symbol'
                       src='/process/brainwave-symbol.svg'
                     />
                   </div>

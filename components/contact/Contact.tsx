@@ -243,7 +243,7 @@ export default function Contact() {
                 <div className='mt-12 pt-8 border-t border-n-6'>
                   <div className='grid gap-8 md:grid-cols-3 text-center'>
                     {[
-                      ['Email Us', 'contact@aaladinai.com'],
+                      ['Email Us', 'chat@xlab.vc'],
                       ['Quick Response', 'Within 24 hours'],
                       ['Free Consultation', '30-minute discovery call'],
                     ].map(([title, text]) => (
