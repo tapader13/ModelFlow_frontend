@@ -15,23 +15,11 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Trusted />
-      {/* <Services /> */}
       <Projects />
-      {/* <Features /> */}
       <Process />
       <Approach />
-      {/* <About /> */}
-      {/* <Process />
-      <FAQSection /> */}
-      {/* <GlobalReachSection /> */}
-      {/* <Calendly /> */}
       <Contact />
-      {/* <Reviews /> */}
-
       <Footer />
-      {/* <div>
-        <WhatsAppButtonBottom />
-      </div> */}
     </main>
   );
 }

@@ -4,7 +4,7 @@ const Process = () => {
   return (
     <div className='relative py-10 lg:py-16 xl:py-20 overflow-hidden'>
       <div className='max-w-[1200px] mx-auto px-4 md:pb-10'>
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-col md:flex-row items-center justify-between'>
           <div className='max-w-100'>
             <h1 className=' text-5xl leading-14 font-medium mb-4 md:mb-8'>
               Development Process & Collaboration
@@ -66,7 +66,7 @@ const Process = () => {
               </li>
             </ul>
           </div>
-          <div className='lg:ml-auto xl:w-152 mt-4'>
+          <div className='lg:ml-auto lg:w-[580px] xl:w-152 mt-4'>
             <p className=' text-[16px] mb-8 text-[#757185] md:mb-16 lg:mb-32 lg:w-88 lg:mx-auto'>
               We work closely with your team using modern development tools and
               agile methodologies to deliver exceptional results on time.

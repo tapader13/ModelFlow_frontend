@@ -10,7 +10,7 @@ export default function Hero() {
         {/* Hero Text */}
         <div className='relative z-10 max-w-[64rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]'>
           <h1
-            className=' text-6xl mt-10 leading-[72px] font-semibold mb-6'
+            className=' text-4xl sm:text-6xl mt-10 leading-16 sm:leading-[72px] font-semibold mb-6'
             style={{ opacity: 1, transform: 'none' }}
           >
             We Simplify Complexity, So You Can Focus on Growth –{' '}

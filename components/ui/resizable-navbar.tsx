@@ -50,16 +50,20 @@ export const MobileNav = ({ className, visible }: MobileNavProps) => {
   // Define navigation items with nested submenus
   const navItems: NavItem[] = [
     {
-      name: 'SERVICES',
-      link: '/services',
+      name: 'Home',
+      link: '/',
     },
     {
-      name: 'ABOUT US',
-      link: '/about',
+      name: 'Projects',
+      // link: '/resources',
+      submenu: [
+        { name: 'FUNDAMENTAL PROJECTS', link: '/projects' },
+        { name: 'INCRMENTAL PROJECTS', link: '/incremental-projects' },
+      ],
     },
     {
-      name: 'PORTFOLIO',
-      link: '/portfolio',
+      name: 'NEWSLETTER',
+      link: '/newsletter',
     },
   ];
 

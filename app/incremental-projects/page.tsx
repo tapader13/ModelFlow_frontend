@@ -8,7 +8,7 @@ const Projects = () => {
   return (
     <div>
       <Navigation />
-      <div className='relative py-14 lg:py-20 xl:py-28 overflow-hidden'>
+      <div className='relative py-18 lg:py-20 xl:py-28 overflow-hidden'>
         <div className='max-w-[1200px] mx-auto px-4 md:pb-10'>
           <div className='max-w-[50rem] mx-auto mb-12 lg:mb-20 md:text-center'>
             <div className='tagline flex items-center mb-4 md:justify-center'>
@@ -71,7 +71,7 @@ const Projects = () => {
             {[
               {
                 title: 'PRAGATI AI',
-                href: '/projects/fundamental',
+                href: '/projects/PRAGATI AI',
                 img: '/projects/Pragati.png',
                 description:
                   'Revolutionary learning ecosystem with AI-driven curriculum and research integration.',
@@ -79,7 +79,7 @@ const Projects = () => {
               },
               {
                 title: 'Study Abroad AI',
-                href: '/projects/incremental',
+                href: '/projects/Study Abroad AI',
                 img: '/projects/Study-Abroad.png',
                 description:
                   'AI-powered platform for international education guidance and application support.',
@@ -87,7 +87,7 @@ const Projects = () => {
               },
               {
                 title: 'OrKust',
-                href: '/projects/search-ai',
+                href: '/projects/OrKust-ai',
                 img: '/demo/orkust/Screenshot 2025-10-29 114417.png',
                 description:
                   'Neural search platform powered by embeddings + LLM ranking pipeline.',
@@ -95,7 +95,7 @@ const Projects = () => {
               },
               {
                 title: 'Luxor',
-                href: '/projects/medical-ai',
+                href: '/projects/Luxor',
                 img: '/demo/luxor/Screenshot 2025-10-29 115245.png',
                 description:
                   'AI-powered symptom analysis and clinical recommendation system.',
@@ -103,7 +103,7 @@ const Projects = () => {
               },
               {
                 title: 'IQONA Marketing AI',
-                href: '/projects/marketing-ai',
+                href: '/projects/IQONA Marketing AI',
                 img: '/demo/iqona/Screenshot 2025-10-29 114517.png',
                 description:
                   'Automated content generation & campaign optimisation using fine-tuned LLMs.',
@@ -111,7 +111,7 @@ const Projects = () => {
               },
               {
                 title: 'StockInsider',
-                href: '/projects/chatbot',
+                href: '/projects/StockInsider',
                 img: '/demo/stockinsider/Screenshot 2025-11-02 010057.png',
                 description:
                   'Multi-agent orchestration system with real-time context memory.',

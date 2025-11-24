@@ -8,7 +8,7 @@ const Projects = () => {
   return (
     <div>
       <Navigation />
-      <div className='relative py-14 lg:py-20 xl:py-28 overflow-hidden'>
+      <div className='relative py-18 lg:py-20 xl:py-28 overflow-hidden'>
         <div className='max-w-[1200px] mx-auto px-4 md:pb-10'>
           <div className='max-w-[50rem] mx-auto mb-12 lg:mb-20 md:text-center'>
             <div className='tagline flex items-center mb-4 md:justify-center'>

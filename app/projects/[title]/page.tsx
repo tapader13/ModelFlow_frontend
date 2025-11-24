@@ -23,7 +23,9 @@ export default async function ProjectDetails({ params }: ProjectPageProps) {
         className='
           relative
           py-14 lg:py-20 xl:py-28
-          pt-[12rem] 
+          xl:pt-[12rem] 
+          pt-[6rem] 
+          md:pt-[9rem] 
         '
       >
         <div className='container max-w-[1200px] mx-auto px-4'>
@@ -32,7 +34,7 @@ export default async function ProjectDetails({ params }: ProjectPageProps) {
             <div className='mb-8'>
               <a
                 className='inline-flex items-center text-[#717585] hover:text-white transition-colors'
-                href='/projects/fundamental'
+                href='/projects'
               >
                 <svg
                   className='w-5 h-5 mr-2'

@@ -5,7 +5,7 @@ const Projects = () => {
     <div className='relative py-10 lg:py-16 xl:py-20 overflow-hidden'>
       <div className='max-w-[1200px] mx-auto px-4 md:pb-10'>
         <div className='max-w-[50rem] mx-auto mb-12 lg:mb-20 md:text-center'>
-          <div className='tagline flex items-center mb-4 md:justify-center'>
+          <div className='tagline flex items-center mb-4 justify-center'>
             {/* Left SVG */}
             <svg
               width='5'

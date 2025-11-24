@@ -14,7 +14,7 @@ export default function Contact() {
         <div className='relative'>
           {/* Header */}
           <div className='max-w-[50rem] mx-auto mb-12 lg:mb-20 md:text-center'>
-            <div className='tagline flex items-center mb-4 md:justify-center'>
+            <div className='tagline ml-4 md:ml-0 flex items-center mb-4 md:justify-center'>
               {/* Left bracket */}
               <svg width='5' height='14' viewBox='0 0 5 14' fill='none'>
                 <path
@@ -60,8 +60,8 @@ export default function Contact() {
               </svg>
             </div>
 
-            <h2 className=' text-5xl'>Get a Quote</h2>
-            <p className='text-[16px] mt-4 text-[#757185]'>
+            <h2 className='ml-4 md:ml-0 text-5xl'>Get a Quote</h2>
+            <p className='text-[16px] ml-4 md:ml-0 mt-4 text-[#757185]'>
               Tell us about your project requirements and we'll provide you with
               a detailed quote within 24 hours.
             </p>
