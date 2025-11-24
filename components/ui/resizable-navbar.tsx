@@ -115,13 +115,13 @@ export const MobileNav = ({ className, visible }: MobileNavProps) => {
           className='relative z-20 mr-4 flex items-center space-x-3 px-2 py-1'
         >
           {' '}
-          <Image
+          {/* <Image
             src='/arklab-icon-modified.png'
             alt='Arklab Logo'
             width={30}
             height={30}
             className='h-6 w-6 object-contain'
-          />
+          /> */}
           <span className='text-xl font-bold font-space-grotesk text-black dark:text-white whitespace-nowrap'>
             X<span className=' text-[#a855f7]'>LAB</span>
           </span>

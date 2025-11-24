@@ -65,13 +65,13 @@ export default function Footer() {
             <div className='flex items-center space-x-3'>
               <div className='p-2  rounded-lg'>
                 {/* <div className='p-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg'> */}
-                <Image
+                {/* <Image
                   src='/arklab-icon-modified.png'
                   alt='Arklab Logo'
                   width={30}
                   height={30}
                   className='h-8 w-8 object-contain'
-                />
+                /> */}
                 {/* <Brain className='h-8 w-8 text-white' /> */}
               </div>
               <span className='text-2xl font-bold font-space-grotesk text-black dark:text-white whitespace-nowrap'>
