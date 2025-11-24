@@ -1,12 +1,35 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 const Process = () => {
+  const [rotation, setRotation] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRotation((prev) => (prev + 0.5) % 360);
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const outerIcons = [
+    { icon: '/process/figma.png', width: 26, height: 36, alt: 'Figma' },
+    { icon: '/process/notion.png', width: 34, height: 36, alt: 'Notion' },
+    { icon: '/process/discord.png', width: 36, height: 28, alt: 'Discord' },
+    { icon: '/process/slack.png', width: 34, height: 35, alt: 'Slack' },
+    { icon: '/process/photoshop.png', width: 34, height: 34, alt: 'Photoshop' },
+    { icon: '/process/protopie.png', width: 34, height: 34, alt: 'Protopie' },
+    { icon: '/process/framer.png', width: 26, height: 34, alt: 'Framer' },
+    { icon: '/process/raindrop.png', width: 38, height: 32, alt: 'Raindrop' },
+  ];
+
   return (
     <div className='relative py-10 lg:py-16 xl:py-20 overflow-hidden'>
       <div className='max-w-[1200px] mx-auto px-4 md:pb-10'>
         <div className='flex flex-col md:flex-row items-center justify-between'>
           <div className='max-w-100'>
-            <h1 className=' text-5xl leading-14 font-medium mb-4 md:mb-8'>
+            <h1 className='text-5xl leading-14 font-medium mb-4 md:mb-8'>
               Development Process & Collaboration
             </h1>
             <ul className='max-w-88 mb-10 md:mb-14'>
@@ -67,14 +90,14 @@ const Process = () => {
             </ul>
           </div>
           <div className='lg:ml-auto lg:w-[580px] xl:w-152 mt-4'>
-            <p className=' text-[16px] mb-8 text-[#757185] md:mb-16 lg:mb-32 lg:w-88 lg:mx-auto'>
+            <p className='text-[16px] mb-8 text-[#757185] md:mb-16 lg:mb-32 lg:w-88 lg:mx-auto'>
               We work closely with your team using modern development tools and
               agile methodologies to deliver exceptional results on time.
             </p>
             <div className='relative w-full flex justify-center'>
               <div className='relative flex w-[22rem] aspect-square border border-n-6 rounded-full scale-75 sm:scale-90 md:scale-100 lg:scale-110 xl:scale-100'>
                 {/* <!-- Center Icon --> */}
-                <div className='w-[6rem] aspect-square m-auto p-[0.2rem] rounded-full '>
+                <div className='w-[6rem] aspect-square m-auto p-[0.2rem] rounded-full'>
                   <div className='flex border-2 border-t-[#ac6aff] border-b-[#ffc876] border-l-[#ff776f] border-r-pink-600 items-center justify-center w-full h-full bg-n-8 rounded-full'>
                     <img
                       width='48'
@@ -85,103 +108,42 @@ const Process = () => {
                   </div>
                 </div>
 
-                {/* <!-- Outer Icons --> */}
-                <ul className='absolute inset-0'>
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-0'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='26'
-                        height='36'
-                        alt='Figma'
-                        src='/process/figma.png'
-                      />
-                    </div>
-                  </li>
+                {/* <!-- Outer Icons with Infinite Circular Animation --> */}
+                <ul
+                  className='absolute inset-0 transition-transform duration-100 ease-linear'
+                  style={{ transform: `rotate(${rotation}deg)` }}
+                >
+                  {outerIcons.map((item, index) => {
+                    const baseRotation = (360 / outerIcons.length) * index;
+                    const currentRotation =
+                      (baseRotation - rotation + 360) % 360;
 
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-45'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='34'
-                        height='36'
-                        alt='Notion'
-                        src='/process/notion.png'
-                      />
-                    </div>
-                  </li>
-
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-90'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='36'
-                        height='28'
-                        alt='Discord'
-                        src='/process/discord.png'
-                      />
-                    </div>
-                  </li>
-
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-135'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='34'
-                        height='35'
-                        alt='Slack'
-                        src='/process/slack.png'
-                      />
-                    </div>
-                  </li>
-
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-180'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='34'
-                        height='34'
-                        alt='Photoshop'
-                        src='/process/photoshop.png'
-                      />
-                    </div>
-                  </li>
-
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-225'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='34'
-                        height='34'
-                        alt='Protopie'
-                        src='/process/protopie.png'
-                      />
-                    </div>
-                  </li>
-
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-270'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='26'
-                        height='34'
-                        alt='Framer'
-                        src='/process/framer.png'
-                      />
-                    </div>
-                  </li>
-
-                  <li className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom rotate-315'>
-                    <div className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl'>
-                      <img
-                        className='m-auto'
-                        width='38'
-                        height='32'
-                        alt='Raindrop'
-                        src='/process/raindrop.png'
-                      />
-                    </div>
-                  </li>
+                    return (
+                      <li
+                        key={index}
+                        className='absolute top-0 left-1/2 h-1/2 -ml-[1.6rem] origin-bottom'
+                        style={{ transform: `rotate(${baseRotation}deg)` }}
+                      >
+                        <div
+                          className='relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-[#15131d] border border-n-1/15 rounded-xl transition-transform duration-100 ease-linear'
+                          style={{
+                            transform: `rotate(${-currentRotation}deg)`,
+                          }}
+                        >
+                          <img
+                            className='m-auto transition-transform duration-100 ease-linear'
+                            width={item.width}
+                            height={item.height}
+                            alt={item.alt}
+                            src={item.icon}
+                            style={{
+                              transform: `rotate(${currentRotation}deg)`,
+                            }}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

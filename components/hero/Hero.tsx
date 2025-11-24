@@ -1,6 +1,19 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 
 export default function Hero() {
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((prev) => prev + 0.1);
+    }, 30);
+    return () => clearInterval(interval);
+  }, []);
+  const moveDistance = 10;
+  const translateY = Math.sin(time) * moveDistance;
   return (
     <section
       id='home'
@@ -108,32 +121,50 @@ export default function Hero() {
                 </div>
 
                 {/* Example of absolute overlay card */}
-                <div className='hidden absolute -right-20 top-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'>
+                <div
+                  className='hidden absolute -right-20 top-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'
+                  style={{ transform: `translateY(${translateY}px)` }}
+                >
                   <h6 className='font-bold text-lg text-white tracking-wide'>
                     Code generation
                   </h6>
                 </div>
-                <div className='hidden absolute -right-40 top-1/2 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'>
+                <div
+                  className='hidden absolute -right-40 top-1/2 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'
+                  style={{ transform: `translateY(${translateY}px)` }}
+                >
                   <h6 className='font-bold text-lg text-white tracking-wide'>
                     Data Processing
                   </h6>
                 </div>
-                <div className='hidden absolute -right-20 bottom-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'>
+                <div
+                  className='hidden absolute -right-20 bottom-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'
+                  style={{ transform: `translateY(${translateY}px)` }}
+                >
                   <h6 className='font-bold text-lg text-white tracking-wide'>
                     Neural Networks
                   </h6>
                 </div>
-                <div className='hidden absolute -left-20 top-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'>
+                <div
+                  className='hidden absolute -left-20 top-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'
+                  style={{ transform: `translateY(${translateY}px)` }}
+                >
                   <h6 className='font-bold text-lg text-white tracking-wide'>
                     AI Model Training
                   </h6>
                 </div>
-                <div className='hidden absolute -left-40 top-1/2 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'>
+                <div
+                  className='hidden absolute -left-40 top-1/2 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'
+                  style={{ transform: `translateY(${translateY}px)` }}
+                >
                   <h6 className='font-bold text-lg text-white tracking-wide'>
                     API Integration
                   </h6>
                 </div>
-                <div className='hidden absolute -left-20 bottom-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'>
+                <div
+                  className='hidden absolute -left-20 bottom-10 xl:flex z-20 flex items-center justify-center p-4 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl'
+                  style={{ transform: `translateY(${translateY}px)` }}
+                >
                   <h6 className='font-bold text-lg text-white tracking-wide'>
                     Cloude Deployment
                   </h6>
