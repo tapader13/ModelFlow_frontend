@@ -14,7 +14,7 @@ const page = () => {
           >
             <HiArrowLeft className='mr-2 w-6 h-6' />
           </Link>
-          <h1 className='text-5xl text-center mb-10 font-bold bg-linear-to-r from-black via-black to-blue-500 bg-clip-text text-transparent'>
+          <h1 className='lg:text-5xl text-3xl text-center mb-10 font-bold bg-linear-to-r from-black via-black to-blue-500 bg-clip-text text-transparent'>
             XLAB
           </h1>
 
@@ -24,7 +24,7 @@ const page = () => {
               <div className='flex'>
                 {' '}
                 {/* First Memoji */}
-                <div className='relative w-11 z-20 h-11 rounded-full shadow-lg overflow-hidden'>
+                <div className='relative h-7 w-7 lg:w-11 z-20 lg:h-11 rounded-full shadow-lg overflow-hidden'>
                   <img
                     src='https://framerusercontent.com/images/f83c9nwlZghmsOqr5KiPD7NpS1I.png?width=281&height=281'
                     alt='Memoji 1'
@@ -32,7 +32,7 @@ const page = () => {
                   />
                 </div>
                 {/* Second Memoji with gradient background */}
-                <div className='relative z-10 -left-4 w-11 h-11 rounded-full shadow-lg overflow-hidden bg-gradient-to-b from-blue-100 to-blue-300'>
+                <div className='relative h-7 w-7 lg:w-11 z-10 lg:h-11 -left-3 rounded-full shadow-lg overflow-hidden bg-gradient-to-b from-blue-100 to-blue-300'>
                   <img
                     src='https://framerusercontent.com/images/E3taK89otlzdIR6McZAxomrQPyo.png?width=512&height=512'
                     alt='Memoji 2'
@@ -40,7 +40,7 @@ const page = () => {
                   />
                 </div>
                 {/* Third Memoji */}
-                <div className='relative z-0  -left-8 w-11 h-11 rounded-full shadow-md overflow-hidden bg-gray-300'>
+                <div className='relative h-7 w-7 lg:w-11 z-0 lg:h-11 -left-6 rounded-full shadow-md overflow-hidden bg-gray-300'>
                   <img
                     src='https://framerusercontent.com/images/UaeMNaCCtVrxQXhyIzZB7ihAs.png?width=512&height=512'
                     alt='Memoji 3'
@@ -50,22 +50,22 @@ const page = () => {
               </div>
 
               {/* Subtext */}
-              <p className='text-center text-gray-500 text-lg'>
+              <p className='text-center text-gray-500 text-sm lg:text-lg'>
                 80+ startups & founders chose to Skale
               </p>
             </div>
 
             {/* Main Heading */}
-            <h1 className='text-center text-gray-800 text-[6.875rem] font-bold'>
+            <h1 className='text-center text-gray-800 text-4xl lg:text-[6.875rem] font-bold'>
               Case Studies
             </h1>
           </div>
 
           <div className='max-w-7xl mx-auto flex flex-col mt-14 gap-10'>
-            {data.slice(2, 8).map((project, idx) => (
+            {data.slice(2, 9).map((project, idx) => (
               <Link
                 href={project.href}
-                className='  overflow-hidden  transition-shadow duration-300 grid grid-cols-12'
+                className='  overflow-hidden  transition-shadow duration-300 grid md:grid-cols-12 grid-cols-1'
               >
                 {/* Image */}
                 <div className='relative col-span-5 w-full h-[400px]'>

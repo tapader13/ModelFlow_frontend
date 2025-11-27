@@ -1,0 +1,75 @@
+ <div className='shadow-[0_8px_4px_#00000014,0_2px_4px_#0000001a] w-full   relative h-full lg:hidden'>
+          {/* <div className='flex h-60 justify-between'>
+            <div className=' overflow-hidden w-full bg-white  border-gray-400 flex flex-col gap-4 relative'>
+              <p className='text-[12px] z-10 mt-8 mb-2 text-center font-mono font-medium tracking-tight  text-black/40'>
+                XLAB
+              </p>
+
+              <div className=' bg-transparent -translate-y-1/2 absolute top-1/2 -left-[210px] -right-6 h-[445px]  '>
+               
+                <video
+                  src='/0i8gQ6qDnNdCU4Rf5tRecqYi64A.mp4'
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload='auto'
+                  className='w-full h-full  border-none outline-none object-cover object-center'
+                />
+              </div>
+            </div>
+            <div className=' overflow-hidden w-full bg-white  border-gray-400 flex flex-col gap-4 relative'>
+              <p className='text-[12px] z-10 mt-8 mb-2 font-mono font-medium tracking-tight text-center text-black/40'>
+                {timeString}
+              </p>
+
+              <div className=' bg-transparent -translate-y-1/2 absolute top-1/2 -right-[210px] -left-6 h-[445px]  '>
+               
+                <video
+                  src='/FsU7HaCWP7lS7TPY07jh2mCkb1o.mp4'
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload='auto'
+                  className='w-full h-full  border-none outline-none object-cover object-center scale-x-[-1]'
+                />
+              </div>
+            </div>
+          </div> */}
+
+          {/* <div className='w-full py-12 bg-white  border-gray-400'> */}
+          <div className='w-full border-r overflow-y-auto h-screen bg-white border-dashed border-gray-400 scrollbar-none '>
+            <div>
+              <div className='p-4'>
+                {/* Back Arrow */}
+                <Link
+                  href='/'
+                  className='flex items-center text-black hover:text-blue-800 mb-6'
+                >
+                  <HiArrowLeft className='mr-2 w-6 h-6' />
+                  {/* Back */}
+                </Link>
+
+                {/* Heading */}
+                <h1 className='text-center mt-10 text-blue-600 text-3xl font-bold'>
+                  Book a 15 min call. <br />
+                  <span className='text-black'>And we'll reach out.</span>
+                </h1>
+              </div>
+              <div className=' bg-white h-full py-24 hidden lg:flex justify-center items-center px-4'>
+                <Cal
+                  namespace='15min'
+                  calLink='minhaj-tapader-brj7q9/15min'
+                  // className='!scrollbar-none'
+                  style={{ width: '100%', height: '100%', overflow: 'scroll' }}
+                  config={{
+                    layout: 'month_view',
+                    theme: theme,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          {/* </div> */}
+        </div>
