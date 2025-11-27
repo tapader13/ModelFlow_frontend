@@ -214,7 +214,7 @@ export default function Navigation() {
             <ModeToggle />
             <NavbarButton
               variant='primary'
-              href='/contact'
+              href='/quote'
               className='font-poppins bg-transparent border-t-purple-700 border-b-pink-500 border-l-indigo-500 dark:text-white border-r-orange-700 text-black border-2'
             >
               GET A QUOTE
