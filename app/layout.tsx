@@ -17,9 +17,33 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: 'XLAB - Home',
+  title: {
+    default: 'XLAB',
+    template: 'XLAB – %s',
+  },
   description:
-    "We'll create a websites that fulfills your business goals. High-converting design solutions for SaaS, Startups, Agencies, and Digital Creators",
+    'We create websites that fulfill business goals with high-converting web design for SaaS, startups, agencies, and digital creators.',
+  metadataBase: new URL('https://xlab.vc'),
+
+  openGraph: {
+    type: 'website',
+    url: 'https://xlab.vc',
+    title: 'XLAB – High-Converting Web Design Agency',
+    description:
+      'We create websites that fulfill business goals with high-converting design solutions for SaaS, startups, and digital creators.',
+    siteName: 'XLAB',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'XLAB – High-Converting Web Design Agency',
+    description:
+      'We create high-converting websites for SaaS, startups, agencies, and digital creators.',
+  },
+
+  alternates: {
+    canonical: 'https://xlab.vc',
+  },
 };
 
 export default function RootLayout({
@@ -30,6 +54,25 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${sora.className} antialiased`}>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'XLAB',
+              url: 'https://xlab.vc',
+              logo: 'https://xlab.vc/logo.png',
+              description:
+                'We build high-converting websites using Next.js and modern design systems.',
+              sameAs: [
+                'https://www.linkedin.com/company/XLAB',
+                'https://twitter.com/XLAB',
+              ],
+            }),
+          }}
+        />
+
         <ThemeProvider
           attribute='class'
           defaultTheme='Dark'

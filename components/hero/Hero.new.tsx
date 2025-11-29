@@ -16,9 +16,9 @@ const Heronew = () => {
   });
   const fixedSides = pathname === '/' || pathname === '/quote';
   return (
-    <div className=' w-full min-h-screen bg-[#f9f9f9] relative  p-0'>
-      <div className=' w-full min-h-screen lg:h-screen   p-3 relative overflow-hidden'>
-        <div className='shadow-[0_8px_4px_#00000014,0_2px_4px_#0000001a] w-full hidden  relative h-full lg:grid grid-cols-6'>
+    <main className=' w-full min-h-screen bg-[#f9f9f9] relative  p-0'>
+      <section className=' w-full min-h-screen lg:h-screen   p-3 relative overflow-hidden'>
+        <section className='shadow-[0_8px_4px_#00000014,0_2px_4px_#0000001a] w-full hidden  relative h-full lg:grid grid-cols-6'>
           <div className='col-span-1  overflow-hidden bg-white border-r border-dashed border-gray-400 flex flex-col gap-4 relative'>
             <p className='text-[12px] mt-12 font-mono font-medium tracking-tight text-center text-black/40'>
               XLAB
@@ -160,8 +160,8 @@ const Heronew = () => {
               />
             </div>
           </div>
-        </div>
-        <div className='shadow-[0_8px_4px_#00000014,0_2px_4px_#0000001a] w-full   relative h-full lg:hidden'>
+        </section>
+        <section className='shadow-[0_8px_4px_#00000014,0_2px_4px_#0000001a] w-full   relative h-full lg:hidden'>
           <div className='flex h-60 justify-between'>
             <div className=' overflow-hidden w-full bg-white  border-gray-400 flex flex-col gap-4 relative'>
               <p className='text-[12px] z-10 mt-8 mb-2 text-center font-mono font-medium tracking-tight  text-black/40'>
@@ -304,9 +304,9 @@ const Heronew = () => {
             {/* Add more logos similarly */}
             {/* </div> */}
           </div>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </main>
   );
 };
 
