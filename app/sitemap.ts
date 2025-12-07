@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://xlab.vc";
+  const baseUrl = "https://ModelFlow.vc";
   const lastModified = new Date();
 
   return [

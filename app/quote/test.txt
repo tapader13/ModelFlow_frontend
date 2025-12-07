@@ -2,7 +2,7 @@
           {/* <div className='flex h-60 justify-between'>
             <div className=' overflow-hidden w-full bg-white  border-gray-400 flex flex-col gap-4 relative'>
               <p className='text-[12px] z-10 mt-8 mb-2 text-center font-mono font-medium tracking-tight  text-black/40'>
-                XLAB
+                ModelFlow
               </p>
 
               <div className=' bg-transparent -translate-y-1/2 absolute top-1/2 -left-[210px] -right-6 h-[445px]  '>

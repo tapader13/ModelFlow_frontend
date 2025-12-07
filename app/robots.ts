@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://xlab.vc";
+  const baseUrl = "https://ModelFlow.vc";
 
   return {
     rules: {

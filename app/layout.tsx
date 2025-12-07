@@ -18,31 +18,31 @@ const sora = Sora({
 
 export const metadata: Metadata = {
   title: {
-    default: 'XLAB',
-    template: 'XLAB – %s',
+    default: 'ModelFlow',
+    template: 'ModelFlow – %s',
   },
   description:
     'We create websites that fulfill business goals with high-converting web design for SaaS, startups, agencies, and digital creators.',
-  metadataBase: new URL('https://xlab.vc'),
+  metadataBase: new URL('https://ModelFlow.vc'),
 
   openGraph: {
     type: 'website',
-    url: 'https://xlab.vc',
-    title: 'XLAB – High-Converting Web Design Agency',
+    url: 'https://ModelFlow.vc',
+    title: 'ModelFlow – High-Converting Web Design Agency',
     description:
       'We create websites that fulfill business goals with high-converting design solutions for SaaS, startups, and digital creators.',
-    siteName: 'XLAB',
+    siteName: 'ModelFlow',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'XLAB – High-Converting Web Design Agency',
+    title: 'ModelFlow – High-Converting Web Design Agency',
     description:
       'We create high-converting websites for SaaS, startups, agencies, and digital creators.',
   },
 
   alternates: {
-    canonical: 'https://xlab.vc',
+    canonical: 'https://ModelFlow.vc',
   },
 };
 
@@ -60,14 +60,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'XLAB',
-              url: 'https://xlab.vc',
-              logo: 'https://xlab.vc/logo.png',
+              name: 'ModelFlow',
+              url: 'https://ModelFlow.vc',
+              logo: 'https://ModelFlow.vc/logo.png',
               description:
                 'We build high-converting websites using Next.js and modern design systems.',
               sameAs: [
-                'https://www.linkedin.com/company/XLAB',
-                'https://twitter.com/XLAB',
+                'https://www.linkedin.com/company/ModelFlow',
+                'https://twitter.com/ModelFlow',
               ],
             }),
           }}

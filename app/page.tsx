@@ -1,45 +1,36 @@
-import Approach from '@/components/approach/Approach';
-import Contact from '@/components/contact/Contact';
-import Footer from '@/components/footer/Footer';
-import Navigation from '@/components/header/Navigation';
-import Hero from '@/components/hero/Hero';
 import Heronew from '@/components/hero/Hero.new';
-import Trusted from '@/components/hero/Trusted';
-import Services from '@/components/home/Services';
-import Process from '@/components/process/Process';
-import Projects from '@/components/projects/Projects';
-import Reviews from '@/components/reviews/Reviews';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'XLAB – Home',
+  title: 'ModelFlow – ML Prediction Platform',
   description:
-    'XLAB builds high-converting websites for SaaS, Startups, Agencies, and Digital Creators with modern UI/UX and Next.js development.',
+    'ModelFlow is a full-stack machine learning platform offering multiple ML models, real-time predictions, and an interactive web interface built with Next.js.',
   keywords: [
-    'web design agency',
-    'next.js developer',
-    'saas website design',
-    'ui ux design',
-    'startup website',
-    'landing page design',
-    'digital agency',
+    'machine learning platform',
+    'ml prediction app',
+    'full stack ml project',
+    'next.js machine learning',
+    'ai prediction website',
+    'ml api backend',
+    'data science models',
+    'fastapi machine learning',
   ],
   openGraph: {
-    title: 'XLAB – Home',
+    title: 'ModelFlow – ML Prediction Platform',
     description:
-      'XLAB builds high-converting websites for SaaS, Startups, Agencies, and Digital Creators with modern UI/UX and Next.js development.',
-    url: 'https://xlab.vc',
-    siteName: 'XLAB',
+      'ModelFlow is a full-stack ML system providing multiple machine learning models with a modern Next.js frontend and FastAPI backend.',
+    url: 'https://modelflow.app',
+    siteName: 'ModelFlow',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'XLAB – Home',
+    title: 'ModelFlow – ML Prediction Platform',
     description:
-      'XLAB builds high-converting websites for SaaS, Startups, Agencies, and Digital Creators with modern UI/UX and Next.js development.',
+      'ModelFlow is a full-stack machine learning platform built with Next.js and FastAPI, offering real-time predictions via multiple ML models.',
   },
   alternates: {
-    canonical: 'https://xlab.vc',
+    canonical: 'https://modelflow.app',
   },
 };
 
@@ -47,14 +38,6 @@ export default function Home() {
   return (
     <main className='min-h-screen '>
       <Heronew />
-      {/* <Navigation /> */}
-      {/* <Hero /> */}
-      {/* <Trusted /> */}
-      {/* <Projects /> */}
-      {/* <Process /> */}
-      {/* <Approach /> */}
-      {/* <Contact /> */}
-      {/* <Footer /> */}
     </main>
   );
 }

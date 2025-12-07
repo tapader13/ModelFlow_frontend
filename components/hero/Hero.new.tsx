@@ -21,7 +21,7 @@ const Heronew = () => {
         <section className='shadow-[0_8px_4px_#00000014,0_2px_4px_#0000001a] w-full hidden  relative h-full lg:grid grid-cols-6'>
           <div className='col-span-1  overflow-hidden bg-white border-r border-dashed border-gray-400 flex flex-col gap-4 relative'>
             <p className='text-[12px] mt-12 font-mono font-medium tracking-tight text-center text-black/40'>
-              XLAB
+              ModelFlow
             </p>
 
             <div className=' bg-transparent -translate-y-1/2 absolute top-1/2 -left-[210px] -right-6 h-[445px]  '>
@@ -51,14 +51,15 @@ const Heronew = () => {
             {/* Content */}
             <div className='relative z-10 flex flex-col items-center justify-center h-full text-center'>
               <h1 className='text-5xl mb-10 font-bold bg-linear-to-r from-black via-black to-blue-500 bg-clip-text text-transparent'>
-                XLAB
+                ModelFlow
               </h1>
               <h1 className='text-4xl font-medium bg-linear-to-r from-black via-black to-blue-500 bg-clip-text text-transparent'>
-                Premium Design Studio <br /> for SaaS & Startups
+                Full-Stack ML Platform <br /> for Intelligent Predictions
               </h1>
               <p className='mt-4 text-gray-600'>
-                Immersive websites, launch animations <br /> and effective
-                branding.
+                Deploy multiple machine learning models, make real-time
+                predictions, <br />
+                and manage everything from one powerful dashboard
               </p>
 
               {/* Buttons */}
@@ -86,12 +87,12 @@ const Heronew = () => {
                 >
                   {/* Text moving up */}
                   <span className='transition-transform duration-300 ease-out group-hover:-translate-y-[120%]'>
-                    See portfolio
+                    See dashboard
                   </span>
 
                   {/* Text sliding in */}
                   <span className='absolute transition-transform duration-300 ease-out translate-y-full group-hover:translate-y-0 text-white'>
-                    See portfolio
+                    See dashboard
                   </span>
                 </a>
                 <a
@@ -165,7 +166,7 @@ const Heronew = () => {
           <div className='flex h-60 justify-between'>
             <div className=' overflow-hidden w-full bg-white  border-gray-400 flex flex-col gap-4 relative'>
               <p className='text-[12px] z-10 mt-8 mb-2 text-center font-mono font-medium tracking-tight  text-black/40'>
-                XLAB
+                ModelFlow
               </p>
 
               <div className=' bg-transparent -translate-y-1/2 absolute top-1/2 -left-[210px] -right-6 h-[445px]  '>
@@ -214,7 +215,7 @@ const Heronew = () => {
             {/* Content */}
             <div className='relative z-10 flex flex-col items-center justify-center h-full text-center'>
               <h1 className='text-4xl mb-10 font-bold bg-linear-to-r from-black via-black to-blue-500 bg-clip-text text-transparent'>
-                XLAB
+                ModelFlow
               </h1>
               <h1 className='text-3xl font-medium bg-linear-to-r from-black via-black to-blue-500 bg-clip-text text-transparent'>
                 Premium Design Studio <br /> for SaaS & Startups
