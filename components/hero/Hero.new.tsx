@@ -72,7 +72,7 @@ const Heronew = () => {
                   <Link href='/case-study'>See portfolio</Link>
                 </Button> */}
                 <a
-                  href='/case-study'
+                  href='/dashboard'
                   className='
     group relative inline-flex items-center justify-center 
     h-12 px-8 

@@ -3,14 +3,46 @@ import Image from 'next/image';
 
 const Trusted = () => {
   const logos = [
-    { alt: 'Fuel AI Logo', src: '/truested/fuelai-logo.webp' },
-    { alt: 'Fly Nepal Logo', src: '/truested/flynepal.webp' },
-    { alt: 'Julfikar Steel Logo', src: '/truested/julfikar-steel.webp' },
-    { alt: 'Ridge Park Logo', src: '/truested/ridge-park.webp' },
-    { alt: 'My TV Logo', src: '/truested/my-tv.webp' },
-    { alt: 'Jamuna TV Logo', src: '/truested/jamuna-tv.webp' },
-    { alt: 'MediGuru Logo', src: '/truested/mediguru.webp' },
-    { alt: 'City Pass Logo', src: '/truested/city-pass.webp' },
+    {
+      alt: 'Fuel AI Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(1).jpg',
+    },
+    {
+      alt: 'Fly Nepal Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(2).jpg',
+    },
+    {
+      alt: 'Julfikar Steel Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(3).jpg',
+    },
+    {
+      alt: 'Ridge Park Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(4).jpg',
+    },
+    {
+      alt: 'My TV Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(5).jpg',
+    },
+    {
+      alt: 'Jamuna TV Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(6).jpg',
+    },
+    {
+      alt: 'MediGuru Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(7).jpg',
+    },
+    {
+      alt: 'City Pass Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(8).jpg',
+    },
+    {
+      alt: 'MediGuru Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded(9).jpg',
+    },
+    {
+      alt: 'City Pass Logo',
+      src: '/truested/96dd7f4e-c4ee-4897-94c2-57070fd2eded.jpg',
+    },
   ];
 
   return (
@@ -27,7 +59,7 @@ const Trusted = () => {
               <div
                 key={idx}
                 className='flex items-center justify-center h-8 w-16 transition-all duration-300 hover:scale-105 group relative'
-                style={{ minWidth: '40px', minHeight: '20px' }}
+                style={{ minWidth: '50px', minHeight: '40px' }}
               >
                 <Image
                   src={logo.src}

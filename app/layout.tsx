@@ -44,6 +44,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://ModelFlow.vc',
   },
+  icons: {
+    icon: '/WhatsApp Image 2025-12-07 at 22.36.46_280ec6f8.jpg',
+  },
 };
 
 export default function RootLayout({
@@ -73,15 +76,15 @@ export default function RootLayout({
           }}
         />
 
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute='class'
-          defaultTheme='Dark'
+          defaultTheme='light'
           enableSystem
           disableTransitionOnChange
-        >
-          {/* <Preloader /> */}
-          {children}
-        </ThemeProvider>
+        > */}
+        {/* <Preloader /> */}
+        {children}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
