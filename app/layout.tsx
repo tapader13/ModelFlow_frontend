@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Poppins, Sora } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import Preloader from '@/components/Preloader';
+import { SessionProvider } from 'next-auth/react';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -83,7 +84,7 @@ export default function RootLayout({
           disableTransitionOnChange
         > */}
         {/* <Preloader /> */}
-        {children}
+        <SessionProvider>{children}</SessionProvider>
         {/* </ThemeProvider> */}
       </body>
     </html>
