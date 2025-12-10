@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { signOut } from 'next-auth/react';
 import { Bell, Settings, User, LogOut, Activity, Home } from 'lucide-react';
 // import { ThemeToggle } from '@/components/ui/theme-toggle';
 // import { useAccountData } from '@/hooks/use-account-data';
@@ -37,6 +38,13 @@ export default function Header() {
   //   const balance = accountData.balance;
   //   return balance > 0 ? (dailyPL / balance) * 100 : 0;
   // };
+
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    console.log('logout done');
+
+    router.push('/');
+  };
 
   return (
     <header className='bg-white border-b border-gray-200 px-3 sm:px-6 py-3 sm:py-4 sticky top-0 z-50'>
@@ -152,7 +160,10 @@ export default function Header() {
               <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors'>
                 <User className='w-4 h-4 sm:w-5 sm:h-5 text-gray-600' />
               </button>
-              <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors'>
+              <button
+                onClick={() => handleLogout()}
+                className='p-2 hover:bg-gray-100 rounded-lg transition-colors'
+              >
                 <LogOut className='w-4 h-4 sm:w-5 sm:h-5 text-gray-600' />
               </button>
             </div>
