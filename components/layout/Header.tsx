@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Bell, Settings, User, LogOut, Activity, Home } from 'lucide-react';
 // import { ThemeToggle } from '@/components/ui/theme-toggle';
 // import { useAccountData } from '@/hooks/use-account-data';
@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 export default function Header() {
   // const { accountData, isLoading, error, lastUpdate } = useAccountData();
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   // Format currency values
   const formatCurrency = (value: number) => {
@@ -158,7 +159,15 @@ export default function Header() {
                 <Settings className='w-4 h-4 sm:w-5 sm:h-5 text-gray-600' />
               </button>
               <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors'>
-                <User className='w-4 h-4 sm:w-5 sm:h-5 text-gray-600' />
+                {session?.user?.image ? (
+                  <img
+                    className='h-7 w-7 rounded-full'
+                    src={session.user.image}
+                    alt=''
+                  />
+                ) : (
+                  <User className='w-4 h-4 sm:w-5 sm:h-5 text-gray-600' />
+                )}
               </button>
               <button
                 onClick={() => handleLogout()}
