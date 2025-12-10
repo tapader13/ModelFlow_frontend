@@ -20,6 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
 
         const data = await res.json();
+        console.log(data,"data")
 
         if (res.ok) {
           token.access_token = data.access_token;
@@ -32,9 +33,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (Date.now() < (token.expires_at as number)) {
         return token;
       }
-
+       console.log(token,"token")
       // 3️ Token expired → refresh it
       try {
+        // print(token,"tyyyjjd")
+        // const refreshToken = token?.iat
+        console.log(token.refresh_token,"reftok")
         const res = await fetch("http://127.0.0.1:8000/refresh-token", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

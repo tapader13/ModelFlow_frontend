@@ -66,7 +66,7 @@ const navMain = [
   },
   {
     title: 'K-Neighbors Regressor',
-    url: '/dashboard/regressors/k-neighbors',
+    url: '/dashboard/regressors/neighbour',
     icon: Layers, // Layers for neighbors / clusters
   },
   {
@@ -79,7 +79,7 @@ const navMain = [
 const navSecondary = [
   {
     title: 'Logistic Regression',
-    url: '/dashboard/classifiers/logistic-regression',
+    url: '/dashboard/logistic-regression',
     icon: Cpu, // CPU for computation
   },
   {
@@ -89,7 +89,7 @@ const navSecondary = [
   },
   {
     title: 'K-Neighbors Classifier',
-    url: '/dashboard/classifiers/k-neighbors',
+    url: '/dashboard/neighbour',
     icon: Layers, // Layers for neighbors / clusters
   },
   {
