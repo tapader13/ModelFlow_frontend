@@ -94,7 +94,7 @@ const navSecondary = [
   },
   {
     title: 'Support Vector Classifier',
-    url: '/dashboard/classifiers/support-vector',
+    url: '/dashboard/support-vector-classifier',
     icon: Shield, // Shield for decision boundary / separation
   },
   {
