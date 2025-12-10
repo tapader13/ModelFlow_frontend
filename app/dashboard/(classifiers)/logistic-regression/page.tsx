@@ -114,7 +114,7 @@ export default function TitanicPredictionPage() {
       };
 
       const response = await fetch(
-        'http://127.0.0.1:8000/titanic/logistic-predict',
+        'https://fast-api-model-backend.onrender.com/titanic/logistic-predict',
         {
           method: 'POST',
           headers: {
