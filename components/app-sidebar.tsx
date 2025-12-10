@@ -51,7 +51,7 @@ const navMain = [
   },
   {
     title: 'Linear Regression',
-    url: '/dashboard/regressors/linear-regression',
+    url: '/dashboard/linear-regression',
     icon: Cpu, // CPU for linear computation
   },
   {

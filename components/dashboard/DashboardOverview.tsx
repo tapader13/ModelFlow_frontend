@@ -9,7 +9,15 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, CheckCircle, BarChart3, TrendingUp } from 'lucide-react';
+import {
+  AlertCircle,
+  CheckCircle,
+  BarChart3,
+  TrendingUp,
+  DollarSign,
+  Clock,
+  Film,
+} from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
 interface TitanicPrediction {
@@ -30,12 +38,20 @@ interface MoviePrediction {
   rank: number;
   name: string;
   year: number;
-  rating: number;
   genre: string;
-  predicted_rating: number;
+  certificate: string;
+  run_time: string;
+  tagline: string;
+  budget: number;
+  box_office: number;
   casts: string;
   directors: string;
+  writers: string;
+  predicted_rating: number;
+  id: number;
   created_at: string;
+  updated_at: string;
+  user_id: number;
 }
 
 export default function DashboardHome() {
@@ -67,12 +83,19 @@ export default function DashboardHome() {
           }),
         ]);
 
+        if (!titanicRes.ok || !movieRes.ok) {
+          throw new Error('Failed to fetch predictions');
+        }
+
         const titanicData = await titanicRes.json();
         const movieData = await movieRes.json();
-        setTitanic(titanicData[0]);
-        setMovie(movieData[0]);
+        console.log(titanicData, movieData);
+
+        setTitanic(titanicData[0] || null);
+        setMovie(movieData[0] || null);
       } catch (err) {
         console.error(err);
+        setError('Failed to load prediction data. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -85,6 +108,15 @@ export default function DashboardHome() {
     return survived === 1
       ? { label: 'Survived', color: 'text-green-600' }
       : { label: 'Did Not Survive', color: 'text-red-600' };
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
   };
 
   if (loading) {
@@ -270,15 +302,45 @@ export default function DashboardHome() {
                     </CardTitle>
                     <CardDescription>Linear Regression Model</CardDescription>
                   </div>
+                  <div className='bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium'>
+                    #{movie.rank}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className='pt-6 space-y-6'>
-                {/* Movie Info */}
-                <div className='space-y-4'>
-                  <h3 className='font-semibold text-foreground'>
+                {/* Movie Header */}
+                <div className='space-y-2'>
+                  <h3 className='text-2xl font-bold text-foreground'>
                     {movie.name}
                   </h3>
-                  <div className='grid grid-cols-2 gap-4'>
+                  {movie.tagline && (
+                    <p className='text-muted-foreground italic text-sm'>
+                      "{movie.tagline}"
+                    </p>
+                  )}
+                </div>
+
+                {/* Movie Details */}
+                <div className='space-y-4'>
+                  <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+                    <div className='space-y-1'>
+                      <p className='text-xs text-muted-foreground uppercase tracking-wide'>
+                        <Clock className='inline h-3 w-3 mr-1' />
+                        Runtime
+                      </p>
+                      <p className='font-medium text-foreground'>
+                        {movie.run_time}
+                      </p>
+                    </div>
+                    <div className='space-y-1'>
+                      <p className='text-xs text-muted-foreground uppercase tracking-wide'>
+                        <Film className='inline h-3 w-3 mr-1' />
+                        Certificate
+                      </p>
+                      <p className='font-medium text-foreground'>
+                        {movie.certificate}
+                      </p>
+                    </div>
                     <div className='space-y-1'>
                       <p className='text-xs text-muted-foreground uppercase tracking-wide'>
                         Release Year
@@ -289,94 +351,98 @@ export default function DashboardHome() {
                     </div>
                     <div className='space-y-1'>
                       <p className='text-xs text-muted-foreground uppercase tracking-wide'>
-                        Rank
-                      </p>
-                      <p className='font-medium text-foreground'>
-                        #{movie.rank}
-                      </p>
-                    </div>
-                    <div className='col-span-2 space-y-1'>
-                      <p className='text-xs text-muted-foreground uppercase tracking-wide'>
                         Genre
                       </p>
                       <p className='font-medium text-foreground text-sm'>
-                        {movie.genre}
+                        {movie.genre.replace(/,/g, ', ')}
                       </p>
                     </div>
-                    <div className='col-span-2 space-y-1'>
+                  </div>
+
+                  <div className='grid grid-cols-2 gap-4'>
+                    <div className='space-y-1'>
                       <p className='text-xs text-muted-foreground uppercase tracking-wide'>
-                        Directors
+                        <DollarSign className='inline h-3 w-3 mr-1' />
+                        Budget
                       </p>
-                      <p className='font-medium text-foreground text-sm'>
-                        {movie.directors}
+                      <p className='font-medium text-foreground'>
+                        {formatCurrency(movie.budget)}
                       </p>
                     </div>
-                    <div className='col-span-2 space-y-1'>
+                    <div className='space-y-1'>
                       <p className='text-xs text-muted-foreground uppercase tracking-wide'>
-                        Main Cast
+                        <DollarSign className='inline h-3 w-3 mr-1' />
+                        Box Office
                       </p>
-                      <p className='font-medium text-foreground text-sm line-clamp-2'>
-                        {movie.casts}
+                      <p className='font-medium text-foreground'>
+                        {formatCurrency(movie.box_office)}
                       </p>
                     </div>
+                  </div>
+
+                  <div className='space-y-2'>
+                    <p className='text-xs text-muted-foreground uppercase tracking-wide'>
+                      Directors
+                    </p>
+                    <p className='font-medium text-foreground text-sm'>
+                      {movie.directors}
+                    </p>
+                  </div>
+
+                  <div className='space-y-2'>
+                    <p className='text-xs text-muted-foreground uppercase tracking-wide'>
+                      Writers
+                    </p>
+                    <p className='font-medium text-foreground text-sm'>
+                      {movie.writers}
+                    </p>
+                  </div>
+
+                  <div className='space-y-2'>
+                    <p className='text-xs text-muted-foreground uppercase tracking-wide'>
+                      Main Cast
+                    </p>
+                    <p className='font-medium text-foreground text-sm'>
+                      {movie.casts}
+                    </p>
                   </div>
                 </div>
 
                 {/* Rating Prediction */}
                 <div className='bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/20 rounded-lg p-4 space-y-4'>
-                  <div className='grid grid-cols-2 gap-4'>
-                    <div>
-                      <p className='text-xs text-muted-foreground uppercase tracking-wide mb-2'>
-                        Actual Rating
-                      </p>
-                      <div className='flex items-end gap-2'>
-                        <span className='text-3xl font-bold text-foreground'>
-                          {movie.rating.toFixed(1)}
-                        </span>
-                        <span className='text-sm text-muted-foreground mb-1'>
-                          /10
-                        </span>
-                      </div>
-                    </div>
-                    <div>
-                      <p className='text-xs text-muted-foreground uppercase tracking-wide mb-2'>
-                        Predicted Rating
-                      </p>
-                      <div className='flex items-end gap-2'>
-                        <span className='text-3xl font-bold text-primary'>
-                          {movie.predicted_rating.toFixed(1)}
-                        </span>
-                        <span className='text-sm text-muted-foreground mb-1'>
-                          /10
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='pt-2 border-t border-primary/20'>
-                    <div className='flex justify-between items-center text-sm'>
-                      <span className='text-muted-foreground'>
-                        Prediction Accuracy
+                  <div className='text-center'>
+                    <p className='text-xs text-muted-foreground uppercase tracking-wide mb-2'>
+                      Predicted IMDb Rating
+                    </p>
+                    <div className='flex items-center justify-center gap-2'>
+                      <span className='text-4xl font-bold text-primary'>
+                        {movie.predicted_rating.toFixed(1)}
                       </span>
-                      <span
-                        className={`font-semibold ${
-                          Math.abs(movie.rating - movie.predicted_rating) < 1
-                            ? 'text-green-600'
-                            : 'text-orange-600'
-                        }`}
-                      >
-                        {Math.abs(
-                          movie.rating - movie.predicted_rating
-                        ).toFixed(2)}{' '}
-                        points difference
-                      </span>
+                      <span className='text-lg text-muted-foreground'>/10</span>
+                    </div>
+                    <div className='mt-2'>
+                      <div className='w-full bg-border rounded-full h-2 overflow-hidden'>
+                        <div
+                          className='bg-gradient-to-r from-primary to-accent h-full rounded-full'
+                          style={{ width: `${movie.predicted_rating * 10}%` }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className='flex gap-2 text-xs text-muted-foreground border-t border-border pt-4'>
-                  <span>Movie ID: {movie.rank}</span>
+                <div className='flex flex-wrap gap-2 text-xs text-muted-foreground border-t border-border pt-4'>
+                  <span>Movie ID: {movie.id}</span>
                   <span>•</span>
-                  <span>{new Date(movie.created_at).toLocaleDateString()}</span>
+                  <span>User ID: {movie.user_id}</span>
+                  <span>•</span>
+                  <span>
+                    Created: {new Date(movie.created_at).toLocaleDateString()}
+                  </span>
+                  <span>•</span>
+                  <span>
+                    Updated: {new Date(movie.updated_at).toLocaleDateString()}
+                  </span>
                 </div>
               </CardContent>
             </Card>
