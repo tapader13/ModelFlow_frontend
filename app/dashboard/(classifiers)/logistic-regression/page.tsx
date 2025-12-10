@@ -19,7 +19,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { AlertCircle, CheckCircle, BarChart3, User, Ship } from 'lucide-react';
+import {
+  AlertCircle,
+  CheckCircle,
+  BarChart3,
+  User,
+  Ship,
+  Mail,
+} from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/layout/Layout';
 
@@ -35,7 +42,6 @@ interface TitanicPredictionInput {
   fare: number;
   cabin: string;
   embarked: string;
-  email: string;
 }
 
 interface TitanicPredictionResponse {
@@ -46,11 +52,15 @@ interface TitanicPredictionResponse {
 export default function TitanicPredictionPage() {
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string>('');
   console.log(session, 'Session');
 
   useEffect(() => {
     if (session?.backendToken) {
       setToken(session.backendToken);
+    }
+    if (session?.user?.email) {
+      setUserEmail(session.user.email);
     }
   }, [session]);
 
@@ -74,7 +84,6 @@ export default function TitanicPredictionPage() {
       fare: 7.25,
       cabin: 'C85',
       embarked: 'S',
-      email: 'test@gmail.com',
     },
   });
 
@@ -89,12 +98,20 @@ export default function TitanicPredictionPage() {
       setError('User is not authenticated. Please log in.');
       return;
     }
+    if (!userEmail) {
+      setError('User email not found in session. Please log in again.');
+      return;
+    }
     try {
       setLoading(true);
       setError(null);
       setPrediction(null);
       setConfidence(null);
       setFormData(data);
+      const requestData = {
+        ...data,
+        email: userEmail,
+      };
 
       const response = await fetch(
         'http://127.0.0.1:8000/titanic/logistic-predict',
@@ -104,7 +121,7 @@ export default function TitanicPredictionPage() {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(requestData),
         }
       );
 
@@ -422,24 +439,20 @@ export default function TitanicPredictionPage() {
 
                     {/* Row 7: Email */}
                     <div className='space-y-2'>
-                      <Label htmlFor='email'>Email *</Label>
-                      <Input
-                        id='email'
-                        type='email'
-                        placeholder='test@gmail.com'
-                        {...register('email', {
-                          required: 'Email is required',
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'Invalid email address',
-                          },
-                        })}
-                        className='bg-input text-foreground'
-                      />
-                      {errors.email && (
-                        <span className='text-xs text-destructive'>
-                          {errors.email.message}
-                        </span>
+                      {userEmail && (
+                        <div className='mb-6 p-3 bg-secondary/30 rounded-lg border border-border'>
+                          <div className='flex items-center gap-2'>
+                            <Mail className='h-4 w-4 text-muted-foreground' />
+                            <p className='text-sm'>
+                              <span className='text-muted-foreground'>
+                                Using email from session:
+                              </span>{' '}
+                              <span className='font-medium text-foreground'>
+                                {userEmail}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
                       )}
                     </div>
 

@@ -35,6 +35,7 @@ interface TitanicPrediction {
   probability: number;
   created_at: string;
   id: number;
+  model_name: string;
 }
 
 interface MoviePrediction {
@@ -350,6 +351,8 @@ export default function DashboardHome() {
                           <span>
                             Created: {formatDate(prediction.created_at)}
                           </span>
+                          <span>•</span>
+                          <span>Model: {prediction.model_name}</span>
                         </div>
                       </CardContent>
                     </Card>

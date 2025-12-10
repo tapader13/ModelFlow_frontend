@@ -84,7 +84,7 @@ const navSecondary = [
   },
   {
     title: 'Random Forest Classifier',
-    url: '/dashboard/classifiers/random-forest',
+    url: '/dashboard/random-forest',
     icon: BarChart3, // Ensemble trees visualized as chart
   },
   {
@@ -98,8 +98,8 @@ const navSecondary = [
     icon: Shield, // Shield for decision boundary / separation
   },
   {
-    title: 'Decision Tree Classifier',
-    url: '/dashboard/classifiers/decision-tree',
+    title: 'Naive Bayse Classifier',
+    url: '/dashboard/naive-bayse',
     icon: GitBranch, // Branch for tree
   },
 ];
