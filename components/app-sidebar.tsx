@@ -62,7 +62,7 @@ const navMain = [
   },
   {
     title: 'Decision Tree Regressor',
-    url: '/dashboard/regressors/decision-tree',
+    url: '/dashboard/decission-tree',
     icon: GitBranch, // Branch for tree
   },
   {

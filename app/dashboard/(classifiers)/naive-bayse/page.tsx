@@ -135,7 +135,7 @@ export default function TitanicNaiveBayesPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/titanic/naive-bayse-predict',
+        'http://127.0.0.1:8000/titanic/naive-bayse-predict',
         {
           method: 'POST',
           headers: {

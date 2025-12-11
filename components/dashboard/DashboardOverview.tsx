@@ -56,6 +56,7 @@ interface MoviePrediction {
   created_at: string;
   updated_at: string;
   user_id: number;
+  model_name: string;
 }
 
 export default function DashboardHome() {
@@ -83,18 +84,12 @@ export default function DashboardHome() {
     const fetchPredictions = async () => {
       try {
         const [titanicRes, movieRes] = await Promise.all([
-          fetch(
-            'https://fast-api-model-backend.onrender.com/titanic/logistic-single-user',
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          ),
-          fetch(
-            'https://fast-api-model-backend.onrender.com/movie-rating/linear-single-user',
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          ),
+          fetch('http://127.0.0.1:8000/titanic/logistic-single-user', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch('http://127.0.0.1:8000/movie-rating/linear-single-user', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
         ]);
 
         if (!titanicRes.ok || !movieRes.ok) {
@@ -570,6 +565,8 @@ export default function DashboardHome() {
                         <span>
                           Updated: {formatDate(prediction.updated_at)}
                         </span>
+                        <span>•</span>
+                        <span>Model: {prediction.model_name}</span>
                       </div>
                     </CardContent>
                   </Card>
