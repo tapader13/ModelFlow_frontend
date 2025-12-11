@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { AlertCircle, CheckCircle, Sparkles } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 
-interface MovieSVRInput {
+interface MovieForestInput {
   rank: number;
   name: string;
   year: number;
@@ -30,11 +30,11 @@ interface MovieSVRInput {
   writers: string;
 }
 
-interface MovieSVROutput {
+interface MovieForestOutput {
   prediction: number;
 }
 
-export default function MovieSVRPage() {
+export default function MovieForestPage() {
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -44,7 +44,7 @@ export default function MovieSVRPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<MovieSVRInput>({
+  } = useForm<MovieForestInput>({
     defaultValues: {
       rank: 1,
       name: '',
@@ -61,7 +61,7 @@ export default function MovieSVRPage() {
     },
   });
 
-  const [result, setResult] = useState<MovieSVROutput | null>(null);
+  const [result, setResult] = useState<MovieForestOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -74,7 +74,7 @@ export default function MovieSVRPage() {
     }
   }, [session]);
 
-  const onSubmit = async (data: MovieSVRInput) => {
+  const onSubmit = async (data: MovieForestInput) => {
     try {
       setLoading(true);
       setError(null);
@@ -86,7 +86,7 @@ export default function MovieSVRPage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/movie-rating/svr-predict-rating',
+        'http://127.0.0.1:8000/movie-rating/forest-predict-rating',
         {
           method: 'POST',
           headers: {
@@ -111,6 +111,7 @@ export default function MovieSVRPage() {
     }
   };
 
+  // Rating scale interpretation
   const getRatingInterpretation = (rating: number) => {
     if (rating >= 8.5) return 'Excellent';
     if (rating >= 7.5) return 'Very Good';
@@ -135,10 +136,10 @@ export default function MovieSVRPage() {
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
             <h1 className='text-3xl font-bold text-foreground mb-2 flex items-center gap-2'>
               <Sparkles className='h-8 w-8 text-primary' />
-              Movie Quality Predictor - SVR Model
+              Movie Quality Predictor - Random Forest
             </h1>
             <p className='text-muted-foreground'>
-              Predict movie quality ratings using Support Vector Regression
+              Predict movie quality ratings using random forest model
               {userEmail && (
                 <span className=' ml-2 font-medium text-foreground'>
                   • {userEmail}
@@ -533,8 +534,8 @@ export default function MovieSVRPage() {
                     </p>
                     <div className='text-xs text-muted-foreground space-y-1 pt-2 border-t border-border'>
                       <p>
-                        <strong>Note:</strong> This model uses Support Vector
-                        Regression (SVR) to predict movie quality based on
+                        <strong>Note:</strong> This model uses random forest
+                        classification to predict movie quality based on
                         historical data.
                       </p>
                     </div>

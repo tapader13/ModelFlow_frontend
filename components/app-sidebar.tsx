@@ -57,7 +57,7 @@ const navMain = [
   },
   {
     title: 'Support Vector Regressor',
-    url: '/dashboard/regressors/support-vector',
+    url: '/dashboard/svr-rating',
     icon: HardDrive, // HardDrive for storage / data
   },
   {
