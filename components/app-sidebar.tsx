@@ -67,12 +67,12 @@ const navMain = [
   },
   {
     title: 'K-Neighbors Regressor',
-    url: '/dashboard/regressors/neighbour',
+    url: '/dashboard/neighbour-rating',
     icon: Layers, // Layers for neighbors / clusters
   },
   {
     title: 'Random Forest Regressor',
-    url: '/dashboard/regressors/random-forest',
+    url: '/dashboard/random-forest-rating',
     icon: Activity, // Activity for ensemble / randomness
   },
 ];
