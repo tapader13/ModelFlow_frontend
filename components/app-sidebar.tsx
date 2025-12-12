@@ -112,6 +112,33 @@ const navConfig = [
     icon: Settings,
   },
 ];
+const car_price = [
+  {
+    title: 'Linear Regression',
+    url: '/dashboard/linear-regression-car-price',
+    icon: Cpu, // CPU for linear computation
+  },
+  {
+    title: 'Support Vector Regressor',
+    url: '/dashboard/svr-rating-car-price',
+    icon: HardDrive, // HardDrive for storage / data
+  },
+  {
+    title: 'Decision Tree Regressor',
+    url: '/dashboard/decission-tree-car-price',
+    icon: GitBranch, // Branch for tree
+  },
+  {
+    title: 'K-Neighbors Regressor',
+    url: '/dashboard/neighbour-car-price',
+    icon: Layers, // Layers for neighbors / clusters
+  },
+  {
+    title: 'Random Forest Regressor',
+    url: '/dashboard/random-forest-rating-car-price',
+    icon: Activity, // Activity for ensemble / randomness
+  },
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
@@ -319,6 +346,42 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupContent>
             <SidebarMenu>
               {navConfig.map((item) => {
+                const isActive = pathname === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className={`rounded-xl transition-all ${
+                        isActive
+                          ? 'bg-indigo-100 text-indigo-700 border border-indigo-200 shadow-sm'
+                          : 'hover:bg-gray-100/70 text-gray-700'
+                      }`}
+                    >
+                      <Link
+                        href={item.url}
+                        className='flex items-center gap-3 py-3'
+                      >
+                        <item.icon className='w-5 h-5 flex-shrink-0' />
+                        <span className='font-medium'>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator className='my-4 bg-gray-200/50 dark:bg-gray-700' />
+
+        <SidebarGroup className='mt-6'>
+          <SidebarGroupLabel className='text-xs font-medium text-gray-500 uppercase tracking-wider pl-3 mb-2'>
+            Car Price
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {car_price.map((item) => {
                 const isActive = pathname === item.url;
                 return (
                   <SidebarMenuItem key={item.title}>
