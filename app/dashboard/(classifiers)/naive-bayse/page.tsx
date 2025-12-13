@@ -294,7 +294,7 @@ export default function TitanicNaiveBayesPage() {
     <Layout>
       <main className='min-h-screen bg-gradient-to-b from-background to-secondary/5'>
         {/* Header */}
-        <div className='border-b border-border bg-gradient-to-r from-blue-500/5 to-purple-500/5'>
+        <div className='border-b border-border '>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
             <div className='flex flex-col md:flex-row md:items-center gap-6'>
               <div className='p-4 bg-black rounded-xl shadow-lg'>
@@ -326,10 +326,10 @@ export default function TitanicNaiveBayesPage() {
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
             {/* Form Section */}
             <div className='lg:col-span-2'>
-              <Card className='border border-border shadow-xl overflow-hidden'>
-                <div className='bg-gradient-to-r from-blue-500/5 to-purple-500/5 border-b border-border p-4'>
+              <Card className='border border-border  overflow-hidden'>
+                <div className=' border-b border-border p-4'>
                   <div className='flex items-center gap-3'>
-                    <div className='p-2 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg'>
+                    <div className='p-2  rounded-lg'>
                       <Target className='h-6 w-6 text-black' />
                     </div>
                     <div>
@@ -653,79 +653,13 @@ export default function TitanicNaiveBayesPage() {
                   </form>
                 </CardContent>
               </Card>
-
-              {/* Naive Bayes Information */}
-              <Card className='mt-6 border border-border shadow-lg'>
-                <CardHeader className='bg-gradient-to-r from-blue-500/5 to-purple-500/5 border-b border-border'>
-                  <CardTitle className='flex items-center gap-3'>
-                    <Brain className='h-6 w-6 text-black' />
-                    <div>
-                      <h3 className='text-lg'>About Naive Bayes Algorithm</h3>
-                      <p className='text-sm text-muted-foreground font-normal'>
-                        Probabilistic classifier based on Bayes' theorem
-                      </p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className='pt-6'>
-                  <div className='space-y-4'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                      <div className='space-y-2'>
-                        <div className='flex items-center gap-2'>
-                          <Calculator className='h-4 w-4 text-black' />
-                          <span className='font-medium'>
-                            Bayesian Probability
-                          </span>
-                        </div>
-                        <p className='text-sm text-muted-foreground'>
-                          Calculates probability of survival given passenger
-                          features
-                        </p>
-                      </div>
-                      <div className='space-y-2'>
-                        <div className='flex items-center gap-2'>
-                          <Shield className='h-4 w-4 text-purple-600' />
-                          <span className='font-medium'>
-                            Feature Independence
-                          </span>
-                        </div>
-                        <p className='text-sm text-muted-foreground'>
-                          Assumes features are independent (the "naive"
-                          assumption)
-                        </p>
-                      </div>
-                    </div>
-                    <div className='bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-lg p-4 border border-blue-200/50 dark:border-blue-800/30'>
-                      <h4 className='font-medium mb-2 text-black dark:text-blue-300'>
-                        How it calculates:
-                      </h4>
-                      <ul className='list-disc pl-5 space-y-1 text-sm text-muted-foreground'>
-                        <li>
-                          P(Survive | Features) ∝ P(Features | Survive) ×
-                          P(Survive)
-                        </li>
-                        <li>
-                          Calculates likelihood of features given
-                          survival/non-survival
-                        </li>
-                        <li>
-                          Multiplies prior probability with feature likelihoods
-                        </li>
-                        <li>
-                          Normalizes to get final probability distribution
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Result Section */}
             <div className='lg:col-span-1 space-y-6'>
               {/* Error Card */}
               {error && (
-                <Card className='border border-destructive shadow-lg'>
+                <Card className='border border-destructive '>
                   <CardHeader className='bg-gradient-to-r from-destructive/10 to-destructive/5 border-b border-destructive/20'>
                     <CardTitle className='flex items-center gap-2 text-destructive'>
                       <AlertCircle className='h-5 w-5' />
@@ -750,8 +684,8 @@ export default function TitanicNaiveBayesPage() {
 
               {/* Result Card */}
               {prediction !== null && confidence !== null && formData && (
-                <Card className='border border-border shadow-xl sticky top-8 overflow-hidden'>
-                  <div className='bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-b border-border p-6'>
+                <Card className='border border-border  sticky top-8 overflow-hidden'>
+                  <div className=' border-b border-border p-6'>
                     <div className='flex items-center justify-between'>
                       <div className='flex items-center gap-3'>
                         <div className='p-2 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg'>
@@ -806,7 +740,7 @@ export default function TitanicNaiveBayesPage() {
 
                     {/* Survival Prediction */}
                     <div
-                      className={`rounded-xl p-5 ${survivalStatus?.bgColor} ${survivalStatus?.borderColor} border shadow-sm`}
+                      className={`rounded-xl p-5 ${survivalStatus?.bgColor} ${survivalStatus?.borderColor} border `}
                     >
                       <div className='flex items-start justify-between mb-4'>
                         <div className='flex-1'>
@@ -899,70 +833,6 @@ export default function TitanicNaiveBayesPage() {
                       </div>
                     </div>
 
-                    {/* Feature Impact Analysis */}
-                    {probabilityBreakdown && (
-                      <div className='bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-xl p-4 border border-blue-200/50 dark:border-blue-800/30'>
-                        <h4 className='font-medium mb-3 flex items-center gap-2 text-black dark:text-blue-300'>
-                          <TrendingUp className='h-4 w-4' />
-                          Feature Impact Analysis
-                        </h4>
-                        <div className='space-y-3'>
-                          {probabilityBreakdown.features.map(
-                            (feature, index) => (
-                              <div
-                                key={index}
-                                className='flex items-center justify-between p-2 bg-white/50 dark:bg-black/20 rounded border border-border'
-                              >
-                                <div>
-                                  <p className='text-sm font-medium'>
-                                    {feature.name}
-                                  </p>
-                                  <p className='text-xs text-muted-foreground'>
-                                    {feature.value}
-                                  </p>
-                                </div>
-                                <div
-                                  className={`px-2 py-1 rounded text-xs font-medium ${
-                                    feature.survivalImpact.includes('+')
-                                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                                      : feature.survivalImpact.includes('-')
-                                      ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                                  }`}
-                                >
-                                  {feature.survivalImpact}
-                                </div>
-                              </div>
-                            )
-                          )}
-                        </div>
-                        <p className='text-xs text-muted-foreground mt-3'>
-                          Impact on survival probability based on Bayesian
-                          likelihood
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Quick Facts */}
-                    <div className='grid grid-cols-2 gap-3'>
-                      <div className='bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/10 dark:to-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800/30'>
-                        <p className='text-xs text-muted-foreground'>
-                          Fare Paid
-                        </p>
-                        <p className='font-bold'>
-                          ${(formData.fare || 0).toFixed(2)}
-                        </p>
-                      </div>
-                      <div className='bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/10 dark:to-purple-900/20 rounded p-3 border border-purple-200 dark:border-purple-800/30'>
-                        <p className='text-xs text-muted-foreground'>
-                          Family Members
-                        </p>
-                        <p className='font-bold'>
-                          {formData.sibsp + formData.parch}
-                        </p>
-                      </div>
-                    </div>
-
                     {/* Action Buttons */}
                     <div className='flex gap-3 pt-4 border-t border-border'>
                       <Button
@@ -998,8 +868,8 @@ export default function TitanicNaiveBayesPage() {
 
               {/* Initial State Card */}
               {prediction === null && !error && (
-                <Card className='border border-border shadow-lg sticky top-8 overflow-hidden'>
-                  <div className='bg-gradient-to-r from-blue-500/5 to-purple-500/5 border-b border-border p-6'>
+                <Card className='border border-border  sticky top-8 overflow-hidden'>
+                  <div className=' border-b border-border p-6'>
                     <div className='flex items-center gap-3'>
                       <div className='p-2 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg'>
                         <Brain className='h-6 w-6 text-black' />
@@ -1016,11 +886,6 @@ export default function TitanicNaiveBayesPage() {
                   </div>
                   <CardContent className='pt-6'>
                     <div className='flex flex-col items-center text-center space-y-6'>
-                      <div className='relative'>
-                        <div className='p-5 bg-gradient-to-br from-blue-500/10 to-purple-500/20 rounded-2xl'>
-                          <Brain className='h-16 w-16 text-black' />
-                        </div>
-                      </div>
                       <div>
                         <h3 className='font-bold text-foreground text-lg mb-3'>
                           Ready for Bayesian Analysis

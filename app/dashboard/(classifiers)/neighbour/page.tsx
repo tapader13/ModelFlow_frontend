@@ -211,7 +211,7 @@ export default function TitanicKnnPredictionPage() {
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
             {/* Form Section */}
             <div className='lg:col-span-2'>
-              <Card className='border border-border shadow-lg'>
+              <Card className='border border-border '>
                 <CardHeader className='border-b border-border bg-gradient-to-r from-secondary/30 to-primary/5'>
                   <div className='flex items-center gap-3'>
                     <Target className='h-6 w-6 text-primary' />
@@ -488,41 +488,13 @@ export default function TitanicKnnPredictionPage() {
                   </form>
                 </CardContent>
               </Card>
-
-              {/* Model Information */}
-              <Card className='mt-6 border border-border'>
-                <CardHeader>
-                  <CardTitle className='flex items-center gap-2'>
-                    <BarChart3 className='h-5 w-5' />
-                    About K-Nearest Neighbors
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className='space-y-3 text-sm text-muted-foreground'>
-                    <p>
-                      The K-Nearest Neighbors (KNN) algorithm predicts survival
-                      based on similarities to other passengers in the dataset.
-                    </p>
-                    <ul className='list-disc pl-5 space-y-1'>
-                      <li>Finds the most similar historical passengers</li>
-                      <li>
-                        Considers features like age, class, gender, and fare
-                      </li>
-                      <li>
-                        Predicts based on majority vote of nearest neighbors
-                      </li>
-                      <li>Confidence score reflects prediction certainty</li>
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Result Section */}
             <div className='lg:col-span-1 space-y-6'>
               {/* Error Card */}
               {error && (
-                <Card className='border border-destructive shadow-sm'>
+                <Card className='border border-destructive '>
                   <CardHeader>
                     <CardTitle className='flex items-center gap-2 text-destructive'>
                       <AlertCircle className='h-5 w-5' />
@@ -545,8 +517,8 @@ export default function TitanicKnnPredictionPage() {
 
               {/* Result Card */}
               {prediction !== null && confidence !== null && formData && (
-                <Card className='border border-border shadow-lg sticky top-8'>
-                  <CardHeader className='border-b border-border bg-gradient-to-r from-secondary/30 to-primary/5'>
+                <Card className='border border-border  sticky top-8'>
+                  <CardHeader className='border-b border-border '>
                     <CardTitle className='text-lg flex items-center gap-2'>
                       <CheckCircle className='h-5 w-5 text-primary' />
                       KNN Prediction Result
@@ -721,8 +693,8 @@ export default function TitanicKnnPredictionPage() {
 
               {/* Initial State Card */}
               {prediction === null && !error && (
-                <Card className='border border-border shadow-sm sticky top-8'>
-                  <CardHeader className='border-b border-border bg-gradient-to-r from-secondary/30 to-primary/5'>
+                <Card className='border border-border  sticky top-8'>
+                  <CardHeader className='border-b border-border '>
                     <CardTitle className='text-lg flex items-center gap-2'>
                       <Users className='h-5 w-5 text-primary' />
                       KNN Prediction

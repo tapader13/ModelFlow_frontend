@@ -273,7 +273,7 @@ export default function TitanicSVCSPage() {
     <Layout>
       <main className='min-h-screen bg-gradient-to-b from-background to-black/5 dark:to-white/5'>
         {/* Header */}
-        <div className='border-b border-black/10 dark:border-white/10 bg-gradient-to-r from-black/5 to-black/10 dark:from-white/5 dark:to-white/10'>
+        <div className='border-b border-black/10 '>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
             <div className='flex flex-col md:flex-row md:items-center gap-6'>
               <div className='p-4 bg-gradient-to-br from-black to-gray-800 dark:from-white dark:to-gray-300 rounded-xl shadow-lg'>
@@ -304,8 +304,8 @@ export default function TitanicSVCSPage() {
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
             {/* Form Section */}
             <div className='lg:col-span-2'>
-              <Card className='border border-black/10 dark:border-white/10 shadow-xl overflow-hidden bg-white dark:bg-gray-900'>
-                <div className='bg-gradient-to-r from-black/5 to-black/10 dark:from-white/5 dark:to-white/10 border-b border-black/10 dark:border-white/10 p-4'>
+              <Card className='border border-black/10 dark:border-white/10  overflow-hidden bg-white dark:bg-gray-900'>
+                <div className=' border-b border-black/10 dark:border-white/10 p-4'>
                   <div className='flex items-center gap-3'>
                     <div className='p-2 bg-black/10 dark:bg-white/10 rounded-lg'>
                       <Target className='h-6 w-6 text-black dark:text-white' />
@@ -634,67 +634,13 @@ export default function TitanicSVCSPage() {
                   </form>
                 </CardContent>
               </Card>
-
-              {/* SVC Information */}
-              <Card className='mt-6 border border-black/10 dark:border-white/10 shadow-lg bg-white dark:bg-gray-900'>
-                <CardHeader className='bg-gradient-to-r from-black/5 to-black/10 dark:from-white/5 dark:to-white/10 border-b border-black/10 dark:border-white/10'>
-                  <CardTitle className='flex items-center gap-3'>
-                    <Cpu className='h-6 w-6 text-black dark:text-white' />
-                    <div>
-                      <h3 className='text-lg'>
-                        About Support Vector Classifier
-                      </h3>
-                      <p className='text-sm text-muted-foreground font-normal'>
-                        Maximum margin hyperplane for optimal separation
-                      </p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className='pt-6'>
-                  <div className='space-y-4'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                      <div className='space-y-2'>
-                        <div className='flex items-center gap-2'>
-                          <Divide className='h-4 w-4 text-black dark:text-white' />
-                          <span className='font-medium'>Maximum Margin</span>
-                        </div>
-                        <p className='text-sm text-muted-foreground'>
-                          Finds hyperplane that maximizes distance between
-                          classes
-                        </p>
-                      </div>
-                      <div className='space-y-2'>
-                        <div className='flex items-center gap-2'>
-                          <Shield className='h-4 w-4 text-black dark:text-white' />
-                          <span className='font-medium'>Support Vectors</span>
-                        </div>
-                        <p className='text-sm text-muted-foreground'>
-                          Uses only critical data points to define decision
-                          boundary
-                        </p>
-                      </div>
-                    </div>
-                    <div className='bg-black/5 dark:bg-white/5 rounded-lg p-4 border border-black/10 dark:border-white/10'>
-                      <h4 className='font-medium mb-2 text-black dark:text-white'>
-                        How it works:
-                      </h4>
-                      <ul className='list-disc pl-5 space-y-1 text-sm text-muted-foreground'>
-                        <li>Maps features to high-dimensional space</li>
-                        <li>Finds optimal separating hyperplane</li>
-                        <li>Maximizes margin between classes</li>
-                        <li>Uses kernel trick for non-linear separation</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Result Section */}
             <div className='lg:col-span-1 space-y-6'>
               {/* Error Card */}
               {error && (
-                <Card className='border border-destructive shadow-lg bg-white dark:bg-gray-900'>
+                <Card className='border border-destructive  bg-white dark:bg-gray-900'>
                   <CardHeader className='bg-gradient-to-r from-destructive/10 to-destructive/5 border-b border-destructive/20'>
                     <CardTitle className='flex items-center gap-2 text-destructive'>
                       <AlertCircle className='h-5 w-5' />
@@ -719,8 +665,8 @@ export default function TitanicSVCSPage() {
 
               {/* Result Card */}
               {prediction !== null && confidence !== null && formData && (
-                <Card className='border border-black/10 dark:border-white/10 shadow-xl sticky top-8 overflow-hidden bg-white dark:bg-gray-900'>
-                  <div className='bg-gradient-to-r from-black/10 to-black/20 dark:from-white/10 dark:to-white/20 border-b border-black/10 dark:border-white/10 p-6'>
+                <Card className='border border-black/10 dark:border-white/10  sticky top-8 overflow-hidden bg-white dark:bg-gray-900'>
+                  <div className=' border-b border-black/10 dark:border-white/10 p-6'>
                     <div className='flex items-center justify-between'>
                       <div className='flex items-center gap-3'>
                         <div className='p-2 bg-black/20 dark:bg-white/20 rounded-lg'>
@@ -954,8 +900,8 @@ export default function TitanicSVCSPage() {
 
               {/* Initial State Card */}
               {prediction === null && !error && (
-                <Card className='border border-black/10 dark:border-white/10 shadow-lg sticky top-8 overflow-hidden bg-white dark:bg-gray-900'>
-                  <div className='bg-gradient-to-r from-black/5 to-black/10 dark:from-white/5 dark:to-white/10 border-b border-black/10 dark:border-white/10 p-6'>
+                <Card className='border border-black/10 dark:border-white/10  sticky top-8 overflow-hidden bg-white dark:bg-gray-900'>
+                  <div className=' border-b border-black/10 dark:border-white/10 p-6'>
                     <div className='flex items-center gap-3'>
                       <div className='p-2 bg-black/10 dark:bg-white/10 rounded-lg'>
                         <TrendingUp className='h-6 w-6 text-black dark:text-white' />
@@ -972,11 +918,6 @@ export default function TitanicSVCSPage() {
                   </div>
                   <CardContent className='pt-6'>
                     <div className='flex flex-col items-center text-center space-y-6'>
-                      <div className='relative'>
-                        <div className='p-5 bg-black/10 dark:bg-white/10 rounded-2xl'>
-                          <TrendingUp className='h-16 w-16 text-black dark:text-white' />
-                        </div>
-                      </div>
                       <div>
                         <h3 className='font-bold text-foreground text-lg mb-3'>
                           Ready for Hyperplane Classification
