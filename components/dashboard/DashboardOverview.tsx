@@ -39,6 +39,10 @@ import {
   Bell,
   Search,
   Settings,
+  Trophy,
+  Award,
+  Star,
+  TrendingDown,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -87,6 +91,14 @@ interface DashboardStats {
   modelAccuracy: number;
 }
 
+interface ModelPerformance {
+  dataset: string;
+  bestModel: string;
+  accuracy: number;
+  topPrediction: string | number;
+  trend: 'up' | 'down' | 'stable';
+}
+
 export default function DashboardHome() {
   const { data: session } = useSession();
   const [token, setToken] = useState<string | null>(null);
@@ -101,6 +113,9 @@ export default function DashboardHome() {
     recentActivity: 0,
     modelAccuracy: 0,
   });
+  const [modelPerformances, setModelPerformances] = useState<
+    ModelPerformance[]
+  >([]);
 
   useEffect(() => {
     if (session?.backendToken) {
@@ -142,9 +157,22 @@ export default function DashboardHome() {
           : [movieResult];
         const carArray = Array.isArray(carResult) ? carResult : [carResult];
 
-        setTitanicData(titanicArray);
-        setMovieData(movieArray);
-        setCarData(carArray);
+        // Sort data by performance metrics
+        const sortedTitanic = [...titanicArray].sort(
+          (a, b) => b.probability - a.probability
+        );
+        const sortedMovie = [...movieArray].sort(
+          (a, b) => b.predicted_rating - a.predicted_rating
+        );
+        const sortedCar = [...carArray].sort(
+          (a, b) =>
+            (b.prediction || b.predicted_price || 0) -
+            (a.prediction || a.predicted_price || 0)
+        );
+
+        setTitanicData(sortedTitanic);
+        setMovieData(sortedMovie);
+        setCarData(sortedCar);
 
         // Calculate stats
         const totalPreds =
@@ -179,7 +207,10 @@ export default function DashboardHome() {
           100;
 
         const carPercent =
-          (carArray.reduce((sum, item) => sum + item.predicted_price, 0) /
+          (carArray.reduce(
+            (sum, item) => sum + (item.prediction || item.predicted_price || 0),
+            0
+          ) /
             carArray.length /
             MAX_CAR_PRICE) *
           100;
@@ -194,6 +225,90 @@ export default function DashboardHome() {
           recentActivity: recent,
           modelAccuracy: Number(totalModelAcc),
         });
+
+        // Calculate model performances
+        const performances: ModelPerformance[] = [];
+
+        // Titanic dataset - Find best performing prediction
+        if (titanicArray.length > 0) {
+          const bestTitanic = sortedTitanic[0];
+          const avgTitanicAccuracy =
+            (titanicArray.reduce((sum, item) => sum + item.probability, 0) /
+              titanicArray.length) *
+            100;
+          performances.push({
+            dataset: 'Titanic Survival',
+            bestModel: 'Logistic Regression',
+            accuracy: avgTitanicAccuracy,
+            topPrediction: `${(bestTitanic.probability * 100).toFixed(
+              1
+            )}% confidence for ${bestTitanic.name.split(',')[0]}`,
+            trend:
+              avgTitanicAccuracy > 85
+                ? 'up'
+                : avgTitanicAccuracy > 70
+                ? 'stable'
+                : 'down',
+          });
+        }
+
+        // Movie dataset - Find best performing prediction
+        if (movieArray.length > 0) {
+          const bestMovie = sortedMovie[0];
+          const avgMovieRating =
+            movieArray.reduce((sum, item) => sum + item.predicted_rating, 0) /
+            movieArray.length;
+          performances.push({
+            dataset: 'Movie Ratings',
+            bestModel: 'Linear Regression',
+            accuracy: (avgMovieRating / 10) * 100,
+            topPrediction: `${bestMovie.predicted_rating.toFixed(1)}/10 for "${
+              bestMovie.name
+            }"`,
+            trend:
+              avgMovieRating > 7.5
+                ? 'up'
+                : avgMovieRating > 5.5
+                ? 'stable'
+                : 'down',
+          });
+        }
+
+        // Car dataset - Find best performing prediction
+        if (carArray.length > 0) {
+          const bestCar = sortedCar[0];
+          const avgCarPrice =
+            carArray.reduce(
+              (sum, item) =>
+                sum + (item.prediction || item.predicted_price || 0),
+              0
+            ) / carArray.length;
+          const maxCarPrice = Math.max(
+            ...carArray.map(
+              (item) => item.prediction || item.predicted_price || 0
+            )
+          );
+          performances.push({
+            dataset: 'Car Prices',
+            bestModel: 'SVR (Support Vector Regression)',
+            accuracy: (avgCarPrice / maxCarPrice) * 100,
+            topPrediction: `$${(
+              bestCar.prediction ||
+              bestCar.predicted_price ||
+              0
+            ).toLocaleString()} for ${bestCar.Manufacturer} ${bestCar.Model}`,
+            trend:
+              avgCarPrice > maxCarPrice * 0.7
+                ? 'up'
+                : avgCarPrice > maxCarPrice * 0.5
+                ? 'stable'
+                : 'down',
+          });
+        }
+
+        // Sort performances by accuracy
+        performances.sort((a, b) => b.accuracy - a.accuracy);
+        setModelPerformances(performances);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
         console.error('Error fetching predictions:', err);
@@ -273,7 +388,6 @@ export default function DashboardHome() {
             </Button>
           </div>
         </div>
-
         {/* Stats Grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
           <Card className='border-gray-200 shadow-sm'>
@@ -357,6 +471,262 @@ export default function DashboardHome() {
           </Card>
         </div>
 
+        {/* Best Performing Models Section */}
+        <Card className='border-gray-200 shadow-sm mb-8'>
+          <CardHeader className='border-b border-gray-200 pb-4'>
+            <div className='flex items-center gap-3'>
+              <Trophy className='h-5 w-5 text-black' />
+              <div>
+                <CardTitle>Model Performance Rankings</CardTitle>
+                <CardDescription className='text-gray-600'>
+                  Best performing predictions for each dataset
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className='pt-6'>
+            <div className='overflow-x-auto'>
+              <Table>
+                <TableHeader>
+                  <TableRow className='border-b border-gray-200'>
+                    <TableHead className='text-gray-700 font-semibold'>
+                      Dataset
+                    </TableHead>
+                    <TableHead className='text-gray-700 font-semibold'>
+                      Best Model
+                    </TableHead>
+                    <TableHead className='text-gray-700 font-semibold'>
+                      Top Prediction
+                    </TableHead>
+                    <TableHead className='text-gray-700 font-semibold'>
+                      Value
+                    </TableHead>
+                    <TableHead className='text-gray-700 font-semibold'>
+                      Rank
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {/* Titanic Best Performance */}
+                  {titanicData.length > 0 && (
+                    <TableRow className='border-b border-gray-100 hover:bg-gray-50'>
+                      <TableCell className='font-medium'>
+                        <div className='flex items-center gap-2'>
+                          <Users className='h-4 w-4 text-blue-600' />
+                          <span>Titanic Survival</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className='bg-blue-100 text-blue-800'>
+                          Logistic Regression
+                        </Badge>
+                      </TableCell>
+                      <TableCell className='max-w-[200px] truncate'>
+                        {titanicData[0]?.name.split(',')[0]}
+                      </TableCell>
+                      <TableCell>
+                        <div className='font-bold text-blue-600'>
+                          {(titanicData[0]?.probability * 100).toFixed(1)}%
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className='flex items-center gap-1'>
+                          <Trophy className='h-4 w-4 text-yellow-500' />
+                          <span className='font-medium'>1st</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+
+                  {/* Movie Best Performance */}
+                  {movieData.length > 0 && (
+                    <TableRow className='border-b border-gray-100 hover:bg-gray-50'>
+                      <TableCell className='font-medium'>
+                        <div className='flex items-center gap-2'>
+                          <Film className='h-4 w-4 text-purple-600' />
+                          <span>Movie Ratings</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className='bg-purple-100 text-purple-800'>
+                          Linear Regression
+                        </Badge>
+                      </TableCell>
+                      <TableCell className='max-w-[200px] truncate'>
+                        {movieData[0]?.name}
+                      </TableCell>
+                      <TableCell>
+                        <div className='font-bold text-purple-600'>
+                          {movieData[0]?.predicted_rating.toFixed(1)}/10
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className='flex items-center gap-1'>
+                          <Award className='h-4 w-4 text-gray-500' />
+                          <span className='font-medium'>2nd</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+
+                  {/* Car Best Performance */}
+                  {carData.length > 0 && (
+                    <TableRow className='border-b border-gray-100 hover:bg-gray-50'>
+                      <TableCell className='font-medium'>
+                        <div className='flex items-center gap-2'>
+                          <Car className='h-4 w-4 text-green-600' />
+                          <span>Car Prices</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className='bg-green-100 text-green-800'>
+                          SVR
+                        </Badge>
+                      </TableCell>
+                      <TableCell className='max-w-[200px] truncate'>
+                        {carData[0]?.Manufacturer} {carData[0]?.Model}
+                      </TableCell>
+                      <TableCell>
+                        <div className='font-bold text-green-600'>
+                          $
+                          {(
+                            carData[0]?.prediction ||
+                            carData[0]?.predicted_price ||
+                            0
+                          ).toLocaleString()}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className='flex items-center gap-1'>
+                          <Star className='h-4 w-4 text-orange-500' />
+                          <span className='font-medium'>3rd</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+
+                  {/* Empty state if no predictions */}
+                  {titanicData.length === 0 &&
+                    movieData.length === 0 &&
+                    carData.length === 0 && (
+                      <TableRow>
+                        <TableCell
+                          colSpan={5}
+                          className='text-center py-8 text-gray-500'
+                        >
+                          No predictions available to rank models
+                        </TableCell>
+                      </TableRow>
+                    )}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Summary Stats */}
+            {(titanicData.length > 0 ||
+              movieData.length > 0 ||
+              carData.length > 0) && (
+              <div className='mt-6 grid grid-cols-1 md:grid-cols-3 gap-4'>
+                {titanicData.length > 0 && (
+                  <div className='p-4 border border-gray-200 rounded-lg'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-sm font-medium text-gray-600'>
+                        Titanic Avg.
+                      </span>
+                      <span className='text-lg font-bold'>
+                        {(
+                          (titanicData.reduce(
+                            (sum, item) => sum + item.probability,
+                            0
+                          ) /
+                            titanicData.length) *
+                          100
+                        ).toFixed(1)}
+                        %
+                      </span>
+                    </div>
+                    <Progress
+                      value={
+                        (titanicData.reduce(
+                          (sum, item) => sum + item.probability,
+                          0
+                        ) /
+                          titanicData.length) *
+                        100
+                      }
+                      className='h-2 bg-gray-200'
+                    />
+                  </div>
+                )}
+
+                {movieData.length > 0 && (
+                  <div className='p-4 border border-gray-200 rounded-lg'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-sm font-medium text-gray-600'>
+                        Movie Avg.
+                      </span>
+                      <span className='text-lg font-bold'>
+                        {(
+                          movieData.reduce(
+                            (sum, item) => sum + item.predicted_rating,
+                            0
+                          ) / movieData.length
+                        ).toFixed(1)}
+                        /10
+                      </span>
+                    </div>
+                    <Progress
+                      value={
+                        (movieData.reduce(
+                          (sum, item) => sum + item.predicted_rating,
+                          0
+                        ) /
+                          movieData.length) *
+                        10
+                      }
+                      className='h-2 bg-gray-200'
+                    />
+                  </div>
+                )}
+
+                {carData.length > 0 && (
+                  <div className='p-4 border border-gray-200 rounded-lg'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-sm font-medium text-gray-600'>
+                        Car Price Avg.
+                      </span>
+                      <span className='text-lg font-bold'>
+                        $
+                        {(
+                          carData.reduce(
+                            (sum, item) =>
+                              sum +
+                              (item.prediction || item.predicted_price || 0),
+                            0
+                          ) / carData.length
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                    <Progress
+                      value={
+                        (carData.reduce(
+                          (sum, item) =>
+                            sum +
+                            (item.prediction || item.predicted_price || 0),
+                          0
+                        ) /
+                          carData.length /
+                          50000) *
+                        100
+                      }
+                      className='h-2 bg-gray-200'
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
         {/* Main Content Grid */}
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8'>
           {/* Left Column - Titanic & Movie */}
@@ -753,7 +1123,6 @@ export default function DashboardHome() {
             </Card>
           </div>
         </div>
-
         {/* Recent Activity Section */}
         {(titanicData.length > 0 ||
           movieData.length > 0 ||
@@ -838,7 +1207,6 @@ export default function DashboardHome() {
             </CardContent>
           </Card>
         )}
-
         {/* Empty State */}
         {titanicData.length === 0 &&
           movieData.length === 0 &&
