@@ -120,7 +120,7 @@ const car_price = [
   },
   {
     title: 'Support Vector Regressor',
-    url: '/dashboard/svr-rating-car-price',
+    url: '/dashboard/svr-car-price',
     icon: HardDrive, // HardDrive for storage / data
   },
   {
