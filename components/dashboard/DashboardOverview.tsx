@@ -162,12 +162,37 @@ export default function DashboardHome() {
         const recent = [...titanicArray, ...movieArray, ...carArray].filter(
           (item) => new Date(item.created_at) > weekAgo
         ).length;
+        const MAX_TITANIC = 1;
+        const MAX_MOVIE = 10;
+        const MAX_CAR_PRICE = 50000;
+
+        const titanicPercent =
+          (titanicArray.reduce((sum, item) => sum + item.probability, 0) /
+            titanicArray.length /
+            MAX_TITANIC) *
+          100;
+
+        const moviePercent =
+          (movieArray.reduce((sum, item) => sum + item.predicted_rating, 0) /
+            movieArray.length /
+            MAX_MOVIE) *
+          100;
+
+        const carPercent =
+          (carArray.reduce((sum, item) => sum + item.predicted_price, 0) /
+            carArray.length /
+            MAX_CAR_PRICE) *
+          100;
+        const totalModelAcc = (
+          (titanicPercent + moviePercent + carPercent) /
+          3
+        ).toFixed(2);
 
         setStats({
           totalPredictions: totalPreds,
           averageConfidence: avgConfidence,
           recentActivity: recent,
-          modelAccuracy: 92.5,
+          modelAccuracy: Number(totalModelAcc),
         });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
