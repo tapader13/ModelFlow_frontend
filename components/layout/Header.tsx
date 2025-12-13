@@ -2,10 +2,19 @@
 
 import React from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { Bell, Settings, User, LogOut, Activity, Home } from 'lucide-react';
+import {
+  Bell,
+  Settings,
+  User,
+  LogOut,
+  Activity,
+  Home,
+  Search,
+} from 'lucide-react';
 // import { ThemeToggle } from '@/components/ui/theme-toggle';
 // import { useAccountData } from '@/hooks/use-account-data';
 import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
 
 export default function Header() {
   // const { accountData, isLoading, error, lastUpdate } = useAccountData();
@@ -60,6 +69,13 @@ export default function Header() {
           >
             <Home className='w-5 h-5 text-gray-700' />
           </button>
+
+          <div>
+            <h1 className='text-xl font-bold'>ML Predictions Dashboard</h1>
+            <p className='text-sm text-gray-600'>
+              Welcome back, {session?.user?.name || 'User'}
+            </p>
+          </div>
 
           <div className='flex items-center space-x-2 sm:space-x-4'>
             {/* Mobile - Simplified status */}
@@ -152,6 +168,16 @@ export default function Header() {
 
             {/* Desktop buttons */}
             <div className='hidden sm:flex items-center space-x-2'>
+              <div className='flex items-center gap-4'>
+                <div className='relative'>
+                  <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400' />
+                  <input
+                    type='text'
+                    placeholder='Search predictions...'
+                    className='pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent'
+                  />
+                </div>
+              </div>
               <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors'>
                 <Bell className='w-4 h-4 sm:w-5 sm:h-5 text-gray-600' />
               </button>

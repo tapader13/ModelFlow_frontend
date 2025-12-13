@@ -217,31 +217,6 @@ export default function DashboardHome() {
 
   return (
     <main className='min-h-screen bg-white text-black'>
-      {/* <div className='flex items-center gap-4'>
-              <div className='relative'>
-                <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400' />
-                <input
-                  type='text'
-                  placeholder='Search predictions...'
-                  className='pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent'
-                />
-              </div>
-              <Button
-                variant='ghost'
-                size='icon'
-                className='text-gray-600 hover:text-black'
-              >
-                <Bell className='h-5 w-5' />
-              </Button>
-              <Button
-                variant='ghost'
-                size='icon'
-                className='text-gray-600 hover:text-black'
-              >
-                <Settings className='h-5 w-5' />
-              </Button>
-            </div> */}
-
       {/* Main Dashboard Content */}
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
         {/* Dashboard Header */}
