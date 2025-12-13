@@ -1,2 +1,4 @@
 passenger_id,pclass,name,sex,age,sibsp,parch,ticket,fare,cabin,embarked,email
 93,1,"Chaffee, Mr. Herbert Fuller",male,46,1,0,W.E.P. 5734,61.175,E31,S,minhajtapader0@gmail.com
+672,1,"Davidson, Mr. Thornton",male,31,1,0,F.C. 12750,52,B71,S,minhajtapader0@gmail.com
+682,1,"Hassab, Mr. Hammad",male,27,0,0,PC 17572,76.7292,D49,C,minhajtapader0@gmail.com

@@ -38,10 +38,10 @@ import {
 } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 
-// Define required columns for each model
 const MODEL_REQUIREMENTS = {
   'car-price-linear': {
-    endpoint: 'http://127.0.0.1:8000/car-price/linear-predict-csv',
+    dataset: 'car-price',
+    model: 'linear',
     columns: [
       'ID',
       'Levy',
@@ -63,7 +63,8 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'car-price-knn': {
-    endpoint: 'http://127.0.0.1:8000/car-price/knn-predict-csv',
+    dataset: 'car-price',
+    model: 'knn',
     columns: [
       'ID',
       'Levy',
@@ -85,7 +86,8 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'car-price-random-forest': {
-    endpoint: 'http://127.0.0.1:8000/car-price/random-forest-predict-csv',
+    dataset: 'car-price',
+    model: 'random-forest',
     columns: [
       'ID',
       'Levy',
@@ -107,7 +109,31 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'car-price-svr': {
-    endpoint: 'http://127.0.0.1:8000/car-price/svr-predict-csv',
+    dataset: 'car-price',
+    model: 'svr',
+    columns: [
+      'ID',
+      'Levy',
+      'Manufacturer',
+      'Model',
+      'Prod. year',
+      'Category',
+      'Leather interior',
+      'Fuel type',
+      'Engine volume',
+      'Mileage',
+      'Cylinders',
+      'Gear box type',
+      'Drive wheels',
+      'Doors',
+      'Wheel',
+      'Color',
+      'Airbags',
+    ],
+  },
+  'car-price-decision': {
+    dataset: 'car-price',
+    model: 'decision',
     columns: [
       'ID',
       'Levy',
@@ -129,7 +155,8 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'movie-rating-linear': {
-    endpoint: 'http://127.0.0.1:8000/movie-rating/linear-predict-csv',
+    dataset: 'movie-rating',
+    model: 'linear',
     columns: [
       'rank',
       'name',
@@ -146,7 +173,8 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'movie-rating-decision': {
-    endpoint: 'http://127.0.0.1:8000/movie-rating/decission-predict-csv',
+    dataset: 'movie-rating',
+    model: 'decision',
     columns: [
       'rank',
       'name',
@@ -163,7 +191,44 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'movie-rating-random-forest': {
-    endpoint: 'http://127.0.0.1:8000/movie-rating/forest-predict-csv',
+    dataset: 'movie-rating',
+    model: 'random-forest',
+    columns: [
+      'rank',
+      'name',
+      'year',
+      'genre',
+      'certificate',
+      'run_time',
+      'tagline',
+      'budget',
+      'box_office',
+      'casts',
+      'directors',
+      'writers',
+    ],
+  },
+  'movie-rating-svr': {
+    dataset: 'movie-rating',
+    model: 'svr',
+    columns: [
+      'rank',
+      'name',
+      'year',
+      'genre',
+      'certificate',
+      'run_time',
+      'tagline',
+      'budget',
+      'box_office',
+      'casts',
+      'directors',
+      'writers',
+    ],
+  },
+  'movie-rating-knn': {
+    dataset: 'movie-rating',
+    model: 'knn',
     columns: [
       'rank',
       'name',
@@ -180,7 +245,8 @@ const MODEL_REQUIREMENTS = {
     ],
   },
   'titanic-logistic': {
-    endpoint: 'http://127.0.0.1:8000/titanic/logistic-predict-csv',
+    dataset: 'titanic',
+    model: 'logistic',
     columns: [
       'passenger_id',
       'pclass',
@@ -203,7 +269,16 @@ interface ValidationError {
   message: string;
   columns?: string[];
 }
+type Prediction = {
+  name: string;
+  Survived: number;
+  probability: number;
+};
 
+type ApiResponse = {
+  message: string;
+  predictions: Prediction[];
+};
 export default function CSVUploadPage() {
   const { data: session } = useSession();
   const [token, setToken] = useState<string | null>(null);
@@ -217,7 +292,7 @@ export default function CSVUploadPage() {
   );
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [predictions, setPredictions] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -361,24 +436,29 @@ export default function CSVUploadPage() {
       const formData = new FormData();
       formData.append('file', csvFile);
 
-      const endpoint =
-        MODEL_REQUIREMENTS[selectedModel as keyof typeof MODEL_REQUIREMENTS]
-          .endpoint;
+      const modelConfig =
+        MODEL_REQUIREMENTS[selectedModel as keyof typeof MODEL_REQUIREMENTS];
+      formData.append('model_name', modelConfig.model);
+      formData.append('dataset', modelConfig.dataset);
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        'http://127.0.0.1:8000/common/csv-batch-upload',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to get predictions from backend');
       }
 
-      const result = await response.json();
-      setPredictions(Array.isArray(result) ? result : [result]);
+      const result: ApiResponse = await response.json();
+      console.log(result, 'reslut from bakcend');
+      setPredictions(result.predictions);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       console.error('Error:', err);
@@ -457,6 +537,9 @@ export default function CSVUploadPage() {
                         <SelectItem value='car-price-svr'>
                           Car Price - Support Vector Regression
                         </SelectItem>
+                        <SelectItem value='car-price-decision'>
+                          Car Price - Decision Tree
+                        </SelectItem>
                         <SelectItem value='movie-rating-linear'>
                           Movie Rating - Linear Regression
                         </SelectItem>
@@ -465,6 +548,12 @@ export default function CSVUploadPage() {
                         </SelectItem>
                         <SelectItem value='movie-rating-random-forest'>
                           Movie Rating - Random Forest
+                        </SelectItem>
+                        <SelectItem value='movie-rating-svr'>
+                          Movie Rating - SVR
+                        </SelectItem>
+                        <SelectItem value='movie-rating-knn'>
+                          Movie Rating - K-Nearest Neighbors
                         </SelectItem>
                         <SelectItem value='titanic-logistic'>
                           Titanic Survival - Logistic Regression
@@ -611,6 +700,58 @@ export default function CSVUploadPage() {
                   </CardContent>
                 </Card>
               )}
+
+              {/* Results Display */}
+              {predictions?.length > 0 && (
+                <Card className='border border-border shadow-sm'>
+                  <CardHeader className='border-b border-border bg-secondary/30'>
+                    <CardTitle className='text-xl'>
+                      Prediction Results
+                    </CardTitle>
+                    <CardDescription>
+                      {predictions.length} predictions generated
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className='pt-6'>
+                    <div className='overflow-x-auto'>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className='text-xs font-semibold'>
+                              Row
+                            </TableHead>
+                            {predictions[0] &&
+                              Object.keys(predictions[0]).map((key) => (
+                                <TableHead
+                                  key={key}
+                                  className='text-xs font-semibold'
+                                >
+                                  {key}
+                                </TableHead>
+                              ))}
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {predictions.map((pred, idx) => (
+                            <TableRow key={idx}>
+                              <TableCell className='text-xs font-medium'>
+                                {idx + 1}
+                              </TableCell>
+                              {Object.values(pred).map((value: any, colIdx) => (
+                                <TableCell key={colIdx} className='text-xs'>
+                                  {typeof value === 'number'
+                                    ? value.toFixed(2)
+                                    : String(value)}
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             {/* Info Sidebar */}
@@ -677,7 +818,48 @@ export default function CSVUploadPage() {
                       </li>
                       <li className='flex items-start gap-2'>
                         <CheckCircle className='h-3 w-3 text-primary mt-0.5 flex-shrink-0' />
-                        <span>File must be in CSV format</span>
+                        <span>File format must be .csv</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className='pt-4 border-t border-border'>
+                    <h4 className='text-sm font-semibold text-foreground mb-2'>
+                      Tips
+                    </h4>
+                    <ul className='space-y-2 text-xs text-muted-foreground'>
+                      <li className='flex items-start gap-2'>
+                        <Badge
+                          variant='outline'
+                          className='text-[10px] px-1 py-0 h-4'
+                        >
+                          TIP
+                        </Badge>
+                        <span>
+                          Check column names match exactly (case-sensitive)
+                        </span>
+                      </li>
+                      <li className='flex items-start gap-2'>
+                        <Badge
+                          variant='outline'
+                          className='text-[10px] px-1 py-0 h-4'
+                        >
+                          TIP
+                        </Badge>
+                        <span>
+                          Remove any extra columns not required by the model
+                        </span>
+                      </li>
+                      <li className='flex items-start gap-2'>
+                        <Badge
+                          variant='outline'
+                          className='text-[10px] px-1 py-0 h-4'
+                        >
+                          TIP
+                        </Badge>
+                        <span>
+                          Ensure all data rows have values for required columns
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -685,79 +867,6 @@ export default function CSVUploadPage() {
               </Card>
             </div>
           </div>
-
-          {/* Results Table */}
-          {predictions.length > 0 && (
-            <Card className='border border-border shadow-sm mt-8'>
-              <CardHeader className='border-b border-border bg-secondary/30'>
-                <div className='flex items-center justify-between'>
-                  <div>
-                    <CardTitle className='text-xl flex items-center gap-2'>
-                      <CheckCircle className='h-5 w-5 text-primary' />
-                      Prediction Results
-                    </CardTitle>
-                    <CardDescription className='mt-1'>
-                      {predictions.length} predictions generated successfully
-                    </CardDescription>
-                  </div>
-                  <Badge variant='secondary' className='text-sm'>
-                    {selectedModel
-                      .split('-')
-                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                      .join(' ')}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className='pt-6'>
-                <div className='overflow-x-auto'>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className='font-semibold'>#</TableHead>
-                        {Object.keys(predictions[0])
-                          .slice(0, 6)
-                          .map((key) => (
-                            <TableHead key={key} className='font-semibold'>
-                              {key}
-                            </TableHead>
-                          ))}
-                        <TableHead className='font-semibold text-right'>
-                          Prediction
-                        </TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {predictions.map((pred, idx) => (
-                        <TableRow key={idx}>
-                          <TableCell className='font-medium'>
-                            {idx + 1}
-                          </TableCell>
-                          {Object.values(pred)
-                            .slice(0, 6)
-                            .map((value: any, colIdx) => (
-                              <TableCell key={colIdx} className='text-sm'>
-                                {typeof value === 'number'
-                                  ? value.toFixed(2)
-                                  : String(value).substring(0, 30)}
-                              </TableCell>
-                            ))}
-                          <TableCell className='text-right'>
-                            <Badge variant='default' className='font-semibold'>
-                              {pred.prediction !== undefined
-                                ? typeof pred.prediction === 'number'
-                                  ? pred.prediction.toFixed(2)
-                                  : pred.prediction
-                                : 'N/A'}
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
       </main>
     </Layout>
