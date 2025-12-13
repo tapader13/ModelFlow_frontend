@@ -107,8 +107,8 @@ const navSecondary = [
 
 const navConfig = [
   {
-    title: 'Settings',
-    url: '/dashboard/settings',
+    title: 'Info',
+    url: '/dashboard/compare',
     icon: Settings,
   },
 ];
@@ -341,7 +341,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         <SidebarGroup>
           <SidebarGroupLabel className='text-xs font-medium text-gray-500 uppercase tracking-wider pl-3 mb-2'>
-            Heart Disease
+            Info
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
