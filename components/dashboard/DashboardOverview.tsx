@@ -36,8 +36,12 @@ import {
   Target,
   Zap,
   Shield,
+  Bell,
+  Search,
+  Settings,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 interface TitanicPrediction {
   passenger_id: number;
@@ -72,7 +76,7 @@ interface CarPricePrediction {
   'Fuel type': string;
   Mileage: string;
   prediction?: number;
-  Price?: number;
+  predicted_price: number;
   created_at: string;
 }
 
@@ -163,7 +167,7 @@ export default function DashboardHome() {
           totalPredictions: totalPreds,
           averageConfidence: avgConfidence,
           recentActivity: recent,
-          modelAccuracy: 92.5, // This would come from your backend
+          modelAccuracy: 92.5,
         });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
@@ -178,10 +182,10 @@ export default function DashboardHome() {
 
   if (loading) {
     return (
-      <div className='min-h-screen bg-black flex items-center justify-center'>
+      <div className='min-h-screen bg-white flex items-center justify-center'>
         <div className='text-center'>
-          <div className='animate-spin rounded-full h-12 w-12 border-2 border-white border-t-transparent mx-auto mb-4'></div>
-          <p className='text-gray-400'>Loading dashboard...</p>
+          <div className='animate-spin rounded-full h-12 w-12 border-2 border-black border-t-transparent mx-auto mb-4'></div>
+          <p className='text-gray-600'>Loading dashboard...</p>
         </div>
       </div>
     );
@@ -189,19 +193,19 @@ export default function DashboardHome() {
 
   if (error) {
     return (
-      <div className='min-h-screen bg-black flex items-center justify-center p-4'>
-        <Card className='w-full max-w-md border-gray-800 bg-gray-900'>
+      <div className='min-h-screen bg-white flex items-center justify-center p-4'>
+        <Card className='w-full max-w-md border-gray-200 bg-white'>
           <CardHeader>
-            <CardTitle className='flex items-center gap-2 text-white'>
+            <CardTitle className='flex items-center gap-2 text-black'>
               <AlertCircle className='h-5 w-5' />
               Error Loading Dashboard
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className='text-sm text-gray-400 mb-4'>{error}</p>
+            <p className='text-sm text-gray-600 mb-4'>{error}</p>
             <Button
               onClick={() => window.location.reload()}
-              className='w-full bg-white text-black hover:bg-gray-200'
+              className='w-full bg-black text-white hover:bg-gray-800'
             >
               Retry
             </Button>
@@ -212,307 +216,323 @@ export default function DashboardHome() {
   }
 
   return (
-    <main className='min-h-screen bg-black text-white'>
-      {/* Top Navigation */}
-      <div className='border-b border-gray-800 bg-gray-900'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4'>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center gap-4'>
-              <div className='flex items-center gap-2'>
-                <div className='p-2 bg-white rounded-lg'>
-                  <Activity className='h-6 w-6 text-black' />
-                </div>
-                <h1 className='text-xl font-bold'>ML Dashboard</h1>
+    <main className='min-h-screen bg-white text-black'>
+      {/* <div className='flex items-center gap-4'>
+              <div className='relative'>
+                <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400' />
+                <input
+                  type='text'
+                  placeholder='Search predictions...'
+                  className='pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent'
+                />
               </div>
-              <div className='hidden md:flex items-center gap-6 ml-8'>
-                <a
-                  href='#'
-                  className='text-sm font-medium text-white hover:text-gray-300'
-                >
-                  Overview
-                </a>
-                <a
-                  href='#'
-                  className='text-sm font-medium text-gray-400 hover:text-white'
-                >
-                  Analytics
-                </a>
-                <a
-                  href='#'
-                  className='text-sm font-medium text-gray-400 hover:text-white'
-                >
-                  Reports
-                </a>
-                <a
-                  href='#'
-                  className='text-sm font-medium text-gray-400 hover:text-white'
-                >
-                  Settings
-                </a>
-              </div>
-            </div>
-            <div className='flex items-center gap-4'>
               <Button
                 variant='ghost'
                 size='icon'
-                className='text-gray-400 hover:text-white'
+                className='text-gray-600 hover:text-black'
               >
-                <Filter className='h-4 w-4' />
+                <Bell className='h-5 w-5' />
               </Button>
               <Button
                 variant='ghost'
                 size='icon'
-                className='text-gray-400 hover:text-white'
+                className='text-gray-600 hover:text-black'
               >
-                <Download className='h-4 w-4' />
+                <Settings className='h-5 w-5' />
               </Button>
-              <Button className='bg-white text-black hover:bg-gray-200'>
-                <Sparkles className='h-4 w-4 mr-2' />
-                New Prediction
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+            </div> */}
 
       {/* Main Dashboard Content */}
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
-        {/* Welcome Section */}
-        <div className='mb-8'>
-          <h2 className='text-2xl font-bold'>
-            Welcome back, {session?.user?.name || 'User'}
-          </h2>
-          <p className='text-gray-400'>
-            Here's what's happening with your predictions today.
-          </p>
+        {/* Dashboard Header */}
+        <div className='flex items-center justify-between mb-8'>
+          <div>
+            <h2 className='text-2xl font-bold'>Dashboard Overview</h2>
+            <p className='text-gray-600'>
+              Real-time insights from your prediction models
+            </p>
+          </div>
+          <div className='flex items-center gap-3'>
+            <Button
+              variant='outline'
+              className='border-gray-300 hover:bg-gray-50'
+            >
+              <Filter className='h-4 w-4 mr-2' />
+              Filter
+            </Button>
+            <Button
+              variant='outline'
+              className='border-gray-300 hover:bg-gray-50'
+            >
+              <Download className='h-4 w-4 mr-2' />
+              Export
+            </Button>
+            <Button className='bg-black text-white hover:bg-gray-800'>
+              <Sparkles className='h-4 w-4 mr-2' />
+              New Prediction
+            </Button>
+          </div>
         </div>
 
         {/* Stats Grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
-          <Card className='bg-gray-900 border-gray-800'>
+          <Card className='border-gray-200 shadow-sm'>
             <CardContent className='pt-6'>
               <div className='flex items-center justify-between'>
                 <div>
-                  <p className='text-sm font-medium text-gray-400 mb-1'>
+                  <p className='text-sm font-medium text-gray-600 mb-1'>
                     Total Predictions
                   </p>
                   <h3 className='text-2xl font-bold'>
                     {stats.totalPredictions}
                   </h3>
                 </div>
-                <div className='p-3 bg-white/10 rounded-lg'>
-                  <Target className='h-6 w-6 text-white' />
+                <div className='p-3 bg-gray-100 rounded-lg'>
+                  <Target className='h-6 w-6 text-black' />
                 </div>
               </div>
               <div className='mt-4 flex items-center text-sm'>
-                <TrendingUp className='h-4 w-4 text-white mr-1' />
-                <span className='text-white'>+12% from last month</span>
+                <TrendingUp className='h-4 w-4 text-green-600 mr-1' />
+                <span className='text-green-600'>+12% from last month</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card className='bg-gray-900 border-gray-800'>
+          <Card className='border-gray-200 shadow-sm'>
             <CardContent className='pt-6'>
               <div className='flex items-center justify-between'>
                 <div>
-                  <p className='text-sm font-medium text-gray-400 mb-1'>
+                  <p className='text-sm font-medium text-gray-600 mb-1'>
                     Avg. Confidence
                   </p>
                   <h3 className='text-2xl font-bold'>
                     {stats.averageConfidence.toFixed(1)}%
                   </h3>
                 </div>
-                <div className='p-3 bg-white/10 rounded-lg'>
-                  <Shield className='h-6 w-6 text-white' />
+                <div className='p-3 bg-gray-100 rounded-lg'>
+                  <Shield className='h-6 w-6 text-black' />
                 </div>
               </div>
-              <Progress value={stats.averageConfidence} className='mt-4 h-2' />
+              <Progress
+                value={stats.averageConfidence}
+                className='mt-4 h-2 bg-gray-200'
+              />
             </CardContent>
           </Card>
 
-          <Card className='bg-gray-900 border-gray-800'>
+          <Card className='border-gray-200 shadow-sm'>
             <CardContent className='pt-6'>
               <div className='flex items-center justify-between'>
                 <div>
-                  <p className='text-sm font-medium text-gray-400 mb-1'>
+                  <p className='text-sm font-medium text-gray-600 mb-1'>
                     Recent Activity
                   </p>
                   <h3 className='text-2xl font-bold'>{stats.recentActivity}</h3>
                 </div>
-                <div className='p-3 bg-white/10 rounded-lg'>
-                  <Clock className='h-6 w-6 text-white' />
+                <div className='p-3 bg-gray-100 rounded-lg'>
+                  <Clock className='h-6 w-6 text-black' />
                 </div>
               </div>
-              <p className='text-sm text-gray-400 mt-4'>Last 7 days</p>
+              <p className='text-sm text-gray-500 mt-4'>Last 7 days</p>
             </CardContent>
           </Card>
 
-          <Card className='bg-gray-900 border-gray-800'>
+          <Card className='border-gray-200 shadow-sm'>
             <CardContent className='pt-6'>
               <div className='flex items-center justify-between'>
                 <div>
-                  <p className='text-sm font-medium text-gray-400 mb-1'>
+                  <p className='text-sm font-medium text-gray-600 mb-1'>
                     Model Accuracy
                   </p>
                   <h3 className='text-2xl font-bold'>{stats.modelAccuracy}%</h3>
                 </div>
-                <div className='p-3 bg-white/10 rounded-lg'>
-                  <Zap className='h-6 w-6 text-white' />
+                <div className='p-3 bg-gray-100 rounded-lg'>
+                  <Zap className='h-6 w-6 text-black' />
                 </div>
               </div>
               <div className='mt-4 flex items-center text-sm'>
-                <span className='text-gray-400'>Across all models</span>
+                <span className='text-gray-500'>Across all models</span>
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content Grid */}
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-          {/* Left Column - Titanic & Recent Activity */}
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8'>
+          {/* Left Column - Titanic & Movie */}
           <div className='lg:col-span-2 space-y-6'>
-            {/* Titanic Predictions */}
-            <Card className='bg-gray-900 border-gray-800'>
-              <CardHeader className='border-b border-gray-800'>
+            {/* Titanic Predictions Card */}
+            <Card className='border-gray-200 shadow-sm'>
+              <CardHeader className='border-b border-gray-200 pb-4'>
                 <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <Users className='h-5 w-5 text-white' />
-                    <CardTitle>Titanic Survival Analysis</CardTitle>
+                  <div className='flex items-center gap-3'>
+                    <div className='p-2 bg-black rounded-lg'>
+                      <Users className='h-5 w-5 text-white' />
+                    </div>
+                    <div>
+                      <CardTitle>Titanic Survival Predictions</CardTitle>
+                      <CardDescription className='text-gray-600'>
+                        Logistic Regression Model • {titanicData.length}{' '}
+                        predictions
+                      </CardDescription>
+                    </div>
                   </div>
                   <Button
                     variant='ghost'
                     size='sm'
-                    className='text-gray-400 hover:text-white'
+                    className='text-gray-600 hover:text-black'
                   >
                     View all <ChevronRight className='h-4 w-4 ml-1' />
                   </Button>
                 </div>
-                <CardDescription className='text-gray-400'>
-                  Logistic Regression predictions with confidence scores
-                </CardDescription>
               </CardHeader>
               <CardContent className='pt-6'>
-                <div className='space-y-4'>
-                  {titanicData.slice(0, 5).map((item) => (
-                    <div
-                      key={item.passenger_id}
-                      className='flex items-center justify-between p-3 bg-gray-800/50 rounded-lg'
-                    >
-                      <div className='flex items-center gap-3'>
-                        <div className='w-8 h-8 rounded-full bg-white/10 flex items-center justify-center'>
-                          <Users className='h-4 w-4' />
-                        </div>
-                        <div>
-                          <p className='font-medium text-sm'>
-                            {item.name.split(',')[0]}
-                          </p>
-                          <p className='text-xs text-gray-400'>
-                            Class {item.pclass} • {item.age} yrs
-                          </p>
-                        </div>
-                      </div>
-                      <div className='flex items-center gap-4'>
-                        <Badge
-                          className={
-                            item.Survived === 1
-                              ? 'bg-white text-black'
-                              : 'bg-gray-700 text-white'
-                          }
+                <div className='overflow-x-auto'>
+                  <Table>
+                    <TableHeader>
+                      <TableRow className='border-b border-gray-200'>
+                        <TableHead className='text-gray-700 font-semibold'>
+                          Passenger
+                        </TableHead>
+                        <TableHead className='text-gray-700 font-semibold'>
+                          Class
+                        </TableHead>
+                        <TableHead className='text-gray-700 font-semibold'>
+                          Age
+                        </TableHead>
+                        <TableHead className='text-gray-700 font-semibold'>
+                          Status
+                        </TableHead>
+                        <TableHead className='text-right text-gray-700 font-semibold'>
+                          Confidence
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {titanicData.slice(0, 5).map((item) => (
+                        <TableRow
+                          key={item.passenger_id}
+                          className='border-b border-gray-100 hover:bg-gray-50'
                         >
-                          {item.Survived === 1 ? 'Survived' : 'Perished'}
-                        </Badge>
-                        <div className='text-right'>
-                          <p className='font-bold'>
-                            {(item.probability * 100).toFixed(1)}%
-                          </p>
-                          <p className='text-xs text-gray-400'>confidence</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                          <TableCell className='font-medium'>
+                            <div>
+                              <p className='text-sm'>
+                                {item.name.split(',')[0]}
+                              </p>
+                              <p className='text-xs text-gray-500'>
+                                ${item.fare.toFixed(2)}
+                              </p>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant='outline'
+                              className='border-gray-300'
+                            >
+                              Class {item.pclass}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>{item.age} yrs</TableCell>
+                          <TableCell>
+                            <Badge
+                              className={
+                                item.Survived === 1
+                                  ? 'bg-green-100 text-green-800'
+                                  : 'bg-red-100 text-red-800'
+                              }
+                            >
+                              {item.Survived === 1 ? 'Survived' : 'Perished'}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className='text-right'>
+                            <div className='inline-flex items-center justify-end'>
+                              <span className='font-bold'>
+                                {(item.probability * 100).toFixed(1)}%
+                              </span>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </div>
                 {titanicData.length === 0 && (
-                  <div className='text-center py-8'>
-                    <Users className='h-12 w-12 text-gray-700 mx-auto mb-4' />
-                    <p className='text-gray-400'>No Titanic predictions yet</p>
+                  <div className='text-center py-12 border border-gray-200 rounded-lg'>
+                    <Users className='h-12 w-12 text-gray-300 mx-auto mb-4' />
+                    <p className='text-gray-600'>No Titanic predictions yet</p>
+                    <Button variant='outline' className='mt-4 border-gray-300'>
+                      Make First Prediction
+                    </Button>
                   </div>
                 )}
               </CardContent>
             </Card>
 
-            {/* Movie Ratings */}
-            <Card className='bg-gray-900 border-gray-800'>
-              <CardHeader className='border-b border-gray-800'>
+            {/* Movie Rating Predictions Card */}
+            <Card className='border-gray-200 shadow-sm'>
+              <CardHeader className='border-b border-gray-200 pb-4'>
                 <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <Film className='h-5 w-5 text-white' />
-                    <CardTitle>Movie Rating Forecast</CardTitle>
+                  <div className='flex items-center gap-3'>
+                    <div className='p-2 bg-black rounded-lg'>
+                      <Film className='h-5 w-5 text-white' />
+                    </div>
+                    <div>
+                      <CardTitle>Movie Rating Predictions</CardTitle>
+                      <CardDescription className='text-gray-600'>
+                        Linear Regression Model • {movieData.length} predictions
+                      </CardDescription>
+                    </div>
                   </div>
                   <Button
                     variant='ghost'
                     size='sm'
-                    className='text-gray-400 hover:text-white'
+                    className='text-gray-600 hover:text-black'
                   >
                     View all <ChevronRight className='h-4 w-4 ml-1' />
                   </Button>
                 </div>
-                <CardDescription className='text-gray-400'>
-                  Linear Regression predictions for movie ratings
-                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow className='border-gray-800'>
-                      <TableHead className='text-gray-400'>Movie</TableHead>
-                      <TableHead className='text-gray-400'>Year</TableHead>
-                      <TableHead className='text-gray-400'>Genre</TableHead>
-                      <TableHead className='text-right text-gray-400'>
-                        Predicted
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {movieData.slice(0, 5).map((item, index) => (
-                      <TableRow
-                        key={index}
-                        className='border-gray-800 hover:bg-gray-800/50'
-                      >
-                        <TableCell>
-                          <div>
-                            <p className='font-medium'>{item.name}</p>
-                            <p className='text-xs text-gray-400'>
-                              #{item.rank}
-                            </p>
-                          </div>
-                        </TableCell>
-                        <TableCell>{item.year}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant='outline'
-                            className='border-gray-700 text-gray-300'
-                          >
-                            {item.genre.split(',')[0]}
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  {movieData.slice(0, 4).map((item, index) => (
+                    <div
+                      key={index}
+                      className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50'
+                    >
+                      <div className='flex justify-between items-start mb-3'>
+                        <div>
+                          <Badge className='bg-gray-100 text-gray-800 mb-2'>
+                            #{item.rank}
                           </Badge>
-                        </TableCell>
-                        <TableCell className='text-right'>
-                          <div className='inline-flex items-center'>
-                            <span className='text-lg font-bold'>
-                              {item.predicted_rating.toFixed(1)}
-                            </span>
-                            <span className='text-xs text-gray-400 ml-1'>
-                              /10
-                            </span>
+                          <h4 className='font-semibold text-sm line-clamp-1'>
+                            {item.name}
+                          </h4>
+                          <p className='text-xs text-gray-500'>{item.year}</p>
+                        </div>
+                        <div className='text-right'>
+                          <div className='text-lg font-bold'>
+                            {item.predicted_rating.toFixed(1)}
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                          <div className='text-xs text-gray-500'>
+                            /10 rating
+                          </div>
+                        </div>
+                      </div>
+                      <div className='flex items-center justify-between text-xs'>
+                        <span className='text-gray-600 truncate'>
+                          {item.genre.split(',')[0]}
+                        </span>
+                        <span className='text-gray-500'>
+                          {new Date(item.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
                 {movieData.length === 0 && (
-                  <div className='text-center py-8'>
-                    <Film className='h-12 w-12 text-gray-700 mx-auto mb-4' />
-                    <p className='text-gray-400'>No movie predictions yet</p>
+                  <div className='text-center py-12 border border-gray-200 rounded-lg'>
+                    <Film className='h-12 w-12 text-gray-300 mx-auto mb-4' />
+                    <p className='text-gray-600'>No movie predictions yet</p>
                   </div>
                 )}
               </CardContent>
@@ -521,72 +541,74 @@ export default function DashboardHome() {
 
           {/* Right Column - Car Prices & Quick Stats */}
           <div className='space-y-6'>
-            {/* Car Price Predictions */}
-            <Card className='bg-gray-900 border-gray-800'>
-              <CardHeader className='border-b border-gray-800'>
+            {/* Car Price Predictions Card */}
+            <Card className='border-gray-200 shadow-sm'>
+              <CardHeader className='border-b border-gray-200 pb-4'>
                 <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <Car className='h-5 w-5 text-white' />
-                    <CardTitle>Vehicle Pricing</CardTitle>
+                  <div className='flex items-center gap-3'>
+                    <div className='p-2 bg-black rounded-lg'>
+                      <Car className='h-5 w-5 text-white' />
+                    </div>
+                    <div>
+                      <CardTitle>Car Price Predictions</CardTitle>
+                      <CardDescription className='text-gray-600'>
+                        {carData.length} vehicles analyzed
+                      </CardDescription>
+                    </div>
                   </div>
                   <Button
                     variant='ghost'
                     size='icon'
-                    className='text-gray-400 hover:text-white'
+                    className='text-gray-600 hover:text-black'
                   >
-                    <MoreVertical className='h-4 w-4' />
+                    <MoreVertical className='h-5 w-5' />
                   </Button>
                 </div>
-                <CardDescription className='text-gray-400'>
-                  Current market price predictions
-                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className='space-y-4'>
-                  {carData.slice(0, 4).map((item) => (
+                  {carData.slice(0, 3).map((item) => (
                     <div
                       key={item.ID}
-                      className='p-3 bg-gray-800/30 rounded-lg'
+                      className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50'
                     >
-                      <div className='flex justify-between items-start mb-2'>
+                      <div className='flex justify-between items-start mb-3'>
                         <div>
-                          <p className='font-medium'>
+                          <h4 className='font-semibold text-sm'>
                             {item.Manufacturer} {item.Model}
-                          </p>
-                          <p className='text-xs text-gray-400'>
+                          </h4>
+                          <p className='text-xs text-gray-500'>
                             {item['Prod. year']} • {item.Category}
                           </p>
                         </div>
-                        <Badge className='bg-white/10 text-white border-0'>
+                        <Badge className='bg-gray-100 text-gray-800'>
                           {item['Fuel type']}
                         </Badge>
                       </div>
-                      <div className='flex justify-between items-center'>
-                        <div>
-                          <p className='text-xs text-gray-400'>Mileage</p>
-                          <p className='text-sm'>{item.Mileage}</p>
+                      <div className='space-y-2'>
+                        <div className='flex justify-between text-sm'>
+                          <span className='text-gray-600'>Mileage</span>
+                          <span className='font-medium'>{item.Mileage}</span>
                         </div>
-                        <div className='text-right'>
-                          <p className='text-xs text-gray-400'>
-                            Predicted Price
-                          </p>
-                          <p className='text-lg font-bold'>
+                        <div className='flex justify-between text-sm'>
+                          <span className='text-gray-600'>Predicted Price</span>
+                          <span className='font-bold text-lg'>
                             $
                             {(
                               item.prediction ||
-                              item.Price ||
+                              item.predicted_price ||
                               0
                             ).toLocaleString()}
-                          </p>
+                          </span>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
                 {carData.length === 0 && (
-                  <div className='text-center py-8'>
-                    <Car className='h-12 w-12 text-gray-700 mx-auto mb-4' />
-                    <p className='text-gray-400'>
+                  <div className='text-center py-12 border border-gray-200 rounded-lg'>
+                    <Car className='h-12 w-12 text-gray-300 mx-auto mb-4' />
+                    <p className='text-gray-600'>
                       No car price predictions yet
                     </p>
                   </div>
@@ -594,71 +616,137 @@ export default function DashboardHome() {
               </CardContent>
             </Card>
 
-            {/* Model Performance */}
-            <Card className='bg-gray-900 border-gray-800'>
-              <CardHeader className='border-b border-gray-800'>
-                <CardTitle className='flex items-center gap-2'>
-                  <BarChart3 className='h-5 w-5' />
-                  Model Performance
-                </CardTitle>
-                <CardDescription className='text-gray-400'>
+            {/* Model Performance Card */}
+            <Card className='border-gray-200 shadow-sm'>
+              <CardHeader className='border-b border-gray-200 pb-4'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-3'>
+                    <BarChart3 className='h-5 w-5 text-black' />
+                    <CardTitle>Model Performance</CardTitle>
+                  </div>
+                </div>
+                <CardDescription className='text-gray-600'>
                   Accuracy across prediction types
                 </CardDescription>
               </CardHeader>
               <CardContent className='pt-6'>
-                <div className='space-y-4'>
+                <div className='space-y-6'>
                   <div>
-                    <div className='flex justify-between text-sm mb-1'>
-                      <span className='text-gray-300'>Titanic Survival</span>
-                      <span className='font-medium'>94.2%</span>
+                    <div className='flex justify-between text-sm mb-2'>
+                      <span className='text-gray-700'>Titanic Survival</span>
+                      <span className='font-bold'>
+                        {(
+                          (titanicData.reduce(
+                            (sum, item) => sum + item.probability,
+                            0
+                          ) /
+                            titanicData.length) *
+                          100
+                        ).toFixed(1)}
+                        %
+                      </span>
                     </div>
-                    <Progress value={94.2} className='h-2' />
+                    <Progress
+                      value={
+                        (titanicData.reduce(
+                          (sum, item) => sum + item.probability,
+                          0
+                        ) /
+                          titanicData.length) *
+                        100
+                      }
+                      className='h-2 bg-gray-200'
+                    />
                   </div>
                   <div>
-                    <div className='flex justify-between text-sm mb-1'>
-                      <span className='text-gray-300'>Movie Ratings</span>
-                      <span className='font-medium'>88.5%</span>
+                    <div className='flex justify-between text-sm mb-2'>
+                      <span className='text-gray-700'>Movie Ratings</span>
+                      <span className='font-bold'>
+                        {(
+                          movieData.reduce(
+                            (sum, item) => sum + item.predicted_rating,
+                            0
+                          ) / movieData.length
+                        ).toFixed(1)}
+                      </span>
                     </div>
-                    <Progress value={88.5} className='h-2' />
+                    <Progress
+                      value={
+                        movieData.reduce(
+                          (sum, item) => sum + item.predicted_rating,
+                          0
+                        ) / movieData.length
+                      }
+                      className='h-2 bg-gray-200'
+                    />
                   </div>
                   <div>
-                    <div className='flex justify-between text-sm mb-1'>
-                      <span className='text-gray-300'>Car Prices</span>
-                      <span className='font-medium'>91.7%</span>
+                    <div className='flex justify-between text-sm mb-2'>
+                      <span className='text-gray-700'>Car Prices</span>
+                      <span className='font-bold'>
+                        $
+                        {(
+                          carData.reduce(
+                            (sum, item) => sum + item.predicted_price,
+                            0
+                          ) / carData.length
+                        ).toFixed(2)}
+                      </span>
                     </div>
-                    <Progress value={91.7} className='h-2' />
+                    <Progress
+                      value={
+                        carData.reduce(
+                          (sum, item) => sum + item.predicted_price,
+                          0
+                        ) / carData.length
+                      }
+                      className='h-2 bg-gray-200'
+                    />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Quick Actions */}
-            <Card className='bg-gray-900 border-gray-800'>
-              <CardHeader>
+            {/* Quick Actions Card */}
+            <Card className='border-gray-200 shadow-sm'>
+              <CardHeader className='border-b border-gray-200 pb-4'>
                 <CardTitle>Quick Actions</CardTitle>
-                <CardDescription className='text-gray-400'>
+                <CardDescription className='text-gray-600'>
                   Common tasks and predictions
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className='space-y-3'>
-                  <Button className='w-full justify-start bg-white text-black hover:bg-gray-200'>
-                    <Users className='h-4 w-4 mr-2' />
-                    New Survival Prediction
-                  </Button>
+              <CardContent className='pt-6'>
+                <div className='flex flex-col gap-3'>
+                  <Link href={'/dashboard/logistic-regression'}>
+                    <Button className='w-full justify-start bg-black text-white hover:bg-gray-800'>
+                      <Users className='h-4 w-4 mr-3' />
+                      New Survival Prediction
+                    </Button>
+                  </Link>
+                  <Link href={'/dashboard/linear-regression'}>
+                    <Button
+                      variant='outline'
+                      className='w-full justify-start border-gray-300 hover:bg-gray-50'
+                    >
+                      <Film className='h-4 w-4 mr-3' />
+                      Predict Movie Rating
+                    </Button>
+                  </Link>
+                  <Link href={'/dashboard/svr-car-price'}>
+                    <Button
+                      variant='outline'
+                      className='w-full justify-start border-gray-300 hover:bg-gray-50'
+                    >
+                      <Car className='h-4 w-4 mr-3' />
+                      Estimate Car Price
+                    </Button>
+                  </Link>
                   <Button
                     variant='outline'
-                    className='w-full justify-start border-gray-700 text-white hover:bg-gray-800'
+                    className='w-full justify-start border-gray-300 hover:bg-gray-50'
                   >
-                    <Film className='h-4 w-4 mr-2' />
-                    Predict Movie Rating
-                  </Button>
-                  <Button
-                    variant='outline'
-                    className='w-full justify-start border-gray-700 text-white hover:bg-gray-800'
-                  >
-                    <Car className='h-4 w-4 mr-2' />
-                    Estimate Car Price
+                    <Download className='h-4 w-4 mr-3' />
+                    Export All Data
                   </Button>
                 </div>
               </CardContent>
@@ -666,24 +754,109 @@ export default function DashboardHome() {
           </div>
         </div>
 
+        {/* Recent Activity Section */}
+        {(titanicData.length > 0 ||
+          movieData.length > 0 ||
+          carData.length > 0) && (
+          <Card className='border-gray-200 shadow-sm'>
+            <CardHeader className='border-b border-gray-200 pb-4'>
+              <CardTitle>Recent Activity</CardTitle>
+              <CardDescription className='text-gray-600'>
+                Latest predictions across all models
+              </CardDescription>
+            </CardHeader>
+            <CardContent className='pt-6'>
+              <div className='space-y-4'>
+                {[...titanicData, ...movieData, ...carData]
+                  .sort(
+                    (a, b) =>
+                      new Date(b.created_at).getTime() -
+                      new Date(a.created_at).getTime()
+                  )
+                  .slice(0, 5)
+                  .map((item, index) => (
+                    <div
+                      key={index}
+                      className='flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50'
+                    >
+                      <div className='flex items-center gap-3'>
+                        <div
+                          className={`p-2 rounded-lg ${
+                            'passenger_id' in item
+                              ? 'bg-blue-100'
+                              : 'rank' in item
+                              ? 'bg-purple-100'
+                              : 'bg-green-100'
+                          }`}
+                        >
+                          {'passenger_id' in item ? (
+                            <Users className='h-4 w-4 text-blue-800' />
+                          ) : 'rank' in item ? (
+                            <Film className='h-4 w-4 text-purple-800' />
+                          ) : (
+                            <Car className='h-4 w-4 text-green-800' />
+                          )}
+                        </div>
+                        <div>
+                          <p className='font-medium text-sm'>
+                            {'passenger_id' in item
+                              ? 'Titanic Survival'
+                              : 'rank' in item
+                              ? 'Movie Rating'
+                              : 'Car Price'}
+                          </p>
+                          <p className='text-xs text-gray-500'>
+                            {'passenger_id' in item
+                              ? item.name.split(',')[0]
+                              : 'rank' in item
+                              ? item.name
+                              : `${item.Manufacturer} ${item.Model}`}
+                          </p>
+                        </div>
+                      </div>
+                      <div className='text-right'>
+                        <p className='text-sm font-medium'>
+                          {'passenger_id' in item
+                            ? item.Survived === 1
+                              ? 'Survived'
+                              : 'Perished'
+                            : 'rank' in item
+                            ? `${item.predicted_rating.toFixed(1)}/10`
+                            : `$${(
+                                item.prediction ||
+                                item.predicted_price ||
+                                0
+                              ).toLocaleString()}`}
+                        </p>
+                        <p className='text-xs text-gray-500'>
+                          {new Date(item.created_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Empty State */}
         {titanicData.length === 0 &&
           movieData.length === 0 &&
           carData.length === 0 && (
-            <Card className='border-gray-800 bg-gray-900'>
+            <Card className='border-gray-200 shadow-sm'>
               <CardContent className='py-16'>
                 <div className='text-center max-w-md mx-auto'>
-                  <div className='p-4 bg-white/10 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center'>
+                  <div className='p-4 bg-black rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center'>
                     <Activity className='h-8 w-8 text-white' />
                   </div>
                   <h3 className='text-xl font-semibold mb-2'>
                     No Predictions Yet
                   </h3>
-                  <p className='text-gray-400 mb-6'>
+                  <p className='text-gray-600 mb-6'>
                     Start making predictions to see your dashboard come to life
                     with insights and analytics.
                   </p>
-                  <Button className='bg-white text-black hover:bg-gray-200'>
+                  <Button className='bg-black text-white hover:bg-gray-800'>
                     <Zap className='h-4 w-4 mr-2' />
                     Make Your First Prediction
                   </Button>
