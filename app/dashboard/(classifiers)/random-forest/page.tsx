@@ -242,7 +242,7 @@ export default function TitanicRandomForestPage() {
     <Layout>
       <main className='min-h-screen bg-gradient-to-b from-background to-secondary/5'>
         {/* Header */}
-        <div className='border-b border-border bg-gradient-to-r from-primary/5 to-primary/10'>
+        <div className='border-b border-border '>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
             <div className='flex flex-col md:flex-row md:items-center gap-6'>
               <div className='p-4 bg-gradient-to-br from-primary to-primary/80 rounded-xl shadow-lg'>
@@ -272,8 +272,8 @@ export default function TitanicRandomForestPage() {
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
             {/* Form Section */}
             <div className='lg:col-span-2'>
-              <Card className='border border-border shadow-xl overflow-hidden'>
-                <div className='bg-gradient-to-r from-primary/5 to-secondary/10 border-b border-border p-4'>
+              <Card className='border border-border  overflow-hidden'>
+                <div className=' border-b border-border p-4'>
                   <div className='flex items-center gap-3'>
                     <div className='p-2 bg-primary/10 rounded-lg'>
                       <Target className='h-6 w-6 text-primary' />
@@ -595,69 +595,13 @@ export default function TitanicRandomForestPage() {
                   </form>
                 </CardContent>
               </Card>
-
-              {/* Random Forest Information */}
-              <Card className='mt-6 border border-border shadow-lg'>
-                <CardHeader className='bg-gradient-to-r from-primary/5 to-secondary/10 border-b border-border'>
-                  <CardTitle className='flex items-center gap-3'>
-                    <Trees className='h-6 w-6 text-primary' />
-                    <div>
-                      <h3 className='text-lg'>About Random Forest Algorithm</h3>
-                      <p className='text-sm text-muted-foreground font-normal'>
-                        Ensemble learning method for improved accuracy
-                      </p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className='pt-6'>
-                  <div className='space-y-4'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                      <div className='space-y-2'>
-                        <div className='flex items-center gap-2'>
-                          <Leaf className='h-4 w-4 text-primary' />
-                          <span className='font-medium'>
-                            Multiple Decision Trees
-                          </span>
-                        </div>
-                        <p className='text-sm text-muted-foreground'>
-                          Combines predictions from hundreds of decision trees
-                        </p>
-                      </div>
-                      <div className='space-y-2'>
-                        <div className='flex items-center gap-2'>
-                          <Shield className='h-4 w-4 text-primary' />
-                          <span className='font-medium'>
-                            Reduced Overfitting
-                          </span>
-                        </div>
-                        <p className='text-sm text-muted-foreground'>
-                          More robust and less prone to overfitting than single
-                          trees
-                        </p>
-                      </div>
-                    </div>
-                    <div className='bg-secondary/20 rounded-lg p-4'>
-                      <h4 className='font-medium mb-2'>How it works:</h4>
-                      <ul className='list-disc pl-5 space-y-1 text-sm text-muted-foreground'>
-                        <li>
-                          Creates multiple decision trees with random subsets of
-                          data
-                        </li>
-                        <li>Each tree makes an independent prediction</li>
-                        <li>Final prediction is based on majority vote</li>
-                        <li>Confidence score reflects agreement among trees</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Result Section */}
             <div className='lg:col-span-1 space-y-6'>
               {/* Error Card */}
               {error && (
-                <Card className='border border-destructive shadow-lg'>
+                <Card className='border border-destructive '>
                   <CardHeader className='bg-gradient-to-r from-destructive/10 to-destructive/5 border-b border-destructive/20'>
                     <CardTitle className='flex items-center gap-2 text-destructive'>
                       <AlertCircle className='h-5 w-5' />
@@ -682,8 +626,8 @@ export default function TitanicRandomForestPage() {
 
               {/* Result Card */}
               {prediction !== null && confidence !== null && formData && (
-                <Card className='border border-border shadow-xl sticky top-8 overflow-hidden'>
-                  <div className='bg-gradient-to-r from-primary/10 to-secondary/10 border-b border-border p-6'>
+                <Card className='border border-border  sticky top-8 overflow-hidden'>
+                  <div className=' border-b border-border p-6'>
                     <div className='flex items-center justify-between'>
                       <div className='flex items-center gap-3'>
                         <div className='p-2 bg-primary/20 rounded-lg'>
@@ -917,8 +861,8 @@ export default function TitanicRandomForestPage() {
 
               {/* Initial State Card */}
               {prediction === null && !error && (
-                <Card className='border border-border shadow-lg sticky top-8 overflow-hidden'>
-                  <div className='bg-gradient-to-r from-primary/5 to-secondary/10 border-b border-border p-6'>
+                <Card className='border border-border  sticky top-8 overflow-hidden'>
+                  <div className=' border-b border-border p-6'>
                     <div className='flex items-center gap-3'>
                       <div className='p-2 bg-primary/20 rounded-lg'>
                         <Trees className='h-6 w-6 text-primary' />
@@ -935,11 +879,6 @@ export default function TitanicRandomForestPage() {
                   </div>
                   <CardContent className='pt-6'>
                     <div className='flex flex-col items-center text-center space-y-6'>
-                      <div className='relative'>
-                        <div className='p-5 bg-gradient-to-br from-primary/10 to-primary/20 rounded-2xl'>
-                          <Trees className='h-16 w-16 text-primary' />
-                        </div>
-                      </div>
                       <div>
                         <h3 className='font-bold text-foreground text-lg mb-3'>
                           Ready for Ensemble Prediction
