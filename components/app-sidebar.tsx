@@ -22,6 +22,7 @@ import {
   HardDrive,
   GitBranch,
   Layers,
+  Upload,
 } from 'lucide-react';
 
 import {
@@ -110,6 +111,11 @@ const navConfig = [
     title: 'Info',
     url: '/dashboard/compare',
     icon: Settings,
+  },
+  {
+    title: 'CSV-Upload',
+    url: '/dashboard/csv-upload',
+    icon: Upload,
   },
 ];
 const car_price = [
