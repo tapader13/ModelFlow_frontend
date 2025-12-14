@@ -251,7 +251,7 @@ export default function DashboardHome() {
             accuracy: avgTitanicAccuracy,
             topPrediction: `${(bestTitanic.probability * 100).toFixed(
               1
-            )}% confidence for ${bestTitanic.name.split(',')[0]}`,
+            )}% confidence for ${bestTitanic?.name?.split(',')[0]}`,
             trend:
               avgTitanicAccuracy > 85
                 ? 'up'
@@ -535,7 +535,7 @@ export default function DashboardHome() {
                         </Badge>
                       </TableCell>
                       <TableCell className='max-w-[200px] truncate'>
-                        {titanicData[0]?.name.split(',')[0]}
+                        {titanicData[0]?.name?.split(',')[0]}
                       </TableCell>
                       <TableCell>
                         <div className='font-bold text-blue-600'>
@@ -800,7 +800,7 @@ export default function DashboardHome() {
                           <TableCell className='font-medium'>
                             <div>
                               <p className='text-sm'>
-                                {item.name.split(',')[0]}
+                                {item?.name?.split(',')[0]}
                               </p>
                               <p className='text-xs text-gray-500'>
                                 ${item.fare.toFixed(2)}
@@ -903,7 +903,7 @@ export default function DashboardHome() {
                       </div>
                       <div className='flex items-center justify-between text-xs'>
                         <span className='text-gray-600 truncate'>
-                          {item.genre.split(',')[0]}
+                          {item?.genre?.split(',')[0]}
                         </span>
                         <span className='text-gray-500'>
                           {new Date(item.created_at).toLocaleDateString()}
@@ -1189,7 +1189,7 @@ export default function DashboardHome() {
                           </p>
                           <p className='text-xs text-gray-500'>
                             {'passenger_id' in item
-                              ? item.name.split(',')[0]
+                              ? item?.name?.split(',')[0]
                               : 'rank' in item
                               ? item.name
                               : `${item.Manufacturer} ${item.Model}`}
