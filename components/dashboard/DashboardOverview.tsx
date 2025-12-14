@@ -226,7 +226,7 @@ export default function DashboardHome() {
         const totalModelAcc = (
           (titanicPercent + moviePercent + carPercent) /
           3
-        ).toFixed(2);
+        )?.toFixed(2);
 
         setStats({
           totalPredictions: totalPreds,
@@ -249,7 +249,7 @@ export default function DashboardHome() {
             dataset: 'Titanic Survival',
             bestModel: 'Logistic Regression',
             accuracy: avgTitanicAccuracy,
-            topPrediction: `${(bestTitanic.probability * 100).toFixed(
+            topPrediction: `${(bestTitanic.probability * 100)?.toFixed(
               1
             )}% confidence for ${bestTitanic?.name?.split(',')[0]}`,
             trend:
@@ -271,9 +271,9 @@ export default function DashboardHome() {
             dataset: 'Movie Ratings',
             bestModel: 'Linear Regression',
             accuracy: (avgMovieRating / 10) * 100,
-            topPrediction: `${bestMovie.predicted_rating.toFixed(1)}/10 for "${
-              bestMovie.name
-            }"`,
+            topPrediction: `${bestMovie?.predicted_rating?.toFixed(
+              1
+            )}/10 for "${bestMovie.name}"`,
             trend:
               avgMovieRating > 7.5
                 ? 'up'
@@ -570,7 +570,7 @@ export default function DashboardHome() {
                       </TableCell>
                       <TableCell>
                         <div className='font-bold text-purple-600'>
-                          {movieData[0]?.predicted_rating.toFixed(1)}/10
+                          {movieData[0]?.predicted_rating?.toFixed(1)}/10
                         </div>
                       </TableCell>
                       <TableCell>
@@ -803,7 +803,7 @@ export default function DashboardHome() {
                                 {item?.name?.split(',')[0]}
                               </p>
                               <p className='text-xs text-gray-500'>
-                                ${item.fare.toFixed(2)}
+                                ${item?.fare?.toFixed(2)}
                               </p>
                             </div>
                           </TableCell>
@@ -830,7 +830,7 @@ export default function DashboardHome() {
                           <TableCell className='text-right'>
                             <div className='inline-flex items-center justify-end'>
                               <span className='font-bold'>
-                                {(item.probability * 100).toFixed(1)}%
+                                {(item.probability * 100)?.toFixed(1)}%
                               </span>
                             </div>
                           </TableCell>
@@ -894,7 +894,7 @@ export default function DashboardHome() {
                         </div>
                         <div className='text-right'>
                           <div className='text-lg font-bold'>
-                            {item.predicted_rating.toFixed(1)}
+                            {item?.predicted_rating?.toFixed(1)}
                           </div>
                           <div className='text-xs text-gray-500'>
                             /10 rating
@@ -1203,7 +1203,7 @@ export default function DashboardHome() {
                               ? 'Survived'
                               : 'Perished'
                             : 'rank' in item
-                            ? `${item.predicted_rating.toFixed(1)}/10`
+                            ? `${item?.predicted_rating?.toFixed(1)}/10`
                             : `$${(
                                 item.prediction ||
                                 item.predicted_price ||
