@@ -86,7 +86,7 @@ export default function MovieDecisionPage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/movie-rating/decission-predict',
+        'https://fast-api-model-backend.onrender.com/movie-rating/decission-predict',
         {
           method: 'POST',
           headers: {

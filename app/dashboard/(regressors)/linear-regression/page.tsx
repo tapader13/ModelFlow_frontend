@@ -86,7 +86,7 @@ export default function MovieLinearPage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/movie-rating/linear-predict',
+        'https://fast-api-model-backend.onrender.com/movie-rating/linear-predict',
         {
           method: 'POST',
           headers: {

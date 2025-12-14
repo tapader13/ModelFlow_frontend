@@ -64,7 +64,7 @@ export default function AllPredictionsPage() {
       try {
         setLoading(true);
         const response = await fetch(
-          'http://127.0.0.1:8000/common/all-predictions',
+          'https://fast-api-model-backend.onrender.com/common/all-predictions',
           {
             headers: { Authorization: `Bearer ${token}` },
           }

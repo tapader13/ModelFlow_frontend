@@ -86,7 +86,7 @@ export default function MovieSVRPage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/movie-rating/svr-predict-rating',
+        'https://fast-api-model-backend.onrender.com/movie-rating/svr-predict-rating',
         {
           method: 'POST',
           headers: {

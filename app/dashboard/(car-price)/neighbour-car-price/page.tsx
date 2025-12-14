@@ -96,7 +96,7 @@ export default function CarPriceKNNPage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/car-price/knn-predict',
+        'https://fast-api-model-backend.onrender.com/car-price/knn-predict',
         {
           method: 'POST',
           headers: {

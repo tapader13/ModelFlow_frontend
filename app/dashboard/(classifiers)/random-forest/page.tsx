@@ -127,7 +127,7 @@ export default function TitanicRandomForestPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'http://127.0.0.1:8000/titanic/random-forest-predict',
+        'https://fast-api-model-backend.onrender.com/titanic/random-forest-predict',
         {
           method: 'POST',
           headers: {

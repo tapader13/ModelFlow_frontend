@@ -130,15 +130,24 @@ export default function DashboardHome() {
       try {
         setLoading(true);
         const [titanicRes, movieRes, carRes] = await Promise.all([
-          fetch('http://127.0.0.1:8000/titanic/logistic-single-user', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          fetch('http://127.0.0.1:8000/movie-rating/linear-single-user', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          fetch('http://127.0.0.1:8000/car-price/car-price-single-user', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
+          fetch(
+            'https://fast-api-model-backend.onrender.com/titanic/logistic-single-user',
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
+          fetch(
+            'https://fast-api-model-backend.onrender.com/movie-rating/linear-single-user',
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
+          fetch(
+            'https://fast-api-model-backend.onrender.com/car-price/car-price-single-user',
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
         ]);
 
         if (!titanicRes.ok || !movieRes.ok || !carRes.ok) {

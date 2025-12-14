@@ -460,7 +460,7 @@ export default function CSVUploadPage() {
       formData.append('dataset', modelConfig.dataset);
 
       const response = await fetch(
-        'http://127.0.0.1:8000/common/csv-batch-upload',
+        'https://fast-api-model-backend.onrender.com/common/csv-batch-upload',
         {
           method: 'POST',
           headers: {

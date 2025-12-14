@@ -96,7 +96,7 @@ export default function SVRCarPricePage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/car-price/svr-predict',
+        'https://fast-api-model-backend.onrender.com/car-price/svr-predict',
         {
           method: 'POST',
           headers: {

@@ -96,7 +96,7 @@ export default function LinearCarPricePage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/car-price/linear-predict',
+        'https://fast-api-model-backend.onrender.com/car-price/linear-predict',
         {
           method: 'POST',
           headers: {

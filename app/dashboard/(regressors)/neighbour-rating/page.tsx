@@ -87,7 +87,7 @@ export default function MovieKNNPage() {
       }
 
       const response = await fetch(
-        'http://127.0.0.1:8000/movie-rating/neighbour-predict-rating',
+        'https://fast-api-model-backend.onrender.com/movie-rating/neighbour-predict-rating',
         {
           method: 'POST',
           headers: {

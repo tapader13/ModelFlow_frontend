@@ -120,7 +120,7 @@ export default function TitanicKnnPredictionPage() {
       };
 
       const response = await fetch(
-        'http://127.0.0.1:8000/titanic/neighbour-predict',
+        'https://fast-api-model-backend.onrender.com/titanic/neighbour-predict',
         {
           method: 'POST',
           headers: {
