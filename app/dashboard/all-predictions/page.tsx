@@ -144,16 +144,16 @@ export default function AllPredictionsPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className='min-h-screen bg-background flex items-center justify-center'>
-        <div className='text-center'>
-          <div className='animate-spin rounded-full h-12 w-12 border-2 border-primary border-t-transparent mx-auto mb-4'></div>
-          <p className='text-muted-foreground'>Loading predictions...</p>
-        </div>
-      </div>
-    );
-  }
+  //   if (loading) {
+  //     return (
+  //       <div className='min-h-screen bg-background flex items-center justify-center'>
+  //         <div className='text-center'>
+  //           <div className='animate-spin rounded-full h-12 w-12 border-2 border-primary border-t-transparent mx-auto mb-4'></div>
+  //           <p className='text-muted-foreground'>Loading predictions...</p>
+  //         </div>
+  //       </div>
+  //     );
+  //   }
 
   if (error) {
     return (
@@ -178,140 +178,152 @@ export default function AllPredictionsPage() {
 
   return (
     <Layout>
-      <main className='min-h-screen bg-background'>
-        {/* Header */}
-        <div className='border-b border-border bg-card'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
-            <div className='flex items-center justify-between'>
-              <div>
-                <div className='flex items-center gap-3 mb-2'>
-                  <TrendingUp className='h-8 w-8 text-primary' />
-                  <h1 className='text-3xl font-bold text-foreground'>
-                    All Predictions History
-                  </h1>
+      {loading ? (
+        <div className='min-h-screen bg-background flex items-center justify-center'>
+          <div className='text-center'>
+            <div className='animate-spin rounded-full h-12 w-12 border-2 border-primary border-t-transparent mx-auto mb-4'></div>
+            <p className='text-muted-foreground'>Loading predictions...</p>
+          </div>
+        </div>
+      ) : (
+        <main className='min-h-screen bg-background'>
+          {/* Header */}
+          <div className='border-b border-border bg-card'>
+            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+              <div className='flex items-center justify-between'>
+                <div>
+                  <div className='flex items-center gap-3 mb-2'>
+                    <TrendingUp className='h-8 w-8 text-primary' />
+                    <h1 className='text-3xl font-bold text-foreground'>
+                      All Predictions History
+                    </h1>
+                  </div>
+                  <p className='text-muted-foreground'>
+                    Complete history of predictions across all datasets and
+                    models
+                  </p>
                 </div>
-                <p className='text-muted-foreground'>
-                  Complete history of predictions across all datasets and models
-                </p>
-              </div>
-              <div className='text-right'>
-                <p className='text-sm text-muted-foreground'>Total Records</p>
-                <p className='text-3xl font-bold text-primary'>
-                  {predictions.length}
-                </p>
+                <div className='text-right'>
+                  <p className='text-sm text-muted-foreground'>Total Records</p>
+                  <p className='text-3xl font-bold text-primary'>
+                    {predictions.length}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Main Content */}
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8'>
-          {Object.entries(groupedPredictions).map(
-            ([dataset, datasetPredictions]) => (
-              <Card key={dataset} className='border border-border shadow-sm'>
-                <CardHeader className='border-b border-border'>
-                  <div className='flex items-center justify-between'>
-                    <div className='flex items-center gap-2'>
-                      {getDatasetIcon(dataset)}
-                      <div>
-                        <CardTitle className='text-lg font-semibold'>
-                          {dataset}
-                        </CardTitle>
-                        <CardDescription className='text-xs mt-1'>
-                          {datasetPredictions.length} prediction
-                          {datasetPredictions.length !== 1 ? 's' : ''}
-                        </CardDescription>
+          {/* Main Content */}
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8'>
+            {Object.entries(groupedPredictions).map(
+              ([dataset, datasetPredictions]) => (
+                <Card key={dataset} className='border border-border shadow-sm'>
+                  <CardHeader className='border-b border-border'>
+                    <div className='flex items-center justify-between'>
+                      <div className='flex items-center gap-2'>
+                        {getDatasetIcon(dataset)}
+                        <div>
+                          <CardTitle className='text-lg font-semibold'>
+                            {dataset}
+                          </CardTitle>
+                          <CardDescription className='text-xs mt-1'>
+                            {datasetPredictions.length} prediction
+                            {datasetPredictions.length !== 1 ? 's' : ''}
+                          </CardDescription>
+                        </div>
                       </div>
+                      <Badge variant='outline' className='text-xs'>
+                        {
+                          new Set(datasetPredictions.map((p) => p.model_name))
+                            .size
+                        }{' '}
+                        model
+                        {new Set(datasetPredictions.map((p) => p.model_name))
+                          .size !== 1
+                          ? 's'
+                          : ''}
+                      </Badge>
                     </div>
-                    <Badge variant='outline' className='text-xs'>
-                      {
-                        new Set(datasetPredictions.map((p) => p.model_name))
-                          .size
-                      }{' '}
-                      model
-                      {new Set(datasetPredictions.map((p) => p.model_name))
-                        .size !== 1
-                        ? 's'
-                        : ''}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className='pt-6'>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Model</TableHead>
-                        <TableHead>Output</TableHead>
-                        {datasetPredictions.some(
-                          (p) => p.confidence !== undefined
-                        ) && (
+                  </CardHeader>
+                  <CardContent className='pt-6'>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Model</TableHead>
+                          <TableHead>Output</TableHead>
+                          {datasetPredictions.some(
+                            (p) => p.confidence !== undefined
+                          ) && (
+                            <TableHead className='text-right'>
+                              Confidence
+                            </TableHead>
+                          )}
                           <TableHead className='text-right'>
-                            Confidence
+                            Created At
                           </TableHead>
-                        )}
-                        <TableHead className='text-right'>Created At</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {datasetPredictions.map((pred, index) => {
-                        const formatted = formatOutput(
-                          pred.dataset,
-                          pred.output,
-                          pred.confidence
-                        );
-                        return (
-                          <TableRow key={index}>
-                            <TableCell className='font-medium'>
-                              {pred.model_name}
-                            </TableCell>
-                            <TableCell>
-                              <Badge
-                                variant={
-                                  formatted.badge as 'default' | 'secondary'
-                                }
-                              >
-                                {formatted.value}
-                              </Badge>
-                            </TableCell>
-                            {datasetPredictions.some(
-                              (p) => p.confidence !== undefined
-                            ) && (
-                              <TableCell className='text-right font-medium text-primary'>
-                                {formatted.confidence || '-'}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {datasetPredictions.map((pred, index) => {
+                          const formatted = formatOutput(
+                            pred.dataset,
+                            pred.output,
+                            pred.confidence
+                          );
+                          return (
+                            <TableRow key={index}>
+                              <TableCell className='font-medium'>
+                                {pred.model_name}
                               </TableCell>
-                            )}
-                            <TableCell className='text-right text-xs text-muted-foreground'>
-                              {new Date(pred.created_at).toLocaleString()}
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
+                              <TableCell>
+                                <Badge
+                                  variant={
+                                    formatted.badge as 'default' | 'secondary'
+                                  }
+                                >
+                                  {formatted.value}
+                                </Badge>
+                              </TableCell>
+                              {datasetPredictions.some(
+                                (p) => p.confidence !== undefined
+                              ) && (
+                                <TableCell className='text-right font-medium text-primary'>
+                                  {formatted.confidence || '-'}
+                                </TableCell>
+                              )}
+                              <TableCell className='text-right text-xs text-muted-foreground'>
+                                {new Date(pred.created_at).toLocaleString()}
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              )
+            )}
+
+            {/* Empty State */}
+            {predictions.length === 0 && (
+              <Card className='border border-border'>
+                <CardContent className='py-12'>
+                  <div className='text-center'>
+                    <Activity className='h-12 w-12 text-muted-foreground mx-auto mb-4' />
+                    <h3 className='text-lg font-semibold mb-2'>
+                      No Predictions Yet
+                    </h3>
+                    <p className='text-sm text-muted-foreground mb-6'>
+                      Start making predictions to see your results here
+                    </p>
+                    <Button>Make Your First Prediction</Button>
+                  </div>
                 </CardContent>
               </Card>
-            )
-          )}
-
-          {/* Empty State */}
-          {predictions.length === 0 && (
-            <Card className='border border-border'>
-              <CardContent className='py-12'>
-                <div className='text-center'>
-                  <Activity className='h-12 w-12 text-muted-foreground mx-auto mb-4' />
-                  <h3 className='text-lg font-semibold mb-2'>
-                    No Predictions Yet
-                  </h3>
-                  <p className='text-sm text-muted-foreground mb-6'>
-                    Start making predictions to see your results here
-                  </p>
-                  <Button>Make Your First Prediction</Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </main>
+            )}
+          </div>
+        </main>
+      )}
     </Layout>
   );
 }
