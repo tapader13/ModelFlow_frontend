@@ -407,7 +407,7 @@ export default function DashboardHome() {
                     Total Predictions
                   </p>
                   <h3 className='text-2xl font-bold'>
-                    {stats.totalPredictions}
+                    {stats?.totalPredictions}
                   </h3>
                 </div>
                 <div className='p-3 bg-gray-100 rounded-lg'>
@@ -429,7 +429,7 @@ export default function DashboardHome() {
                     Avg. Confidence
                   </p>
                   <h3 className='text-2xl font-bold'>
-                    {stats.averageConfidence.toFixed(1)}%
+                    {stats?.averageConfidence?.toFixed(1)}%
                   </h3>
                 </div>
                 <div className='p-3 bg-gray-100 rounded-lg'>
@@ -437,7 +437,7 @@ export default function DashboardHome() {
                 </div>
               </div>
               <Progress
-                value={stats.averageConfidence}
+                value={stats?.averageConfidence}
                 className='mt-4 h-2 bg-gray-200'
               />
             </CardContent>
@@ -450,7 +450,9 @@ export default function DashboardHome() {
                   <p className='text-sm font-medium text-gray-600 mb-1'>
                     Recent Activity
                   </p>
-                  <h3 className='text-2xl font-bold'>{stats.recentActivity}</h3>
+                  <h3 className='text-2xl font-bold'>
+                    {stats?.recentActivity}
+                  </h3>
                 </div>
                 <div className='p-3 bg-gray-100 rounded-lg'>
                   <Clock className='h-6 w-6 text-black' />
@@ -467,7 +469,9 @@ export default function DashboardHome() {
                   <p className='text-sm font-medium text-gray-600 mb-1'>
                     Model Accuracy
                   </p>
-                  <h3 className='text-2xl font-bold'>{stats.modelAccuracy}%</h3>
+                  <h3 className='text-2xl font-bold'>
+                    {stats?.modelAccuracy}%
+                  </h3>
                 </div>
                 <div className='p-3 bg-gray-100 rounded-lg'>
                   <Zap className='h-6 w-6 text-black' />
@@ -535,7 +539,7 @@ export default function DashboardHome() {
                       </TableCell>
                       <TableCell>
                         <div className='font-bold text-blue-600'>
-                          {(titanicData[0]?.probability * 100).toFixed(1)}%
+                          {(titanicData[0]?.probability * 100)?.toFixed(1)}%
                         </div>
                       </TableCell>
                       <TableCell>
@@ -650,7 +654,7 @@ export default function DashboardHome() {
                           ) /
                             titanicData.length) *
                           100
-                        ).toFixed(1)}
+                        )?.toFixed(1)}
                         %
                       </span>
                     </div>
@@ -680,7 +684,7 @@ export default function DashboardHome() {
                             (sum, item) => sum + item.predicted_rating,
                             0
                           ) / movieData.length
-                        ).toFixed(1)}
+                        )?.toFixed(1)}
                         /10
                       </span>
                     </div>
@@ -713,7 +717,7 @@ export default function DashboardHome() {
                               (item.prediction || item.predicted_price || 0),
                             0
                           ) / carData.length
-                        ).toFixed(2)}
+                        )?.toFixed(2)}
                       </span>
                     </div>
                     <Progress
@@ -788,7 +792,7 @@ export default function DashboardHome() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {titanicData.slice(0, 5).map((item) => (
+                      {titanicData?.slice(0, 5)?.map((item) => (
                         <TableRow
                           key={item.passenger_id}
                           className='border-b border-gray-100 hover:bg-gray-50'
@@ -873,7 +877,7 @@ export default function DashboardHome() {
               </CardHeader>
               <CardContent>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                  {movieData.slice(0, 4).map((item, index) => (
+                  {movieData?.slice(0, 4)?.map((item, index) => (
                     <div
                       key={index}
                       className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50'
@@ -931,7 +935,7 @@ export default function DashboardHome() {
                     <div>
                       <CardTitle>Car Price Predictions</CardTitle>
                       <CardDescription className='text-gray-600'>
-                        {carData.length} vehicles analyzed
+                        {carData?.length} vehicles analyzed
                       </CardDescription>
                     </div>
                   </div>
@@ -946,7 +950,7 @@ export default function DashboardHome() {
               </CardHeader>
               <CardContent>
                 <div className='space-y-4'>
-                  {carData.slice(0, 3).map((item) => (
+                  {carData?.slice(0, 3)?.map((item) => (
                     <div
                       key={item.ID}
                       className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50'
@@ -1021,7 +1025,7 @@ export default function DashboardHome() {
                           ) /
                             titanicData.length) *
                           100
-                        ).toFixed(1)}
+                        )?.toFixed(1)}
                         %
                       </span>
                     </div>
@@ -1046,7 +1050,7 @@ export default function DashboardHome() {
                             (sum, item) => sum + item.predicted_rating,
                             0
                           ) / movieData.length
-                        ).toFixed(1)}
+                        )?.toFixed(1)}
                       </span>
                     </div>
                     <Progress
@@ -1069,7 +1073,7 @@ export default function DashboardHome() {
                             (sum, item) => sum + item.predicted_price,
                             0
                           ) / carData.length
-                        ).toFixed(2)}
+                        )?.toFixed(2)}
                       </span>
                     </div>
                     <Progress
