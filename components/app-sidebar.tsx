@@ -23,6 +23,7 @@ import {
   GitBranch,
   Layers,
   Upload,
+  History,
 } from 'lucide-react';
 
 import {
@@ -116,6 +117,11 @@ const navConfig = [
     title: 'CSV-Upload',
     url: '/dashboard/csv-upload',
     icon: Upload,
+  },
+  {
+    title: 'All Predictions',
+    url: '/dashboard/all-predictions',
+    icon: History,
   },
 ];
 const car_price = [
@@ -276,7 +282,41 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         <SidebarSeparator className='my-4 bg-gray-200/50' />
 
-        <SidebarGroup>
+        <SidebarGroup className='mt-6'>
+          <SidebarGroupLabel className='text-xs font-medium text-gray-500 uppercase tracking-wider pl-3 mb-2'>
+            Car Price
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {car_price.map((item) => {
+                const isActive = pathname === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className={`rounded-xl transition-all ${
+                        isActive
+                          ? 'bg-indigo-100 text-indigo-700 border border-indigo-200 shadow-sm'
+                          : 'hover:bg-gray-100/70 text-gray-700'
+                      }`}
+                    >
+                      <Link
+                        href={item.url}
+                        className='flex items-center gap-3 py-3'
+                      >
+                        <item.icon className='w-5 h-5 flex-shrink-0' />
+                        <span className='font-medium'>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* <SidebarGroup>
           <SidebarGroupLabel className='text-xs font-medium text-gray-500 uppercase tracking-wider pl-3 mb-2'>
             Boston Housing
           </SidebarGroupLabel>
@@ -341,7 +381,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup> */}
 
         <SidebarSeparator className='my-4 bg-gray-200/50 dark:bg-gray-700' />
 
@@ -379,41 +419,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator className='my-4 bg-gray-200/50 dark:bg-gray-700' />
-
-        <SidebarGroup className='mt-6'>
-          <SidebarGroupLabel className='text-xs font-medium text-gray-500 uppercase tracking-wider pl-3 mb-2'>
-            Car Price
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {car_price.map((item) => {
-                const isActive = pathname === item.url;
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={isActive}
-                      className={`rounded-xl transition-all ${
-                        isActive
-                          ? 'bg-indigo-100 text-indigo-700 border border-indigo-200 shadow-sm'
-                          : 'hover:bg-gray-100/70 text-gray-700'
-                      }`}
-                    >
-                      <Link
-                        href={item.url}
-                        className='flex items-center gap-3 py-3'
-                      >
-                        <item.icon className='w-5 h-5 flex-shrink-0' />
-                        <span className='font-medium'>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {/* <SidebarSeparator className='my-4 bg-gray-200/50 dark:bg-gray-700' /> */}
       </SidebarContent>
 
       <SidebarFooter className='px-3 pb-4'>
