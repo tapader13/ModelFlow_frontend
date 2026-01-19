@@ -127,7 +127,7 @@ export default function TitanicRandomForestPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/titanic/random-forest-predict',
+        'https://fast-api-model-backend-production.up.railway.app/titanic/random-forest-predict',
         {
           method: 'POST',
           headers: {
@@ -135,7 +135,7 @@ export default function TitanicRandomForestPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData),
-        }
+        },
       );
 
       const endTime = performance.now();
@@ -144,7 +144,7 @@ export default function TitanicRandomForestPage() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
-          errorData.detail || `Failed to get prediction (${response.status})`
+          errorData.detail || `Failed to get prediction (${response.status})`,
         );
       }
 
@@ -223,7 +223,7 @@ export default function TitanicRandomForestPage() {
 
     const estimatedSurvivalRate = Math.min(
       0.95,
-      Math.max(0.05, baseSurvivalRate + classModifier + ageModifier)
+      Math.max(0.05, baseSurvivalRate + classModifier + ageModifier),
     );
 
     const modelAccuracy = 0.85; // Assuming Random Forest accuracy

@@ -96,7 +96,7 @@ export default function LinearCarPricePage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/car-price/linear-predict',
+        'https://fast-api-model-backend-production.up.railway.app/car-price/linear-predict',
         {
           method: 'POST',
           headers: {
@@ -104,7 +104,7 @@ export default function LinearCarPricePage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -489,8 +489,8 @@ export default function LinearCarPricePage() {
                       {!token
                         ? 'Authenticating...'
                         : isSubmitting || loading
-                        ? 'Predicting...'
-                        : 'Predict Price'}
+                          ? 'Predicting...'
+                          : 'Predict Price'}
                     </Button>
                   </form>
                 </CardContent>

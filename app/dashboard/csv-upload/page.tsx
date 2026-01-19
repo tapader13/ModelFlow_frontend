@@ -306,7 +306,7 @@ export default function CSVUploadPage() {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [csvHeaders, setCsvHeaders] = useState<string[]>([]);
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>(
-    []
+    [],
   );
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -357,7 +357,7 @@ export default function CSVUploadPage() {
 
       // Check for missing columns
       const missingColumns = requiredColumns.filter(
-        (col) => !headers.includes(col)
+        (col) => !headers.includes(col),
       );
       if (missingColumns.length > 0) {
         errors.push({
@@ -369,7 +369,7 @@ export default function CSVUploadPage() {
 
       // Check for extra columns
       const extraColumns = headers.filter(
-        (col) => !requiredColumns.includes(col)
+        (col) => !requiredColumns.includes(col),
       );
       if (extraColumns.length > 0) {
         errors.push({
@@ -437,7 +437,7 @@ export default function CSVUploadPage() {
 
     if (!isValid) {
       setError(
-        'CSV file validation failed. Please fix the errors and try again.'
+        'CSV file validation failed. Please fix the errors and try again.',
       );
       return;
     }
@@ -460,14 +460,14 @@ export default function CSVUploadPage() {
       formData.append('dataset', modelConfig.dataset);
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/common/csv-batch-upload',
+        'https://fast-api-model-backend-production.up.railway.app/common/csv-batch-upload',
         {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
           },
           body: formData,
-        }
+        },
       );
 
       if (!response.ok) {
@@ -697,8 +697,8 @@ export default function CSVUploadPage() {
                       {!token
                         ? 'Authenticating...'
                         : loading
-                        ? 'Predicting...'
-                        : 'Predict'}
+                          ? 'Predicting...'
+                          : 'Predict'}
                     </Button>
                     <Button onClick={resetForm} variant='outline'>
                       Reset

@@ -114,7 +114,7 @@ export default function TitanicPredictionPage() {
       };
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/titanic/logistic-predict',
+        'https://fast-api-model-backend-production.up.railway.app/titanic/logistic-predict',
         {
           method: 'POST',
           headers: {
@@ -122,13 +122,13 @@ export default function TitanicPredictionPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData),
-        }
+        },
       );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
-          errorData.detail || `Failed to get prediction (${response.status})`
+          errorData.detail || `Failed to get prediction (${response.status})`,
         );
       }
 
@@ -662,8 +662,8 @@ export default function TitanicPredictionPage() {
                               {formData.embarked === 'C'
                                 ? 'Cherbourg'
                                 : formData.embarked === 'Q'
-                                ? 'Queenstown'
-                                : 'Southampton'}
+                                  ? 'Queenstown'
+                                  : 'Southampton'}
                             </p>
                           </div>
                         </div>

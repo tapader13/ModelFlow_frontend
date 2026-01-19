@@ -120,7 +120,7 @@ export default function TitanicKnnPredictionPage() {
       };
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/titanic/neighbour-predict',
+        'https://fast-api-model-backend-production.up.railway.app/titanic/neighbour-predict',
         {
           method: 'POST',
           headers: {
@@ -128,13 +128,13 @@ export default function TitanicKnnPredictionPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData),
-        }
+        },
       );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
-          errorData.detail || `Failed to get prediction (${response.status})`
+          errorData.detail || `Failed to get prediction (${response.status})`,
         );
       }
 

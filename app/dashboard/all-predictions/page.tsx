@@ -64,10 +64,10 @@ export default function AllPredictionsPage() {
       try {
         setLoading(true);
         const response = await fetch(
-          'https://fast-api-model-backend.onrender.com/common/all-predictions',
+          'https://fast-api-model-backend-production.up.railway.app/common/all-predictions',
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         if (!response.ok) {
@@ -88,19 +88,22 @@ export default function AllPredictionsPage() {
   }, [token]);
 
   // Group predictions by dataset
-  const groupedPredictions = predictions.reduce((acc, pred) => {
-    if (!acc[pred.dataset]) {
-      acc[pred.dataset] = [];
-    }
-    acc[pred.dataset].push(pred);
-    return acc;
-  }, {} as Record<string, Prediction[]>);
+  const groupedPredictions = predictions.reduce(
+    (acc, pred) => {
+      if (!acc[pred.dataset]) {
+        acc[pred.dataset] = [];
+      }
+      acc[pred.dataset].push(pred);
+      return acc;
+    },
+    {} as Record<string, Prediction[]>,
+  );
 
   // Format output based on dataset type
   const formatOutput = (
     dataset: string,
     output: number,
-    confidence?: number
+    confidence?: number,
   ) => {
     switch (dataset) {
       case 'Titanic Survival':
@@ -252,7 +255,7 @@ export default function AllPredictionsPage() {
                           <TableHead>Model</TableHead>
                           <TableHead>Output</TableHead>
                           {datasetPredictions.some(
-                            (p) => p.confidence !== undefined
+                            (p) => p.confidence !== undefined,
                           ) && (
                             <TableHead className='text-right'>
                               Confidence
@@ -268,7 +271,7 @@ export default function AllPredictionsPage() {
                           const formatted = formatOutput(
                             pred.dataset,
                             pred.output,
-                            pred.confidence
+                            pred.confidence,
                           );
                           return (
                             <TableRow key={index}>
@@ -285,7 +288,7 @@ export default function AllPredictionsPage() {
                                 </Badge>
                               </TableCell>
                               {datasetPredictions.some(
-                                (p) => p.confidence !== undefined
+                                (p) => p.confidence !== undefined,
                               ) && (
                                 <TableCell className='text-right font-medium text-primary'>
                                   {formatted.confidence || '-'}
@@ -301,7 +304,7 @@ export default function AllPredictionsPage() {
                     </Table>
                   </CardContent>
                 </Card>
-              )
+              ),
             )}
 
             {/* Empty State */}

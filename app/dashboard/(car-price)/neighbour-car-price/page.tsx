@@ -96,7 +96,7 @@ export default function CarPriceKNNPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/car-price/knn-predict',
+        'https://fast-api-model-backend-production.up.railway.app/car-price/knn-predict',
         {
           method: 'POST',
           headers: {
@@ -104,7 +104,7 @@ export default function CarPriceKNNPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -489,8 +489,8 @@ export default function CarPriceKNNPage() {
                       {!token
                         ? 'Authenticating...'
                         : isSubmitting || loading
-                        ? 'Predicting...'
-                        : 'Predict Price'}
+                          ? 'Predicting...'
+                          : 'Predict Price'}
                     </Button>
                   </form>
                 </CardContent>

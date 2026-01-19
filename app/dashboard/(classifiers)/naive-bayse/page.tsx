@@ -135,7 +135,7 @@ export default function TitanicNaiveBayesPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/titanic/naive-bayse-predict',
+        'https://fast-api-model-backend-production.up.railway.app/titanic/naive-bayse-predict',
         {
           method: 'POST',
           headers: {
@@ -143,7 +143,7 @@ export default function TitanicNaiveBayesPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData),
-        }
+        },
       );
 
       const endTime = performance.now();
@@ -152,7 +152,7 @@ export default function TitanicNaiveBayesPage() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
-          errorData.detail || `Failed to get prediction (${response.status})`
+          errorData.detail || `Failed to get prediction (${response.status})`,
         );
       }
 
@@ -172,7 +172,7 @@ export default function TitanicNaiveBayesPage() {
 
   const calculateProbabilityBreakdown = (
     data: TitanicPredictionInput,
-    result: TitanicPredictionResponse
+    result: TitanicPredictionResponse,
   ) => {
     // Naive Bayes probability calculations based on feature values
     const features = [
@@ -187,8 +187,8 @@ export default function TitanicNaiveBayesPage() {
           data.pclass === 1
             ? 'High (+)'
             : data.pclass === 2
-            ? 'Medium'
-            : 'Low (-)',
+              ? 'Medium'
+              : 'Low (-)',
         value: `Class ${data.pclass}`,
       },
       {

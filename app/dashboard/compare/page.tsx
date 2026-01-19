@@ -57,10 +57,10 @@ export default function ModelComparisonPage() {
       try {
         setLoading(true);
         const response = await fetch(
-          'https://fast-api-model-backend.onrender.com/common/get-all-models-data',
+          'https://fast-api-model-backend-production.up.railway.app/common/get-all-models-data',
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         if (!response.ok) {
@@ -304,7 +304,7 @@ export default function ModelComparisonPage() {
                               </TableCell>
                               <TableCell className='text-right text-xs text-muted-foreground'>
                                 {new Date(
-                                  model.updated_at
+                                  model.updated_at,
                                 ).toLocaleDateString()}
                               </TableCell>
                             </TableRow>

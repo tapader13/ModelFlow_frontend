@@ -144,7 +144,7 @@ export default function TitanicSVCSPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/titanic/support-vector-classifier-predict',
+        'https://fast-api-model-backend-production.up.railway.app/titanic/support-vector-classifier-predict',
         {
           method: 'POST',
           headers: {
@@ -152,7 +152,7 @@ export default function TitanicSVCSPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData),
-        }
+        },
       );
 
       const endTime = performance.now();
@@ -161,7 +161,7 @@ export default function TitanicSVCSPage() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
-          errorData.detail || `Failed to get prediction (${response.status})`
+          errorData.detail || `Failed to get prediction (${response.status})`,
         );
       }
 

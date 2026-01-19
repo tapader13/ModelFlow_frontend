@@ -131,22 +131,22 @@ export default function DashboardHome() {
         setLoading(true);
         const [titanicRes, movieRes, carRes] = await Promise.all([
           fetch(
-            'https://fast-api-model-backend.onrender.com/titanic/logistic-single-user',
+            'https://fast-api-model-backend-production.up.railway.app/titanic/logistic-single-user',
             {
               headers: { Authorization: `Bearer ${token}` },
-            }
+            },
           ),
           fetch(
-            'https://fast-api-model-backend.onrender.com/movie-rating/linear-single-user',
+            'https://fast-api-model-backend-production.up.railway.app/movie-rating/linear-single-user',
             {
               headers: { Authorization: `Bearer ${token}` },
-            }
+            },
           ),
           fetch(
-            'https://fast-api-model-backend.onrender.com/car-price/car-price-single-user',
+            'https://fast-api-model-backend-production.up.railway.app/car-price/car-price-single-user',
             {
               headers: { Authorization: `Bearer ${token}` },
-            }
+            },
           ),
         ]);
 
@@ -168,15 +168,15 @@ export default function DashboardHome() {
 
         // Sort data by performance metrics
         const sortedTitanic = [...titanicArray].sort(
-          (a, b) => b.probability - a.probability
+          (a, b) => b.probability - a.probability,
         );
         const sortedMovie = [...movieArray].sort(
-          (a, b) => b.predicted_rating - a.predicted_rating
+          (a, b) => b.predicted_rating - a.predicted_rating,
         );
         const sortedCar = [...carArray].sort(
           (a, b) =>
             (b.prediction || b.predicted_price || 0) -
-            (a.prediction || a.predicted_price || 0)
+            (a.prediction || a.predicted_price || 0),
         );
 
         setTitanicData(sortedTitanic);
@@ -197,7 +197,7 @@ export default function DashboardHome() {
         const weekAgo = new Date();
         weekAgo.setDate(weekAgo.getDate() - 7);
         const recent = [...titanicArray, ...movieArray, ...carArray].filter(
-          (item) => new Date(item.created_at) > weekAgo
+          (item) => new Date(item.created_at) > weekAgo,
         ).length;
         const MAX_TITANIC = 1;
         const MAX_MOVIE = 10;
@@ -218,7 +218,7 @@ export default function DashboardHome() {
         const carPercent =
           (carArray.reduce(
             (sum, item) => sum + (item.prediction || item.predicted_price || 0),
-            0
+            0,
           ) /
             carArray.length /
             MAX_CAR_PRICE) *
@@ -250,14 +250,14 @@ export default function DashboardHome() {
             bestModel: 'Logistic Regression',
             accuracy: avgTitanicAccuracy,
             topPrediction: `${(bestTitanic.probability * 100)?.toFixed(
-              1
+              1,
             )}% confidence for ${bestTitanic?.name?.split(',')[0]}`,
             trend:
               avgTitanicAccuracy > 85
                 ? 'up'
                 : avgTitanicAccuracy > 70
-                ? 'stable'
-                : 'down',
+                  ? 'stable'
+                  : 'down',
           });
         }
 
@@ -272,14 +272,14 @@ export default function DashboardHome() {
             bestModel: 'Linear Regression',
             accuracy: (avgMovieRating / 10) * 100,
             topPrediction: `${bestMovie?.predicted_rating?.toFixed(
-              1
+              1,
             )}/10 for "${bestMovie.name}"`,
             trend:
               avgMovieRating > 7.5
                 ? 'up'
                 : avgMovieRating > 5.5
-                ? 'stable'
-                : 'down',
+                  ? 'stable'
+                  : 'down',
           });
         }
 
@@ -290,12 +290,12 @@ export default function DashboardHome() {
             carArray.reduce(
               (sum, item) =>
                 sum + (item.prediction || item.predicted_price || 0),
-              0
+              0,
             ) / carArray.length;
           const maxCarPrice = Math.max(
             ...carArray.map(
-              (item) => item.prediction || item.predicted_price || 0
-            )
+              (item) => item.prediction || item.predicted_price || 0,
+            ),
           );
           performances.push({
             dataset: 'Car Prices',
@@ -310,8 +310,8 @@ export default function DashboardHome() {
               avgCarPrice > maxCarPrice * 0.7
                 ? 'up'
                 : avgCarPrice > maxCarPrice * 0.5
-                ? 'stable'
-                : 'down',
+                  ? 'stable'
+                  : 'down',
           });
         }
 
@@ -650,7 +650,7 @@ export default function DashboardHome() {
                         {(
                           (titanicData.reduce(
                             (sum, item) => sum + item.probability,
-                            0
+                            0,
                           ) /
                             titanicData.length) *
                           100
@@ -662,7 +662,7 @@ export default function DashboardHome() {
                       value={
                         (titanicData.reduce(
                           (sum, item) => sum + item.probability,
-                          0
+                          0,
                         ) /
                           titanicData.length) *
                         100
@@ -682,7 +682,7 @@ export default function DashboardHome() {
                         {(
                           movieData.reduce(
                             (sum, item) => sum + item.predicted_rating,
-                            0
+                            0,
                           ) / movieData.length
                         )?.toFixed(1)}
                         /10
@@ -692,7 +692,7 @@ export default function DashboardHome() {
                       value={
                         (movieData.reduce(
                           (sum, item) => sum + item.predicted_rating,
-                          0
+                          0,
                         ) /
                           movieData.length) *
                         10
@@ -715,7 +715,7 @@ export default function DashboardHome() {
                             (sum, item) =>
                               sum +
                               (item.prediction || item.predicted_price || 0),
-                            0
+                            0,
                           ) / carData.length
                         )?.toFixed(2)}
                       </span>
@@ -726,7 +726,7 @@ export default function DashboardHome() {
                           (sum, item) =>
                             sum +
                             (item.prediction || item.predicted_price || 0),
-                          0
+                          0,
                         ) /
                           carData.length /
                           50000) *
@@ -1021,7 +1021,7 @@ export default function DashboardHome() {
                         {(
                           (titanicData.reduce(
                             (sum, item) => sum + item.probability,
-                            0
+                            0,
                           ) /
                             titanicData.length) *
                           100
@@ -1033,7 +1033,7 @@ export default function DashboardHome() {
                       value={
                         (titanicData.reduce(
                           (sum, item) => sum + item.probability,
-                          0
+                          0,
                         ) /
                           titanicData.length) *
                         100
@@ -1048,7 +1048,7 @@ export default function DashboardHome() {
                         {(
                           movieData.reduce(
                             (sum, item) => sum + item.predicted_rating,
-                            0
+                            0,
                           ) / movieData.length
                         )?.toFixed(1)}
                       </span>
@@ -1057,7 +1057,7 @@ export default function DashboardHome() {
                       value={
                         movieData.reduce(
                           (sum, item) => sum + item.predicted_rating,
-                          0
+                          0,
                         ) / movieData.length
                       }
                       className='h-2 bg-gray-200'
@@ -1071,7 +1071,7 @@ export default function DashboardHome() {
                         {(
                           carData.reduce(
                             (sum, item) => sum + item.predicted_price,
-                            0
+                            0,
                           ) / carData.length
                         )?.toFixed(2)}
                       </span>
@@ -1080,7 +1080,7 @@ export default function DashboardHome() {
                       value={
                         carData.reduce(
                           (sum, item) => sum + item.predicted_price,
-                          0
+                          0,
                         ) / carData.length
                       }
                       className='h-2 bg-gray-200'
@@ -1153,7 +1153,7 @@ export default function DashboardHome() {
                   .sort(
                     (a, b) =>
                       new Date(b.created_at).getTime() -
-                      new Date(a.created_at).getTime()
+                      new Date(a.created_at).getTime(),
                   )
                   .slice(0, 5)
                   .map((item, index) => (
@@ -1167,8 +1167,8 @@ export default function DashboardHome() {
                             'passenger_id' in item
                               ? 'bg-blue-100'
                               : 'rank' in item
-                              ? 'bg-purple-100'
-                              : 'bg-green-100'
+                                ? 'bg-purple-100'
+                                : 'bg-green-100'
                           }`}
                         >
                           {'passenger_id' in item ? (
@@ -1184,15 +1184,15 @@ export default function DashboardHome() {
                             {'passenger_id' in item
                               ? 'Titanic Survival'
                               : 'rank' in item
-                              ? 'Movie Rating'
-                              : 'Car Price'}
+                                ? 'Movie Rating'
+                                : 'Car Price'}
                           </p>
                           <p className='text-xs text-gray-500'>
                             {'passenger_id' in item
                               ? item?.name?.split(',')[0]
                               : 'rank' in item
-                              ? item.name
-                              : `${item.Manufacturer} ${item.Model}`}
+                                ? item.name
+                                : `${item.Manufacturer} ${item.Model}`}
                           </p>
                         </div>
                       </div>
@@ -1203,12 +1203,12 @@ export default function DashboardHome() {
                               ? 'Survived'
                               : 'Perished'
                             : 'rank' in item
-                            ? `${item?.predicted_rating?.toFixed(1)}/10`
-                            : `$${(
-                                item.prediction ||
-                                item.predicted_price ||
-                                0
-                              ).toLocaleString()}`}
+                              ? `${item?.predicted_rating?.toFixed(1)}/10`
+                              : `$${(
+                                  item.prediction ||
+                                  item.predicted_price ||
+                                  0
+                                ).toLocaleString()}`}
                         </p>
                         <p className='text-xs text-gray-500'>
                           {new Date(item.created_at).toLocaleDateString()}

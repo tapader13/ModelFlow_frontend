@@ -86,7 +86,7 @@ export default function MovieDecisionPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend.onrender.com/movie-rating/decission-predict',
+        'https://fast-api-model-backend-production.up.railway.app/movie-rating/decission-predict',
         {
           method: 'POST',
           headers: {
@@ -94,7 +94,7 @@ export default function MovieDecisionPage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -406,8 +406,8 @@ export default function MovieDecisionPage() {
                       {!token
                         ? 'Authenticating...'
                         : isSubmitting || loading
-                        ? 'Predicting...'
-                        : 'Predict Quality'}
+                          ? 'Predicting...'
+                          : 'Predict Quality'}
                     </Button>
                   </form>
                 </CardContent>
@@ -447,7 +447,7 @@ export default function MovieDecisionPage() {
                       <div className='flex items-baseline justify-center gap-2'>
                         <span
                           className={`text-5xl font-bold ${getRatingColor(
-                            result.prediction
+                            result.prediction,
                           )}`}
                         >
                           {result.prediction.toFixed(1)}
@@ -459,7 +459,7 @@ export default function MovieDecisionPage() {
                       <div className='pt-2 border-t border-primary/20'>
                         <p
                           className={`text-sm font-semibold ${getRatingColor(
-                            result.prediction
+                            result.prediction,
                           )}`}
                         >
                           {getRatingInterpretation(result.prediction)}
