@@ -96,7 +96,7 @@ export default function CarPriceKNNPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/car-price/knn-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/car-price/knn-predict',
         {
           method: 'POST',
           headers: {

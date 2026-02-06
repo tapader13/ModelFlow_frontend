@@ -87,7 +87,7 @@ export default function MovieKNNPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/movie-rating/neighbour-predict-rating',
+        'https://tapader13-cnn-fast-api-backend.hf.space/movie-rating/neighbour-predict-rating',
         {
           method: 'POST',
           headers: {

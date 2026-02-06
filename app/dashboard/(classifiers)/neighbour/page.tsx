@@ -120,7 +120,7 @@ export default function TitanicKnnPredictionPage() {
       };
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/titanic/neighbour-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/titanic/neighbour-predict',
         {
           method: 'POST',
           headers: {

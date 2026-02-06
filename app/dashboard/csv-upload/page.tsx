@@ -460,7 +460,7 @@ export default function CSVUploadPage() {
       formData.append('dataset', modelConfig.dataset);
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/common/csv-batch-upload',
+        'https://tapader13-cnn-fast-api-backend.hf.space/common/csv-batch-upload',
         {
           method: 'POST',
           headers: {

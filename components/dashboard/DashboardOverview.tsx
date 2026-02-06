@@ -131,19 +131,19 @@ export default function DashboardHome() {
         setLoading(true);
         const [titanicRes, movieRes, carRes] = await Promise.all([
           fetch(
-            'https://fast-api-model-backend-production.up.railway.app/titanic/logistic-single-user',
+            'https://tapader13-cnn-fast-api-backend.hf.space/titanic/logistic-single-user',
             {
               headers: { Authorization: `Bearer ${token}` },
             },
           ),
           fetch(
-            'https://fast-api-model-backend-production.up.railway.app/movie-rating/linear-single-user',
+            'https://tapader13-cnn-fast-api-backend.hf.space/movie-rating/linear-single-user',
             {
               headers: { Authorization: `Bearer ${token}` },
             },
           ),
           fetch(
-            'https://fast-api-model-backend-production.up.railway.app/car-price/car-price-single-user',
+            'https://tapader13-cnn-fast-api-backend.hf.space/car-price/car-price-single-user',
             {
               headers: { Authorization: `Bearer ${token}` },
             },

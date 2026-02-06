@@ -96,7 +96,7 @@ export default function CarPricePage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/car-price/decission-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/car-price/decission-predict',
         {
           method: 'POST',
           headers: {

@@ -96,7 +96,7 @@ export default function SVRCarPricePage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/car-price/svr-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/car-price/svr-predict',
         {
           method: 'POST',
           headers: {

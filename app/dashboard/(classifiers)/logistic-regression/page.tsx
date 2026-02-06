@@ -114,7 +114,7 @@ export default function TitanicPredictionPage() {
       };
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/titanic/logistic-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/titanic/logistic-predict',
         {
           method: 'POST',
           headers: {

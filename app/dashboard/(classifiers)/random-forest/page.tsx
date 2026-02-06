@@ -127,7 +127,7 @@ export default function TitanicRandomForestPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/titanic/random-forest-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/titanic/random-forest-predict',
         {
           method: 'POST',
           headers: {

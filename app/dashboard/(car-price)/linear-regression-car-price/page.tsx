@@ -96,7 +96,7 @@ export default function LinearCarPricePage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/car-price/linear-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/car-price/linear-predict',
         {
           method: 'POST',
           headers: {

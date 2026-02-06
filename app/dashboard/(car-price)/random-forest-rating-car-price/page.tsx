@@ -96,7 +96,7 @@ export default function RandomForestCarPricePage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/car-price/rf-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/car-price/rf-predict',
         {
           method: 'POST',
           headers: {

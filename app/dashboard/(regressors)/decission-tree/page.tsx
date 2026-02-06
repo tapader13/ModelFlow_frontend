@@ -86,7 +86,7 @@ export default function MovieDecisionPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/movie-rating/decission-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/movie-rating/decission-predict',
         {
           method: 'POST',
           headers: {

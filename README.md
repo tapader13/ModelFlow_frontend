@@ -58,7 +58,7 @@
 - **Framework**: FastAPI (Python)
 - **ML Models**: Scikit-learn (Logistic Regression, Decision Trees, Random Forest, KNN, SVR)
 - **Server**: Uvicorn
-- **Port**: https://fast-api-model-backend-production.up.railway.app
+- **Port**: https://tapader13-cnn-fast-api-backend.hf.space
 
 ## 📁 Project Structure
 

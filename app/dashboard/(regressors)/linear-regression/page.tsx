@@ -86,7 +86,7 @@ export default function MovieLinearPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/movie-rating/linear-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/movie-rating/linear-predict',
         {
           method: 'POST',
           headers: {

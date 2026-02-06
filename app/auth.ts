@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       // 1️ First time login
       if (user) {
-        const res = await fetch("https://fast-api-model-backend-production.up.railway.app/google-login", {
+        const res = await fetch("https://tapader13-cnn-fast-api-backend.hf.space/google-login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: user.email }),
@@ -39,7 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // print(token,"tyyyjjd")
         // const refreshToken = token?.iat
         console.log(token.refresh_token,"reftok")
-        const res = await fetch("https://fast-api-model-backend-production.up.railway.app/refresh-token", {
+        const res = await fetch("https://tapader13-cnn-fast-api-backend.hf.space/refresh-token", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

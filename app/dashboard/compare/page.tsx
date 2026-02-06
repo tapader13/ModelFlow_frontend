@@ -57,7 +57,7 @@ export default function ModelComparisonPage() {
       try {
         setLoading(true);
         const response = await fetch(
-          'https://fast-api-model-backend-production.up.railway.app/common/get-all-models-data',
+          'https://tapader13-cnn-fast-api-backend.hf.space/common/get-all-models-data',
           {
             headers: { Authorization: `Bearer ${token}` },
           },

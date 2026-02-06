@@ -144,7 +144,7 @@ export default function TitanicSVCSPage() {
       const startTime = performance.now();
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/titanic/support-vector-classifier-predict',
+        'https://tapader13-cnn-fast-api-backend.hf.space/titanic/support-vector-classifier-predict',
         {
           method: 'POST',
           headers: {

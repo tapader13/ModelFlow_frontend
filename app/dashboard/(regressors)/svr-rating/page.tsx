@@ -86,7 +86,7 @@ export default function MovieSVRPage() {
       }
 
       const response = await fetch(
-        'https://fast-api-model-backend-production.up.railway.app/movie-rating/svr-predict-rating',
+        'https://tapader13-cnn-fast-api-backend.hf.space/movie-rating/svr-predict-rating',
         {
           method: 'POST',
           headers: {

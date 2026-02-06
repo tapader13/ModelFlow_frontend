@@ -64,7 +64,7 @@ export default function AllPredictionsPage() {
       try {
         setLoading(true);
         const response = await fetch(
-          'https://fast-api-model-backend-production.up.railway.app/common/all-predictions',
+          'https://tapader13-cnn-fast-api-backend.hf.space/common/all-predictions',
           {
             headers: { Authorization: `Bearer ${token}` },
           },
